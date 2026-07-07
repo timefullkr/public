@@ -120,7 +120,12 @@ ul.b li .s::before{content:"— "}
 .barval{animation:barfade .45s ease both}
 @keyframes bargrow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
 @keyframes barfade{from{opacity:0}to{opacity:1}}
-@media (prefers-reduced-motion:reduce),print{.bar,.barval{animation:none}}
+/* 벨커브 애니메이션: 전통 분포 → 1:1 분포가 2σ만큼 밀려나며 등장 → 주석 */
+.viz.bells .b1{animation:barfade .8s ease both}
+.viz.bells .b2{animation:bellshift 1.4s cubic-bezier(.2,.7,.2,1) .8s both}
+.viz.bells .bn{animation:barfade .7s ease 2.4s both}
+@keyframes bellshift{from{opacity:0;transform:translateX(-90px)}to{opacity:1;transform:translateX(0)}}
+@media (prefers-reduced-motion:reduce),print{.bar,.barval,.viz.bells .b1,.viz.bells .b2,.viz.bells .bn{animation:none}}
 .navy .vizcap{color:#c7d5e2}
 .chips{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.4rem}
 .chip{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:.95rem 1.2rem;font-size:clamp(1.254rem,1.98vw,1.584rem);line-height:1.45;font-weight:500}
@@ -221,20 +226,26 @@ body.tools-on .ftools{display:flex}
           </defs>
           <line x1="20" y1="220" x2="500" y2="220" stroke="rgba(255,255,255,.28)" stroke-width="1.5"/>
           <g stroke="rgba(255,255,255,.3)" stroke-width="1"><line x1="85" y1="220" x2="85" y2="226"/><line x1="130" y1="220" x2="130" y2="226"/><line x1="175" y1="220" x2="175" y2="226"/><line x1="220" y1="220" x2="220" y2="226"/><line x1="265" y1="220" x2="265" y2="226"/><line x1="310" y1="220" x2="310" y2="226"/><line x1="355" y1="220" x2="355" y2="226"/></g>
-          <!-- 전통 수업: 평균 x=175, σ=45px -->
-          <path d="M40,220 C117,220 123,64 175,64 C227,64 233,220 310,220 Z" fill="rgba(147,169,194,.20)" stroke="#93a9c2" stroke-width="2.5"/>
-          <!-- 전통 분포의 상위 2% 꼬리(x≥265 = 평균+2σ) -->
-          <path d="M265,199 C280,212 295,218 310,220 L265,220 Z" fill="rgba(244,162,59,.55)"/>
-          <!-- 1:1 개인교습: 평균 x=265 (+2σ), 동일 형태 -->
-          <path d="M130,220 C207,220 213,64 265,64 C317,64 323,220 400,220 Z" fill="rgba(31,199,177,.22)" stroke="#1fc7b1" stroke-width="2.5"/>
-          <line x1="175" y1="64" x2="175" y2="220" stroke="#93a9c2" stroke-width="1.4" stroke-dasharray="4 5"/>
-          <line x1="265" y1="64" x2="265" y2="220" stroke="#1fc7b1" stroke-width="1.4" stroke-dasharray="4 5"/>
-          <line x1="175" y1="40" x2="265" y2="40" stroke="#7ee0d3" stroke-width="2" marker-start="url(#aL)" marker-end="url(#aR)"/>
-          <text x="220" y="30" text-anchor="middle" fill="#7ee0d3" font-size="20" font-weight="800">2σ</text>
-          <line x1="300" y1="207" x2="330" y2="192" stroke="rgba(244,162,59,.8)" stroke-width="1.2"/>
-          <text x="334" y="190" fill="#f4c98a" font-size="13" font-weight="700">상위 2%</text>
-          <text x="170" y="244" text-anchor="end" fill="#c7d5e2" font-size="15">전통 수업</text>
-          <text x="270" y="244" text-anchor="start" fill="#eafffb" font-size="15" font-weight="700">1:1 개인교습</text>
+          <!-- 전통 수업: 평균 x=175, σ=45px (①페이드인) -->
+          <g class="b1">
+            <path d="M40,220 C117,220 123,64 175,64 C227,64 233,220 310,220 Z" fill="rgba(147,169,194,.20)" stroke="#93a9c2" stroke-width="2.5"/>
+            <line x1="175" y1="64" x2="175" y2="220" stroke="#93a9c2" stroke-width="1.4" stroke-dasharray="4 5"/>
+            <text x="170" y="244" text-anchor="end" fill="#c7d5e2" font-size="15">전통 수업</text>
+          </g>
+          <!-- 1:1 개인교습: 평균 x=265 (②전통 위치에서 +2σ만큼 밀려나며 등장) -->
+          <g class="b2">
+            <path d="M130,220 C207,220 213,64 265,64 C317,64 323,220 400,220 Z" fill="rgba(31,199,177,.22)" stroke="#1fc7b1" stroke-width="2.5"/>
+            <line x1="265" y1="64" x2="265" y2="220" stroke="#1fc7b1" stroke-width="1.4" stroke-dasharray="4 5"/>
+            <text x="270" y="244" text-anchor="start" fill="#eafffb" font-size="15" font-weight="700">1:1 개인교습</text>
+          </g>
+          <!-- ③주석: 2σ 화살표·상위 2% 꼬리 -->
+          <g class="bn">
+            <path d="M265,199 C280,212 295,218 310,220 L265,220 Z" fill="rgba(244,162,59,.55)"/>
+            <line x1="175" y1="40" x2="265" y2="40" stroke="#7ee0d3" stroke-width="2" marker-start="url(#aL)" marker-end="url(#aR)"/>
+            <text x="220" y="30" text-anchor="middle" fill="#7ee0d3" font-size="20" font-weight="800">2σ</text>
+            <line x1="300" y1="207" x2="330" y2="192" stroke="rgba(244,162,59,.8)" stroke-width="1.2"/>
+            <text x="334" y="190" fill="#f4c98a" font-size="13" font-weight="700">상위 2%</text>
+          </g>
         </svg>
         <div class="vizcap">1:1 교습의 평균 학생 = 전통 수업 분포의 상위 2% 위치</div>
       </div>
