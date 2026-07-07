@@ -99,7 +99,7 @@ TEMPLATE = """<!doctype html>
 <main class="wrap">
 {body}
 </main>
-<div class="foot">제주교육 AI · 공개 참고 문서 · 원문 마크다운에서 자동 생성</div>
+<div class="foot">AI에이전트가 공개 참고 문서 · 원문 마크다운에서 자동 생성</div>
 </body>
 </html>
 """
