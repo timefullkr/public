@@ -115,6 +115,12 @@ ul.b li .s::before{content:"— "}
 .viz{width:100%;height:auto;display:block}
 .viz.bells{max-width:560px}.viz.bars{max-width:540px}.viz.loop{max-width:720px}.viz.ladder{max-width:760px}.viz.slope{max-width:440px}
 .vizcap{margin-top:.6rem;font-size:clamp(.85rem,1.3vw,1.05rem);color:var(--muted);font-weight:500;text-align:center}
+/* 막대그래프 애니메이션: 기준선에서 자라나고, 값은 뒤따라 페이드인 (슬라이드 진입 때마다 재생) */
+.bar{transform-box:fill-box;transform-origin:center bottom;animation:bargrow .9s cubic-bezier(.2,.7,.2,1) both}
+.barval{animation:barfade .45s ease both}
+@keyframes bargrow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes barfade{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce),print{.bar,.barval{animation:none}}
 .navy .vizcap{color:#c7d5e2}
 .chips{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.4rem}
 .chip{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:.95rem 1.2rem;font-size:clamp(.95rem,1.5vw,1.2rem);line-height:1.45;font-weight:500}
@@ -261,18 +267,18 @@ body.on-dark .hint{color:rgba(255,255,255,.55)}
             <text x="56" y="214" text-anchor="end" fill="#7e93a9" font-size="12">20%</text>
             <line x1="60" y1="250" x2="530" y2="250" stroke="rgba(255,255,255,.30)" stroke-width="2"/>
             <!-- 전통 -->
-            <path d="M110,216 q0,-6 6,-6 h78 q6,0 6,6 V250 H110 Z" fill="#41597a"/>
-            <text x="155" y="198" text-anchor="middle" fill="#9fb3c8" font-size="23" font-weight="800">20%</text>
+            <path class="bar" style="animation-delay:.15s" d="M110,216 q0,-6 6,-6 h78 q6,0 6,6 V250 H110 Z" fill="#41597a"/>
+            <text class="barval" style="animation-delay:.75s" x="155" y="198" text-anchor="middle" fill="#9fb3c8" font-size="23" font-weight="800">20%</text>
             <text x="155" y="272" text-anchor="middle" fill="#e9eff6" font-size="16" font-weight="600">전통 수업</text>
             <!-- 완전학습 -->
-            <path d="M250,116 q0,-6 6,-6 h78 q6,0 6,6 V250 H250 Z" fill="#7691ae"/>
-            <text x="295" y="98" text-anchor="middle" fill="#e9eff6" font-size="23" font-weight="800">70%</text>
-            <text x="295" y="140" text-anchor="middle" fill="#0f2a44" font-size="16" font-weight="800">+1σ</text>
+            <path class="bar" style="animation-delay:.45s" d="M250,116 q0,-6 6,-6 h78 q6,0 6,6 V250 H250 Z" fill="#7691ae"/>
+            <text class="barval" style="animation-delay:1.05s" x="295" y="98" text-anchor="middle" fill="#e9eff6" font-size="23" font-weight="800">70%</text>
+            <text class="barval" style="animation-delay:1.05s" x="295" y="140" text-anchor="middle" fill="#0f2a44" font-size="16" font-weight="800">+1σ</text>
             <text x="295" y="272" text-anchor="middle" fill="#e9eff6" font-size="16" font-weight="600">완전학습</text>
             <!-- 개인교습 -->
-            <path d="M390,76 q0,-6 6,-6 h78 q6,0 6,6 V250 H390 Z" fill="#1fc7b1"/>
-            <text x="435" y="58" text-anchor="middle" fill="#e9eff6" font-size="23" font-weight="800">90%</text>
-            <text x="435" y="100" text-anchor="middle" fill="#0f2a44" font-size="16" font-weight="800">+2σ</text>
+            <path class="bar" style="animation-delay:.75s" d="M390,76 q0,-6 6,-6 h78 q6,0 6,6 V250 H390 Z" fill="#1fc7b1"/>
+            <text class="barval" style="animation-delay:1.35s" x="435" y="58" text-anchor="middle" fill="#e9eff6" font-size="23" font-weight="800">90%</text>
+            <text class="barval" style="animation-delay:1.35s" x="435" y="100" text-anchor="middle" fill="#0f2a44" font-size="16" font-weight="800">+2σ</text>
             <text x="435" y="272" text-anchor="middle" fill="#e9eff6" font-size="16" font-weight="600">1:1 개인교습</text>
           </svg>
           <div class="vizcap">막대 속 σ는 동일 실험의 효과크기(전통 수업 대비, 별도 측정치)</div>
