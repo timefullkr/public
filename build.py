@@ -161,7 +161,7 @@ def main():
         if pdf:
             make_pdf(slug, pdf)
 
-    index_body = """<h1>제주교육 AI 플랫폼</h1>
+    index_body = """<h1>고의숙 교육감의 "초개별화 맞춤형 교육"</h1>
 <p>미래학력분과 관련 자료 중 외부 공개용 참고 문서입니다. 아래에서 각 문서를 열람할 수 있습니다.</p>
 <ul>
 <li><a href="bloom-2sigma.html"><b>초개별화 맞춤형 교육의 이론적 배경 — 벤저민 블룸 '2 시그마 문제'</b></a><a class="idx-pdf" href="bloom-2sigma.pdf">PDF</a><br>
