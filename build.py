@@ -56,6 +56,7 @@ nav.top a.home:hover{color:var(--accent)}
 nav.top img.logo{height:36px;width:auto;display:block;background:#fff;padding:3px 6px;border-radius:6px;border:1px solid var(--line)}
 h1{font-size:1.9rem;line-height:1.35;margin:.2em 0 .5em;letter-spacing:-.01em}
 h1[align="center"]{margin:.1em 0 .15em}
+.lead-sub{color:var(--muted);font-size:1.05rem;font-weight:600;margin:-.2em 0 1.4em}
 p[align="center"] sub{vertical-align:baseline;font-size:1.05rem;color:var(--muted);font-weight:600}
 p[align="center"]{margin:0 0 1.4em}
 h2{font-size:1.4rem;margin:1.8em 0 .5em;padding-bottom:.25em;border-bottom:1px solid var(--line)}
@@ -167,7 +168,8 @@ def main():
         if pdf:
             make_pdf(slug, pdf)
 
-    index_body = """<h1>제주교육 AI 플랫폼</h1>
+    index_body = """<h1>모두가 주인공! 함께 성장하는 제주교육 AI 플랫폼</h1>
+<p class="lead-sub">학생·교사·행정이 함께 쓰는 AI — 교수학습부터 학교 업무까지</p>
 <p>미래학력분과 관련 자료 중 외부 공개용 참고 문서입니다. 아래에서 각 문서를 열람할 수 있습니다.</p>
 <ul>
 <li><a href="ax-transformation.html"><b>AX 전환과 교육</b></a><br>
