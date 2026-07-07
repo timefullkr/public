@@ -50,9 +50,10 @@ body{margin:0;background:var(--bg);color:var(--fg);
  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif;
  line-height:1.72;font-size:17px;word-break:keep-all;overflow-wrap:anywhere}
 .wrap{max-width:820px;margin:0 auto;padding:32px 22px 80px}
-nav.top{max-width:820px;margin:0 auto;padding:14px 22px;border-bottom:1px solid var(--line);font-size:14px}
-nav.top a{color:var(--muted);text-decoration:none}
-nav.top a:hover{color:var(--accent)}
+nav.top{max-width:820px;margin:0 auto;padding:12px 22px;border-bottom:1px solid var(--line);font-size:14px}
+nav.top a.home{display:inline-flex;align-items:center;gap:10px;color:var(--muted);text-decoration:none}
+nav.top a.home:hover{color:var(--accent)}
+nav.top img.logo{height:36px;width:auto;display:block;background:#fff;padding:3px 6px;border-radius:6px;border:1px solid var(--line)}
 h1{font-size:1.9rem;line-height:1.35;margin:.2em 0 .5em;letter-spacing:-.01em}
 h1[align="center"]{margin:.1em 0 .15em}
 p[align="center"] sub{vertical-align:baseline;font-size:1.05rem;color:var(--muted);font-weight:600}
@@ -90,10 +91,11 @@ TEMPLATE = """<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
+<link rel="icon" href="logo-jje.jpg">
 <style>{css}</style>
 </head>
 <body>
-<nav class="top"><a href="index.html">← 목록</a></nav>
+<nav class="top"><a class="home" href="index.html" title="제주교육 AI 공개문서 홈"><img class="logo" src="logo-jje.jpg" alt="제주특별자치도교육청"><span>제주교육 AI 공개문서</span></a></nav>
 <main class="wrap">
 {body}
 </main>
@@ -169,9 +171,7 @@ AI 교육을 '무엇을'이 아니라 '어떻게'로 보는 관점 — 접근 �
 <li><a href="ax-transformation.html"><b>AX 전환과 교육</b></a><br>
 AX(AI 전환)를 '도구 도입'이 아니라 사람·프로세스의 전환으로 보는 관점을 교육에 적용 — 교사 대체 우려, 에듀테크 과잉, 형평.</li>
 </ul>"""
-    index_html = (TEMPLATE
-                  .replace('<nav class="top"><a href="index.html">← 목록</a></nav>', "")
-                  .format(title="제주교육 AI · 공개 참고 문서", css=CSS, body=index_body))
+    index_html = TEMPLATE.format(title="제주교육 AI · 공개 참고 문서", css=CSS, body=index_body)
     (ROOT / "index.html").write_text(index_html, encoding="utf-8")
     print("wrote index.html")
     print("빌드·검증 완료.")
