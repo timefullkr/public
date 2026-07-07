@@ -14,9 +14,7 @@ import sys
 import subprocess
 from pathlib import Path
 import markdown
-import html as _html
-from pptx import Presentation
-from pptx.util import Inches, Pt
+import deck
 
 ROOT = Path(__file__).resolve().parent
 
@@ -161,133 +159,8 @@ def make_pdf(slug, pdf_name):
         sys.exit(f"PDF 검증 실패: {pdf_name} (빈 페이지/에러 페이지 의심)")
 
 
-def _clean(s):
-    """마크다운 인라인 서식 제거 → 슬라이드용 순수 텍스트."""
-    s = re.sub(r"!\[[^\]]*\]\([^)]*\)", "", s)              # 이미지
-    s = re.sub(r"\[([^\]]+)\]\(<?[^>)]*>?\)", r"\1", s)     # 링크 → 텍스트
-    s = s.replace("**", "").replace("`", "")
-    s = re.sub(r"\*(.+?)\*", r"\1", s)                       # *강조*
-    s = re.sub(r"<[^>]+>", "", s)                            # 잔여 HTML 태그
-    return _html.unescape(s).strip()
-
-
-def _add_table_slide(prs, title, rows):
-    slide = prs.slides.add_slide(prs.slide_layouts[5])
-    slide.shapes.title.text = title
-    ncols = max(len(r) for r in rows)
-    nrows = len(rows)
-    gt = slide.shapes.add_table(nrows, ncols, Inches(0.4), Inches(1.3),
-                                Inches(9.2), Inches(0.4 * nrows)).table
-    for i, r in enumerate(rows):
-        for j in range(ncols):
-            cell = gt.cell(i, j)
-            cell.text = r[j] if j < len(r) else ""
-            for p in cell.text_frame.paragraphs:
-                p.font.size = Pt(11)
-                if i == 0:
-                    p.font.bold = True
-
-
 def make_pptx(md_name, pptx_name, deck_title):
-    """소스 .md 를 섹션(##) 단위 슬라이드 덱으로 변환."""
-    lines = (ROOT / md_name).read_text(encoding="utf-8").split("\n")
-    prs = Presentation()
-    prs.slide_width, prs.slide_height = Inches(10), Inches(7.5)
-
-    ts = prs.slides.add_slide(prs.slide_layouts[0])
-    ts.shapes.title.text = _clean(deck_title)
-    try:
-        ts.placeholders[1].text = "제주도교육인수위원회 미래학력분과"
-    except (KeyError, IndexError):
-        pass
-
-    sections, cur, blocks, tbl, in_code = [], None, [], [], False
-
-    def flush_tbl():
-        if tbl:
-            blocks.append(("table", list(tbl)))
-            tbl.clear()
-
-    for raw in lines:
-        st = raw.strip()
-        if st.startswith("```"):
-            in_code = not in_code
-            continue
-        if in_code:
-            continue
-        if st.startswith("## "):
-            flush_tbl()
-            if cur is not None:
-                sections.append((cur, blocks))
-            cur, blocks = _clean(st[3:]), []
-            continue
-        if st.startswith("### "):
-            flush_tbl()
-            blocks.append(("head", _clean(st[4:])))
-            continue
-        if st.startswith("|") and st.endswith("|"):
-            cells = [c.strip() for c in st.strip("|").split("|")]
-            if all(set(c) <= set("-: ") for c in cells):
-                continue
-            tbl.append([_clean(c) for c in cells])
-            continue
-        flush_tbl()
-        if not st or st == "---" or st.startswith("# ") or st.startswith("!["):
-            continue
-        if st.startswith("<") and st.endswith(">"):   # 순수 HTML 줄(제목·스타일 등)
-            continue
-        m = re.match(r"^(\s*)[-*] (.*)$", raw)
-        if m:
-            blocks.append(("bullet", 1 if len(m.group(1)) >= 2 else 0, _clean(m.group(2))))
-            continue
-        if st.startswith(">"):
-            t = _clean(st.lstrip(">").strip())
-            if t:
-                blocks.append(("bullet", 0, t))
-            continue
-        blocks.append(("bullet", 0, _clean(st)))
-    flush_tbl()
-    if cur is not None:
-        sections.append((cur, blocks))
-
-    SIZE = {0: Pt(16), 1: Pt(13)}
-    for title, blks in sections:
-        pending = []
-
-        def emit(cont):
-            if not pending:
-                return
-            sl = prs.slides.add_slide(prs.slide_layouts[1])
-            sl.shapes.title.text = title + (" (계속)" if cont else "")
-            tf = sl.placeholders[1].text_frame
-            tf.clear()
-            first = True
-            for b in pending:
-                p = tf.paragraphs[0] if first else tf.add_paragraph()
-                first = False
-                if b[0] == "head":
-                    p.text, p.level = b[1], 0
-                    p.font.bold, p.font.size = True, Pt(18)
-                else:
-                    p.text, p.level = b[2], b[1]
-                    p.font.size = SIZE[b[1]]
-            pending.clear()
-
-        cont = False
-        for b in blks:
-            if b[0] == "table":
-                emit(cont)
-                cont = False
-                _add_table_slide(prs, title, b[1])
-                continue
-            pending.append(b)
-            if len(pending) >= 7:
-                emit(cont)
-                cont = True
-        emit(cont)
-
-    prs.save(str(ROOT / pptx_name))
-    print(f"  PPTX {pptx_name}: {len(prs.slides)} slides")
+    deck.make_pptx(str(ROOT / md_name), str(ROOT / pptx_name), deck_title)
 
 
 def main():
