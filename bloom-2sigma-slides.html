@@ -156,13 +156,15 @@ body.on-dark .hint{color:rgba(255,255,255,.55)}
 /* 펜·텍스트 주석 레이어 (Fabric.js) */
 .canvas-container{position:fixed!important;inset:0;z-index:25;pointer-events:none}
 body.pen-on .canvas-container{pointer-events:auto;touch-action:none}
-.tools{position:fixed;right:2.4vw;bottom:7vh;z-index:30;display:flex;flex-direction:column;gap:.5rem}
-.tools button{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(13,30,48,.85);color:#c7d5e2;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
-.tools button:hover{border-color:var(--accent);color:#fff}
-/* 펜 활성 시 테두리·아이콘 색은 JS가 현재 펜 색으로 지정 */
-#clearBtn{display:none}
-body.pen-on #clearBtn{display:flex}
-@media print{.tools,.canvas-container{display:none!important}}
+/* 상단 좌측 주석 툴바 */
+.ftools{position:fixed;top:2.2vh;left:2.4vw;z-index:30;display:flex;gap:.4rem;align-items:center;
+  background:rgba(13,30,48,.78);border:1px solid rgba(255,255,255,.15);border-radius:999px;padding:.35rem .55rem;backdrop-filter:blur(6px)}
+.ftools button{width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:transparent;color:#c7d5e2;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;padding:0}
+.ftools button:hover{border-color:var(--accent);color:#fff}
+.ftools button.active{border-color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,.4);color:#fff}
+.ftools .sep{width:1px;height:20px;background:rgba(255,255,255,.18)}
+.cswatch{border-color:transparent!important}
+@media print{.ftools,.canvas-container{display:none!important}}
 
 @media (max-width:640px){.cards,.chips{grid-template-columns:1fr}.statwrap,.vizrow{flex-direction:column;align-items:flex-start}.ev{grid-template-columns:1fr;gap:.2rem}.counter,.foot{font-size:.72rem}.sectrack{position:static;margin-bottom:2rem}}
 @media print{body{overflow:visible}.slide{display:flex!important;position:relative;inset:auto;height:100vh;page-break-after:always;animation:none}.progress,.foot,.counter,.hint{display:none!important}@page{size:landscape}}
@@ -576,10 +578,18 @@ body.pen-on #clearBtn{display:flex}
 <div class="foot">초개별화 맞춤형 교육 · 블룸 2σ</div>
 <div class="counter" id="counter">1 / 17</div>
 <canvas id="draw"></canvas>
-<div class="tools">
-  <button id="penBtn" title="펜 색 순환: 빨강→핑크→노랑→초록→해제 (P)" aria-label="펜"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.8 2.8 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg></button>
-  <button id="textBtn" title="텍스트 넣기 — 클릭 후 원하는 위치를 클릭해 입력" aria-label="텍스트 넣기" style="font-weight:800;font-size:18px">T</button>
-  <button id="clearBtn" title="이 슬라이드 주석 모두 지우기" aria-label="주석 지우기"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20H8.5L3 14.5a2 2 0 0 1 0-2.8l8-8a2 2 0 0 1 2.8 0l6.7 6.7a2 2 0 0 1 0 2.8L14 20"/><path d="M7 11l6 6"/></svg></button>
+<div class="ftools" id="ftools">
+  <button id="selBtn" title="선택·이동 — 주석을 옮기거나 크기 조절" aria-label="선택"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3l16 7-7 2-2 7-7-16z"/></svg></button>
+  <span class="sep"></span>
+  <button class="cswatch" data-c="#e53935" title="빨간 펜" style="background:#e53935"></button>
+  <button class="cswatch" data-c="#ff6ea9" title="핑크 펜" style="background:#ff6ea9"></button>
+  <button class="cswatch" data-c="#f6c945" title="노란 펜" style="background:#f6c945"></button>
+  <button class="cswatch" data-c="#34c96f" title="초록 펜" style="background:#34c96f"></button>
+  <span class="sep"></span>
+  <button id="textBtn" title="텍스트 넣기 — 클릭 후 원하는 위치를 클릭해 입력" aria-label="텍스트" style="font-weight:800">T</button>
+  <button id="undoBtn" title="마지막 주석 취소" aria-label="되돌리기"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg></button>
+  <button id="clearBtn" title="이 슬라이드 주석 모두 지우기" aria-label="지우기"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20H8.5L3 14.5a2 2 0 0 1 0-2.8l8-8a2 2 0 0 1 2.8 0l6.7 6.7a2 2 0 0 1 0 2.8L14 20"/><path d="M7 11l6 6"/></svg></button>
+  <button id="offBtn" title="주석 모드 끄기" aria-label="끄기"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
 </div>
 <div class="hint" id="hint"><kbd>←</kbd><kbd>→</kbd><kbd>PgUp</kbd><kbd>PgDn</kbd> 또는 화면 좌·우 가장자리 클릭 · <kbd>F</kbd> 전체화면</div>
 
@@ -612,44 +622,56 @@ body.pen-on #clearBtn{display:flex}
   document.addEventListener('touchend',function(e){if(document.body.classList.contains('pen-on')||sx===null)return;var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>45)show(i+(dx<0?1:-1));sx=null;},{passive:true});
   setTimeout(function(){hint.classList.add('hide');},4200);
 
-  /* 주석 레이어(Fabric.js): 펜 색 순환(빨강→핑크→노랑→초록→해제) + 텍스트 입력, 슬라이드별 저장·복원 */
+  /* 주석 툴바(Fabric.js): 선택·펜 4색·텍스트·되돌리기·지우기·끄기 (상단 좌측) */
   var fc=new fabric.Canvas('draw');
-  var inkStore={},placingText=false;
+  var inkStore={},placingText=false,editingText=false;
   var PEN_COLORS=['#e53935','#ff6ea9','#f6c945','#34c96f'];
-  var penIdx=-1;   /* -1 = 해제 */
-  var penBtn=document.getElementById('penBtn'),textBtn=document.getElementById('textBtn');
+  var mode='off',color=PEN_COLORS[0];
+  var ft=document.getElementById('ftools');
   fc.freeDrawingBrush=new fabric.PencilBrush(fc);
   fc.freeDrawingBrush.width=3.5;
-  function setPen(idx){penIdx=idx;var on=penIdx>=0;
+  function apply(){var on=mode!=='off';
     document.body.classList.toggle('pen-on',on);
-    fc.isDrawingMode=on&&!placingText;
-    if(on)fc.freeDrawingBrush.color=PEN_COLORS[penIdx];
-    penBtn.style.borderColor=on?PEN_COLORS[penIdx]:'';
-    penBtn.style.color=on?PEN_COLORS[penIdx]:'';
+    fc.isDrawingMode=(mode==='draw'&&!placingText&&!editingText);
+    if(mode==='draw')fc.freeDrawingBrush.color=color;
+    fc.selection=(mode==='select');
+    fc.defaultCursor=placingText?'text':(mode==='select'?'default':'crosshair');
+    [].forEach.call(ft.querySelectorAll('button'),function(b){b.classList.remove('active');});
+    if(on&&placingText)document.getElementById('textBtn').classList.add('active');
+    else if(mode==='select')document.getElementById('selBtn').classList.add('active');
+    else if(mode==='draw'){var sw=ft.querySelector('.cswatch[data-c="'+color+'"]');if(sw)sw.classList.add('active');}
     if(!on){placingText=false;fc.discardActiveObject();fc.renderAll();}}
-  function cyclePen(){setPen(penIdx>=PEN_COLORS.length-1?-1:penIdx+1);}
+  function cyclePen(){   /* P 키: 빨강→핑크→노랑→초록→해제 */
+    placingText=false;
+    if(mode!=='draw'){mode='draw';color=PEN_COLORS[0];}
+    else{var k=PEN_COLORS.indexOf(color);
+      if(k>=PEN_COLORS.length-1)mode='off';else color=PEN_COLORS[k+1];}
+    apply();}
   function resizeF(){fc.setWidth(window.innerWidth);fc.setHeight(window.innerHeight);fc.renderAll();}
   window.addEventListener('resize',resizeF);resizeF();
   window.__saveInk=function(){inkStore[i]=fc.toJSON();};
   window.__loadInk=function(){fc.loadFromJSON(inkStore[i]||{objects:[]},function(){fc.renderAll();});};
-  window.__deleteInk=function(){var a=fc.getActiveObject();if(a&&!(a.isEditing)){fc.remove(a);fc.renderAll();}};
-  /* 텍스트: T 버튼 → 원하는 위치 클릭 → 그 자리에서 입력 (기존 텍스트 클릭 시 재편집) */
-  textBtn.addEventListener('click',function(e){e.stopPropagation();
-    if(penIdx<0)setPen(0);
-    placingText=true;fc.isDrawingMode=false;fc.defaultCursor='text';});
+  window.__deleteInk=function(){var a=fc.getActiveObject();if(a&&!a.isEditing){fc.remove(a);fc.renderAll();}};
+  ft.addEventListener('click',function(e){e.stopPropagation();
+    var b=e.target.closest('button');if(!b)return;
+    if(b.classList.contains('cswatch')){color=b.getAttribute('data-c');mode='draw';placingText=false;apply();return;}
+    if(b.id==='selBtn'){mode='select';placingText=false;apply();}
+    else if(b.id==='textBtn'){if(mode==='off')mode='draw';placingText=true;apply();}
+    else if(b.id==='undoBtn'){var os=fc.getObjects();if(os.length){fc.remove(os[os.length-1]);fc.renderAll();}}
+    else if(b.id==='clearBtn'){fc.clear();delete inkStore[i];}
+    else if(b.id==='offBtn'){mode='off';apply();}});
+  /* 텍스트: T → 위치 클릭 → 그 자리에서 입력 (기존 텍스트 클릭 시 재편집) */
   fc.on('mouse:down',function(o){
     if(!placingText)return;
-    placingText=false;fc.defaultCursor='default';
+    placingText=false;editingText=true;apply();
     if(o.target&&o.target.type==='i-text'){fc.setActiveObject(o.target);o.target.enterEditing();return;}
     var p=fc.getPointer(o.e);
-    var t=new fabric.IText('',{left:p.x,top:p.y,fill:PEN_COLORS[Math.max(penIdx,0)],fontSize:26,fontWeight:600,
+    var t=new fabric.IText('',{left:p.x,top:p.y,fill:color,fontSize:26,fontWeight:600,
       fontFamily:"'Pretendard Variable',Pretendard,'Malgun Gothic','Apple SD Gothic Neo',sans-serif"});
     fc.add(t);fc.setActiveObject(t);t.enterEditing();});
   fc.on('text:editing:exited',function(o){
     if(o.target&&!o.target.text)fc.remove(o.target);   /* 빈 텍스트는 정리 */
-    if(penIdx>=0&&!placingText)fc.isDrawingMode=true;});
-  penBtn.addEventListener('click',function(e){e.stopPropagation();cyclePen();});
-  document.getElementById('clearBtn').addEventListener('click',function(e){e.stopPropagation();fc.clear();delete inkStore[i];});
+    editingText=false;apply();});
 
   show((parseInt((location.hash||'').slice(1),10)||1)-1);
 })();
