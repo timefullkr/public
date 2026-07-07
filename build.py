@@ -14,15 +14,18 @@ import sys
 import subprocess
 from pathlib import Path
 import markdown
+import html as _html
+from pptx import Presentation
+from pptx.util import Inches, Pt
 
 ROOT = Path(__file__).resolve().parent
 
-# (소스 md 파일명, 출력 슬러그, 브라우저 탭 제목, PDF 슬러그 또는 None)
+# (소스 md 파일명, 출력 슬러그, 브라우저 탭 제목, PDF 슬러그 또는 None, PPTX 슬러그 또는 None)
 PAGES = [
-    ("AI교육-패러다임.md", "paradigm.html", "AI 교육 패러다임", None),
-    ("AX전환과 교육.md", "ax-transformation.html", "AX 전환과 교육", None),
+    ("AI교육-패러다임.md", "paradigm.html", "AI 교육 패러다임", None, "paradigm.pptx"),
+    ("AX전환과 교육.md", "ax-transformation.html", "AX 전환과 교육", None, "ax-transformation.pptx"),
     ("고의숙 교육감의 초개별화 맞춤형 교육 이론적 배경.md", "bloom-2sigma.html",
-     '고의숙 교육감의 "초개별화 맞춤형 교육"', "bloom-2sigma.pdf"),
+     '고의숙 교육감의 "초개별화 맞춤형 교육"', "bloom-2sigma.pdf", "bloom-2sigma.pptx"),
 ]
 
 # 마크다운 내부 링크(.md) → 사이트 내 .html 슬러그(구 파일명도 함께 매핑해 안전)
@@ -158,25 +161,161 @@ def make_pdf(slug, pdf_name):
         sys.exit(f"PDF 검증 실패: {pdf_name} (빈 페이지/에러 페이지 의심)")
 
 
+def _clean(s):
+    """마크다운 인라인 서식 제거 → 슬라이드용 순수 텍스트."""
+    s = re.sub(r"!\[[^\]]*\]\([^)]*\)", "", s)              # 이미지
+    s = re.sub(r"\[([^\]]+)\]\(<?[^>)]*>?\)", r"\1", s)     # 링크 → 텍스트
+    s = s.replace("**", "").replace("`", "")
+    s = re.sub(r"\*(.+?)\*", r"\1", s)                       # *강조*
+    s = re.sub(r"<[^>]+>", "", s)                            # 잔여 HTML 태그
+    return _html.unescape(s).strip()
+
+
+def _add_table_slide(prs, title, rows):
+    slide = prs.slides.add_slide(prs.slide_layouts[5])
+    slide.shapes.title.text = title
+    ncols = max(len(r) for r in rows)
+    nrows = len(rows)
+    gt = slide.shapes.add_table(nrows, ncols, Inches(0.4), Inches(1.3),
+                                Inches(9.2), Inches(0.4 * nrows)).table
+    for i, r in enumerate(rows):
+        for j in range(ncols):
+            cell = gt.cell(i, j)
+            cell.text = r[j] if j < len(r) else ""
+            for p in cell.text_frame.paragraphs:
+                p.font.size = Pt(11)
+                if i == 0:
+                    p.font.bold = True
+
+
+def make_pptx(md_name, pptx_name, deck_title):
+    """소스 .md 를 섹션(##) 단위 슬라이드 덱으로 변환."""
+    lines = (ROOT / md_name).read_text(encoding="utf-8").split("\n")
+    prs = Presentation()
+    prs.slide_width, prs.slide_height = Inches(10), Inches(7.5)
+
+    ts = prs.slides.add_slide(prs.slide_layouts[0])
+    ts.shapes.title.text = _clean(deck_title)
+    try:
+        ts.placeholders[1].text = "제주도교육인수위원회 미래학력분과"
+    except (KeyError, IndexError):
+        pass
+
+    sections, cur, blocks, tbl, in_code = [], None, [], [], False
+
+    def flush_tbl():
+        if tbl:
+            blocks.append(("table", list(tbl)))
+            tbl.clear()
+
+    for raw in lines:
+        st = raw.strip()
+        if st.startswith("```"):
+            in_code = not in_code
+            continue
+        if in_code:
+            continue
+        if st.startswith("## "):
+            flush_tbl()
+            if cur is not None:
+                sections.append((cur, blocks))
+            cur, blocks = _clean(st[3:]), []
+            continue
+        if st.startswith("### "):
+            flush_tbl()
+            blocks.append(("head", _clean(st[4:])))
+            continue
+        if st.startswith("|") and st.endswith("|"):
+            cells = [c.strip() for c in st.strip("|").split("|")]
+            if all(set(c) <= set("-: ") for c in cells):
+                continue
+            tbl.append([_clean(c) for c in cells])
+            continue
+        flush_tbl()
+        if not st or st == "---" or st.startswith("# ") or st.startswith("!["):
+            continue
+        if st.startswith("<") and st.endswith(">"):   # 순수 HTML 줄(제목·스타일 등)
+            continue
+        m = re.match(r"^(\s*)[-*] (.*)$", raw)
+        if m:
+            blocks.append(("bullet", 1 if len(m.group(1)) >= 2 else 0, _clean(m.group(2))))
+            continue
+        if st.startswith(">"):
+            t = _clean(st.lstrip(">").strip())
+            if t:
+                blocks.append(("bullet", 0, t))
+            continue
+        blocks.append(("bullet", 0, _clean(st)))
+    flush_tbl()
+    if cur is not None:
+        sections.append((cur, blocks))
+
+    SIZE = {0: Pt(16), 1: Pt(13)}
+    for title, blks in sections:
+        pending = []
+
+        def emit(cont):
+            if not pending:
+                return
+            sl = prs.slides.add_slide(prs.slide_layouts[1])
+            sl.shapes.title.text = title + (" (계속)" if cont else "")
+            tf = sl.placeholders[1].text_frame
+            tf.clear()
+            first = True
+            for b in pending:
+                p = tf.paragraphs[0] if first else tf.add_paragraph()
+                first = False
+                if b[0] == "head":
+                    p.text, p.level = b[1], 0
+                    p.font.bold, p.font.size = True, Pt(18)
+                else:
+                    p.text, p.level = b[2], b[1]
+                    p.font.size = SIZE[b[1]]
+            pending.clear()
+
+        cont = False
+        for b in blks:
+            if b[0] == "table":
+                emit(cont)
+                cont = False
+                _add_table_slide(prs, title, b[1])
+                continue
+            pending.append(b)
+            if len(pending) >= 7:
+                emit(cont)
+                cont = True
+        emit(cont)
+
+    prs.save(str(ROOT / pptx_name))
+    print(f"  PPTX {pptx_name}: {len(prs.slides)} slides")
+
+
 def main():
-    for md_name, slug, title, pdf in PAGES:
+    for md_name, slug, title, pdf, pptx in PAGES:
         body = convert(md_name)
+        links = []
         if pdf:
-            body = f'<a class="pdflink" href="{pdf}">⬇ PDF로 저장·인쇄</a>\n' + body
+            links.append(f'<a class="pdflink" href="{pdf}">⬇ PDF로 저장·인쇄</a>')
+        if pptx:
+            links.append(f'<a class="pdflink" href="{pptx}">⬇ PPTX 슬라이드</a>')
+        if links:
+            body = " ".join(links) + "\n" + body
         (ROOT / slug).write_text(TEMPLATE.format(title=title, css=CSS, body=body), encoding="utf-8")
         print("wrote", slug)
         if pdf:
             make_pdf(slug, pdf)
+        if pptx:
+            make_pptx(md_name, pptx, title)
 
     index_body = """<h1 align="center">모두가 주인공! 함께 성장하는 제주교육 AI 플랫폼</h1>
 <p class="lead-sub">학생·교사·행정 모두 함께 쓰는 AI</p>
 <p>미래학력분과 관련 자료 중 외부 공개용 참고 문서입니다. 아래에서 각 문서를 열람할 수 있습니다.</p>
 <ul>
-<li><a href="ax-transformation.html"><b>AX 전환과 교육</b></a><br>
+<li><a href="ax-transformation.html"><b>AX 전환과 교육</b></a><a class="idx-pdf" href="ax-transformation.pptx">PPTX</a><br>
 AX(AI 전환)를 '도구 도입'이 아니라 사람·프로세스의 전환으로 보는 관점을 교육에 적용 — 교사 대체 우려, 에듀테크 과잉, 형평.</li>
-<li><a href="paradigm.html"><b>AI 교육 패러다임</b></a><br>
+<li><a href="paradigm.html"><b>AI 교육 패러다임</b></a><a class="idx-pdf" href="paradigm.pptx">PPTX</a><br>
 AI 교육을 '무엇을'이 아니라 '어떻게'로 보는 관점 — 최고급 AI 접근의 공적 보장(토대), 활용 역량(핵심), 평가·교사 역할의 전환.</li>
-<li><a href="bloom-2sigma.html"><b>고의숙 교육감의 "초개별화 맞춤형 교육"</b></a><a class="idx-pdf" href="bloom-2sigma.pdf">PDF</a><br>
+<li><a href="bloom-2sigma.html"><b>고의숙 교육감의 "초개별화 맞춤형 교육"</b></a><a class="idx-pdf" href="bloom-2sigma.pdf">PDF</a><a class="idx-pdf" href="bloom-2sigma.pptx">PPTX</a><br>
 핵심 공약 '초개별화 맞춤형 교육'의 이론적 근거 — 1:1 개인교습이 집단수업보다 2 표준편차 높은 성취를 낸다는 블룸의 실증(2 시그마 문제)을, AI로 대규모 실현한다.</li>
 </ul>"""
     index_html = TEMPLATE.format(title="제주교육 AI 플랫폼", css=CSS, body=index_body)
