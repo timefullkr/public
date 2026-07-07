@@ -8,8 +8,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 :root{
-  --navy:#0f2a44; --navy2:#173b5c; --accent:#1fc7b1; --accent2:#7ee0d3;
-  --amber:#f4a23b; --ink:#182634; --muted:#66768a; --light:#f4f7fa; --line:#e4e9ef; --steel:#93a9c2;
+  --navy:#0f2a44; --navy2:#173b5c; --accent:#1fc7b1; --accent2:#7ee0d3; --accent-ink:#0b7265;
+  --amber:#f4a23b; --amber-ink:#b26305; --ink:#182634; --muted:#66768a; --light:#f4f7fa; --line:#e4e9ef; --steel:#93a9c2;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -24,77 +24,117 @@ body{
 .slide.light{background:#fff;color:var(--ink)}
 .slide.navy{background:radial-gradient(130% 120% at 82% 8%, #1b4a74 0%, var(--navy) 52%, #0a1e33 100%);color:#fff}
 .slide.soft{background:linear-gradient(180deg,#fff 0%,var(--light) 100%);color:var(--ink)}
+.slide.sec{background:linear-gradient(135deg,var(--navy2) 0%,#0a1e33 100%);color:#fff}
 
-.kicker{font-size:clamp(.8rem,1.35vw,1.05rem);font-weight:700;letter-spacing:.12em;color:var(--accent);
+/* 콘텐츠 슬라이드: 헤더 존 고정(제목 축이 슬라이드마다 출렁이지 않도록) */
+.slide.content{justify-content:flex-start;padding-top:9vh;padding-bottom:7vh}
+.head{min-height:17vh;flex:none}
+.bodyarea{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+
+.kicker{font-size:clamp(.8rem,1.35vw,1.05rem);font-weight:700;letter-spacing:.05em;color:var(--accent2);
   margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}
-.kicker::before{content:"";width:26px;height:3px;background:var(--accent);border-radius:2px}
-.navy .kicker{color:var(--accent2)}
+.kicker::before{content:"";width:26px;height:3px;background:var(--accent);border-radius:2px;flex:none}
+.light .kicker,.soft .kicker{color:var(--accent-ink)}
+.light .kicker::before,.soft .kicker::before{background:var(--accent-ink)}
 
-h1.t{font-size:clamp(2.3rem,5.4vw,4.2rem);font-weight:800;line-height:1.08;letter-spacing:-.02em}
+h1.t{font-size:clamp(2.3rem,5.2vw,4rem);font-weight:800;line-height:1.16;letter-spacing:-.02em}
 .sub{font-size:clamp(1.2rem,2.4vw,1.9rem);font-weight:600;margin-top:1.1rem;color:var(--accent2)}
-.tag{font-size:clamp(.95rem,1.5vw,1.15rem);color:#c7d5e2;margin-top:2rem;font-weight:500}
+.hook{font-size:clamp(1.05rem,1.9vw,1.45rem);color:#e8f2fa;margin-top:2.2rem;font-weight:600}
+.tag{font-size:clamp(.9rem,1.4vw,1.1rem);color:#c7d5e2;margin-top:.8rem;font-weight:500}
 
-.slide h2{font-size:clamp(1.6rem,3.4vw,2.6rem);font-weight:800;line-height:1.14;letter-spacing:-.01em;color:var(--navy)}
-.slide.navy h2{color:#fff}
-.rule{width:60px;height:5px;background:var(--accent);border-radius:3px;margin:1rem 0 1.5rem}
+.slide h2{font-size:clamp(1.55rem,3.2vw,2.5rem);font-weight:800;line-height:1.22;letter-spacing:-.01em;color:var(--navy)}
+.slide.navy h2,.slide.sec h2{color:#fff}
+.rule{width:60px;height:5px;background:var(--accent);border-radius:3px;margin:1rem 0 0}
 
-.secnum{font-size:clamp(4.5rem,13vw,10rem);font-weight:800;color:var(--accent);line-height:.9;letter-spacing:-.03em}
+/* 섹션 구분 */
+.gnum{position:absolute;right:-4vw;bottom:-8vh;font-size:clamp(18rem,42vw,36rem);font-weight:800;color:rgba(126,224,211,.06);line-height:.8;pointer-events:none;user-select:none;letter-spacing:-.05em}
+.sectrack{position:absolute;top:6vh;left:8vw;display:flex;gap:1.6rem;font-size:clamp(.85rem,1.3vw,1.05rem);font-weight:700;color:rgba(255,255,255,.35)}
+.sectrack .on{color:var(--accent2)}
+.secnum{font-size:clamp(4rem,11vw,8.5rem);font-weight:800;color:var(--accent);line-height:.9;letter-spacing:-.03em}
 .sectitle{font-size:clamp(1.9rem,4.2vw,3.2rem);font-weight:800;margin-top:.8rem}
+.secsub{font-size:clamp(1.05rem,1.9vw,1.5rem);color:#c7d5e2;margin-top:1.4rem;font-weight:500;max-width:44ch}
 
 .statwrap{display:flex;align-items:center;gap:clamp(1.5rem,4vw,3.5rem);flex-wrap:wrap}
-.statnum{font-size:clamp(5rem,15vw,12rem);font-weight:800;color:var(--accent);line-height:.85;letter-spacing:-.04em;
-  text-shadow:0 8px 40px rgba(31,199,177,.28)}
+.statnum{font-size:clamp(4.5rem,13vw,10rem);font-weight:800;color:var(--amber);line-height:.85;letter-spacing:-.04em}
 .statcap{max-width:44ch;margin-top:1.2rem}
-.statcap .big{font-size:clamp(1.2rem,2.2vw,1.75rem);font-weight:700;line-height:1.34}
-.statcap .small{font-size:clamp(.98rem,1.6vw,1.25rem);color:#c7d5e2;margin-top:1rem;line-height:1.5}
+.statcap .big{font-size:clamp(1.1rem,2vw,1.6rem);font-weight:700;line-height:1.4}
+.statcap .small{font-size:clamp(.95rem,1.55vw,1.2rem);color:#c7d5e2;margin-top:1rem;line-height:1.55}
 
-ul.b{list-style:none;display:flex;flex-direction:column;gap:clamp(.7rem,1.6vh,1.25rem);max-width:62ch}
-ul.b li{position:relative;padding-left:2rem;font-size:clamp(1.05rem,1.8vw,1.45rem);line-height:1.42;font-weight:500}
-ul.b li::before{content:"";position:absolute;left:0;top:.5em;width:11px;height:11px;border-radius:3px;background:var(--accent);transform:rotate(45deg)}
+ul.b{list-style:none;display:flex;flex-direction:column;gap:clamp(.7rem,1.6vh,1.25rem);max-width:64ch}
+ul.b li{position:relative;padding-left:2rem;font-size:clamp(1.02rem,1.75vw,1.4rem);line-height:1.55;font-weight:500}
+ul.b li::before{content:"";position:absolute;left:0;top:.55em;width:11px;height:11px;border-radius:3px;background:var(--accent);transform:rotate(45deg)}
 .navy ul.b li::before{background:var(--accent2)}
-ul.b li b{font-weight:800;color:var(--navy)}
+ul.b li b{font-weight:700;color:var(--navy)}
 .navy ul.b li b{color:#fff}
 ul.b li .s{display:block;font-size:.82em;color:var(--muted);font-weight:500;margin-top:.2rem}
 ul.b li .s::before{content:"— "}
 
-.cards{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1rem,2.2vw,1.8rem);margin-top:.2rem}
-.card{background:var(--light);border:1px solid var(--line);border-radius:18px;padding:clamp(1.2rem,2.4vw,1.9rem);box-shadow:0 10px 30px rgba(15,42,68,.06)}
-.card h3{font-size:clamp(1.05rem,1.9vw,1.4rem);color:var(--navy);font-weight:800;margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}
-.card ul{list-style:none;display:flex;flex-direction:column;gap:.65rem}
-.card li{position:relative;padding-left:1.4rem;font-size:clamp(.98rem,1.5vw,1.22rem);line-height:1.38;font-weight:500}
-.card li::before{content:"·";position:absolute;left:.3rem;color:var(--accent);font-weight:800;font-size:1.3em;top:-.15em}
-.ic{width:1.5em;height:1.5em;stroke:var(--accent);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1rem,2.2vw,1.8rem)}
+.card{background:var(--light);border:1px solid var(--line);border-radius:18px;padding:clamp(1.1rem,2.2vw,1.7rem);box-shadow:0 10px 30px rgba(15,42,68,.06)}
+.card.warn{border-top:3px solid var(--amber)}
+.card h3{font-size:clamp(1.02rem,1.8vw,1.35rem);color:var(--navy);font-weight:800;margin-bottom:.9rem;display:flex;align-items:center;gap:.6rem}
+.card ul{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.card li{position:relative;padding-left:1.4rem;font-size:clamp(.95rem,1.45vw,1.18rem);line-height:1.5;font-weight:500}
+.card li::before{content:"·";position:absolute;left:.3rem;color:var(--accent-ink);font-weight:800;font-size:1.3em;top:-.15em}
+.card p{font-size:clamp(.95rem,1.45vw,1.18rem);line-height:1.55;font-weight:500}
+.card p b{font-weight:700;color:var(--navy)}
+.ic{width:1.5em;height:1.5em;stroke:var(--accent-ink);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ic.warn{stroke:var(--amber-ink)}
 
-.note{margin-top:1.3rem;font-size:clamp(1rem,1.6vw,1.3rem);color:var(--muted);font-weight:500}
-.note b{color:var(--navy)}
+/* 근거 빅넘버 행 */
+.ev{display:grid;grid-template-columns:minmax(150px,.3fr) 1fr;gap:clamp(1rem,2.5vw,2rem);align-items:center;padding:clamp(.8rem,2vh,1.3rem) 0;border-top:1px solid var(--line)}
+.ev:first-of-type{border-top:0}
+.evnum{font-size:clamp(2.4rem,5.5vw,4.2rem);font-weight:800;color:var(--navy);letter-spacing:-.02em;line-height:1}
+.evnum em{font-style:normal;font-size:.5em;font-weight:700;color:var(--muted)}
+.evtxt{font-size:clamp(1rem,1.6vw,1.3rem);line-height:1.55;font-weight:500}
+.evtxt b{font-weight:700;color:var(--navy)}
+.evtxt .s{display:block;font-size:.82em;color:var(--muted);margin-top:.25rem}
+.evtxt .s::before{content:"— "}
+
+.note{margin-top:1.2rem;font-size:clamp(.98rem,1.55vw,1.25rem);color:var(--muted);font-weight:500}
+.note b{color:var(--navy);font-weight:700}
 
 .quotemark{font-size:clamp(4rem,10vw,8rem);color:var(--accent);line-height:.6;font-weight:800;margin-bottom:.3rem}
-.quote{font-size:clamp(1.5rem,3.1vw,2.5rem);font-weight:700;line-height:1.4;color:var(--navy);max-width:22ch}
+.quote{font-size:clamp(1.5rem,3.1vw,2.5rem);font-weight:700;line-height:1.45;color:var(--navy);max-width:24ch}
 .attrib{margin-top:1.6rem;font-size:clamp(1rem,1.6vw,1.25rem);color:var(--muted);font-weight:600}
-.closing{font-size:clamp(1.4rem,2.8vw,2.3rem);font-weight:700;line-height:1.42;max-width:26ch}
+
+.closing{font-size:clamp(2rem,4.4vw,3.5rem);font-weight:800;line-height:1.28;letter-spacing:-.01em}
+.closesub{font-size:clamp(1.1rem,2vw,1.6rem);font-weight:500;line-height:1.6;color:#dbe7f1;margin-top:1.8rem;max-width:52ch}
+.closelast{font-size:clamp(1.05rem,1.8vw,1.4rem);font-weight:700;color:var(--amber);margin-top:2rem}
 
 /* 데이터/다이어그램 SVG */
 .vizrow{display:flex;align-items:center;gap:clamp(1.2rem,3vw,3rem);flex-wrap:wrap}
-.vizwrap{flex:1;min-width:280px;display:flex;justify-content:center}
+.vizwrap{flex:1;min-width:280px;display:flex;flex-direction:column;justify-content:center;align-items:center}
 .viz{width:100%;height:auto;display:block}
-.viz.bells{max-width:540px}.viz.bars{max-width:560px}.viz.loop{max-width:760px}
-.chips{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.5rem}
-.chip{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:.85rem 1.15rem;font-size:clamp(.95rem,1.5vw,1.2rem);max-width:34ch;line-height:1.35;font-weight:500}
-.chip b{color:var(--accent2);font-weight:800}
-.slide.light .chip{background:var(--light);border-color:var(--line)}
-.slide.light .chip b{color:var(--navy)}
+.viz.bells{max-width:560px}.viz.bars{max-width:540px}.viz.loop{max-width:720px}.viz.ladder{max-width:760px}.viz.slope{max-width:440px}
+.vizcap{margin-top:.6rem;font-size:clamp(.85rem,1.3vw,1.05rem);color:var(--muted);font-weight:500;text-align:center}
+.navy .vizcap{color:#c7d5e2}
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.4rem}
+.chip{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:.95rem 1.2rem;font-size:clamp(.95rem,1.5vw,1.2rem);line-height:1.45;font-weight:500}
+.chip b{color:var(--accent2);font-weight:800;display:block;margin-bottom:.2rem}
 .capline{margin-top:1.2rem;font-size:clamp(1rem,1.65vw,1.3rem);color:#c7d5e2;font-weight:600}
+
+/* 참고문헌 */
+.refs{list-style:none;display:flex;flex-direction:column;gap:.55rem;max-width:78ch;counter-reset:ref}
+.refs li{position:relative;padding-left:1.8rem;font-size:clamp(.82rem,1.3vw,1.02rem);line-height:1.55;color:var(--muted);counter-increment:ref}
+.refs li::before{content:counter(ref);position:absolute;left:0;top:.1em;width:1.25em;height:1.25em;border-radius:50%;background:var(--light);border:1px solid var(--line);color:var(--navy);font-size:.85em;font-weight:700;display:flex;align-items:center;justify-content:center}
+.refs li i{font-style:italic}
+.cite{margin-top:1.4rem;padding:.9rem 1.2rem;background:var(--light);border-left:4px solid var(--accent);border-radius:6px;font-size:clamp(.88rem,1.35vw,1.08rem);line-height:1.6;color:var(--ink);max-width:78ch}
+.cite b{color:var(--navy)}
+.srcline{margin-top:1.2rem;font-size:clamp(.78rem,1.2vw,.95rem);color:var(--muted)}
 
 .wm{position:absolute;right:5vw;bottom:1vh;font-size:clamp(12rem,32vw,28rem);font-weight:800;color:rgba(255,255,255,.05);line-height:.8;pointer-events:none;user-select:none;letter-spacing:-.05em}
 
-.progress{position:fixed;top:0;left:0;height:4px;background:var(--accent);width:0;z-index:20;transition:width .35s ease}
+.progress{position:fixed;bottom:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0;z-index:20;transition:width .35s ease}
 .foot{position:fixed;left:2.4vw;bottom:2vh;font-size:.82rem;color:var(--muted);z-index:20;font-weight:600}
 .counter{position:fixed;right:2.4vw;bottom:2vh;font-size:.82rem;color:var(--muted);z-index:20;font-weight:600;font-variant-numeric:tabular-nums}
+body.on-dark .foot,body.on-dark .counter{color:rgba(255,255,255,.55)}
 .hint{position:fixed;left:50%;bottom:2vh;transform:translateX(-50%);font-size:.78rem;color:var(--muted);z-index:20;opacity:.9;transition:opacity .6s;display:flex;gap:.5rem;align-items:center}
+body.on-dark .hint{color:rgba(255,255,255,.55)}
 .hint.hide{opacity:0}
 .hint kbd{background:rgba(120,140,160,.18);border:1px solid rgba(120,140,160,.35);border-radius:5px;padding:.05em .45em;font-family:inherit;font-size:.9em}
 
-@media (max-width:640px){.cards{grid-template-columns:1fr}.statwrap,.vizrow{flex-direction:column;align-items:flex-start}.counter,.foot{font-size:.72rem}}
+@media (max-width:640px){.cards,.chips{grid-template-columns:1fr}.statwrap,.vizrow{flex-direction:column;align-items:flex-start}.ev{grid-template-columns:1fr;gap:.2rem}.counter,.foot{font-size:.72rem}.sectrack{position:static;margin-bottom:2rem}}
 @media print{body{overflow:visible}.slide{display:flex!important;position:relative;inset:auto;height:100vh;page-break-after:always;animation:none}.progress,.foot,.counter,.hint{display:none!important}@page{size:landscape}}
 </style>
 </head>
@@ -105,238 +145,403 @@ ul.b li .s::before{content:"— "}
   <!-- 1 표지 -->
   <section class="slide navy active">
     <div class="wm">2σ</div>
-    <div class="kicker">제주도교육인수위원회 · 미래학력분과</div>
+    <div class="kicker">제주특별자치도교육감 당선인 준비위원회 · 미래학력분과</div>
     <h1 class="t">초개별화 맞춤형 교육</h1>
     <div class="sub">블룸의 ‘2 시그마 문제’와 AI</div>
-    <div class="tag">고의숙 교육감 핵심공약의 이론적 배경</div>
+    <div class="hook">모든 아이가 1:1 과외를 받는 것처럼 배울 수 있다면?</div>
+    <div class="tag">고의숙 교육감 핵심공약의 이론적 배경 · 2026. 7.</div>
   </section>
 
-  <!-- 2 섹션01 -->
-  <section class="slide navy">
-    <div class="secnum">01</div><div class="rule"></div><div class="sectitle">문제 — ‘2 시그마’</div>
+  <!-- 2 섹션 01 -->
+  <section class="slide navy sec">
+    <div class="gnum">01</div>
+    <div class="sectrack"><span class="on">01 문제</span><span>02 해법</span><span>03 제주</span></div>
+    <div class="secnum">01</div>
+    <div class="sectitle">문제 — ‘2 시그마’</div>
+    <div class="secsub">40년 전, 교육학이 증명하고도 풀지 못한 문제가 있다.</div>
   </section>
 
-  <!-- 3 2σ + 정규분포 곡선 -->
+  <!-- 3 2σ 히어로 + 정규분포 -->
   <section class="slide navy">
     <div class="statwrap">
       <div style="flex:1;min-width:280px">
+        <div class="kicker">Bloom (1984) · Educational Researcher</div>
         <div class="statnum">2σ</div>
         <div class="statcap">
           <div class="big">1:1 개인교습을 받은 학생은 집단수업보다 약 2 표준편차 높은 성취를 낸다.</div>
-          <div class="small">그러나 모두에게 제공하기엔 비용이 너무 크다 — 블룸(1984)의 ‘2 시그마 문제’.</div>
+          <div class="small">그러나 모두에게 제공하기엔 비용이 너무 크다 — 블룸의 ‘2 시그마 문제’.</div>
         </div>
       </div>
       <div class="vizwrap">
-        <svg class="viz bells" viewBox="0 0 520 270" role="img" aria-label="전통 수업과 개인교습의 성취 분포가 2 표준편차 이동">
+        <svg class="viz bells" viewBox="0 0 520 280" role="img" aria-label="전통 수업과 개인교습의 성취 분포가 정확히 2 표준편차 이동하고, 개인교습 평균이 전통 분포의 상위 2퍼센트에 해당">
           <defs>
             <marker id="aR" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6Z" fill="#7ee0d3"/></marker>
             <marker id="aL" markerWidth="9" markerHeight="9" refX="0" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6Z" fill="#7ee0d3"/></marker>
           </defs>
           <line x1="20" y1="220" x2="500" y2="220" stroke="rgba(255,255,255,.28)" stroke-width="1.5"/>
-          <path d="M40,220 C112,220 132,66 182,66 C232,66 252,220 322,220 Z" fill="rgba(147,169,194,.22)" stroke="#93a9c2" stroke-width="2.5"/>
-          <path d="M200,220 C270,220 290,50 340,50 C390,50 410,220 480,220 Z" fill="rgba(31,199,177,.26)" stroke="#1fc7b1" stroke-width="3"/>
-          <line x1="182" y1="66" x2="182" y2="220" stroke="#93a9c2" stroke-width="1.4" stroke-dasharray="4 5"/>
-          <line x1="340" y1="50" x2="340" y2="220" stroke="#1fc7b1" stroke-width="1.4" stroke-dasharray="4 5"/>
-          <line x1="182" y1="34" x2="340" y2="34" stroke="#7ee0d3" stroke-width="2" marker-start="url(#aL)" marker-end="url(#aR)"/>
-          <text x="261" y="26" text-anchor="middle" fill="#7ee0d3" font-size="20" font-weight="800">2σ</text>
-          <text x="182" y="243" text-anchor="middle" fill="#c7d5e2" font-size="15">전통 수업</text>
-          <text x="340" y="243" text-anchor="middle" fill="#eafffb" font-size="15" font-weight="700">1:1 개인교습</text>
+          <g stroke="rgba(255,255,255,.3)" stroke-width="1"><line x1="85" y1="220" x2="85" y2="226"/><line x1="130" y1="220" x2="130" y2="226"/><line x1="175" y1="220" x2="175" y2="226"/><line x1="220" y1="220" x2="220" y2="226"/><line x1="265" y1="220" x2="265" y2="226"/><line x1="310" y1="220" x2="310" y2="226"/><line x1="355" y1="220" x2="355" y2="226"/></g>
+          <!-- 전통 수업: 평균 x=175, σ=45px -->
+          <path d="M40,220 C117,220 123,64 175,64 C227,64 233,220 310,220 Z" fill="rgba(147,169,194,.20)" stroke="#93a9c2" stroke-width="2.5"/>
+          <!-- 전통 분포의 상위 2% 꼬리(x≥265 = 평균+2σ) -->
+          <path d="M265,199 C280,212 295,218 310,220 L265,220 Z" fill="rgba(244,162,59,.55)"/>
+          <!-- 1:1 개인교습: 평균 x=265 (+2σ), 동일 형태 -->
+          <path d="M130,220 C207,220 213,64 265,64 C317,64 323,220 400,220 Z" fill="rgba(31,199,177,.22)" stroke="#1fc7b1" stroke-width="2.5"/>
+          <line x1="175" y1="64" x2="175" y2="220" stroke="#93a9c2" stroke-width="1.4" stroke-dasharray="4 5"/>
+          <line x1="265" y1="64" x2="265" y2="220" stroke="#1fc7b1" stroke-width="1.4" stroke-dasharray="4 5"/>
+          <line x1="175" y1="40" x2="265" y2="40" stroke="#7ee0d3" stroke-width="2" marker-start="url(#aL)" marker-end="url(#aR)"/>
+          <text x="220" y="30" text-anchor="middle" fill="#7ee0d3" font-size="20" font-weight="800">2σ</text>
+          <line x1="300" y1="207" x2="330" y2="192" stroke="rgba(244,162,59,.8)" stroke-width="1.2"/>
+          <text x="334" y="190" fill="#f4c98a" font-size="13" font-weight="700">상위 2%</text>
+          <text x="175" y="244" text-anchor="middle" fill="#c7d5e2" font-size="15">전통 수업</text>
+          <text x="265" y="262" text-anchor="middle" fill="#eafffb" font-size="15" font-weight="700">1:1 개인교습</text>
         </svg>
+        <div class="vizcap">1:1 교습의 평균 학생 = 전통 수업 분포의 상위 2% 위치</div>
       </div>
     </div>
   </section>
 
-  <!-- 4 실험 설계 (아이콘 카드) -->
-  <section class="slide light">
-    <div class="kicker">실증 근거</div>
-    <h2>실험 설계 — 세 조건 무작위 비교</h2>
-    <div class="rule"></div>
-    <div class="cards">
-      <div class="card">
-        <h3><svg class="ic" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-4.5 8a2 2 0 0 0 1.8 3h9.4a2 2 0 0 0 1.8-3L14 9V3"/><path d="M7.5 15h9"/></svg>설계</h3>
-        <ul>
-          <li>시카고대 아나니아·버크(1982~84)</li>
-          <li>4·5·8학년, 3주·11차시 반복 검증</li>
-          <li>초기 적성·수업시간 동일하게 통제</li>
-        </ul>
+  <!-- 4 실험 설계 -->
+  <section class="slide light content">
+    <div class="head">
+      <div class="kicker">실증 근거 — 무작위 비교 실험</div>
+      <h2>달랐던 것은 ‘학습 조건’뿐이었다</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="bodyarea">
+      <div class="cards">
+        <div class="card">
+          <h3><svg class="ic" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-4.5 8a2 2 0 0 0 1.8 3h9.4a2 2 0 0 0 1.8-3L14 9V3"/><path d="M7.5 15h9"/></svg>설계</h3>
+          <ul>
+            <li>시카고대 아나니아·버크(1982~84)</li>
+            <li>4·5·8학년, 3주·11차시 반복 검증</li>
+            <li><b>무작위 배정</b> — 초기 적성·수업시간 동일 통제</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3><svg class="ic" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 12l9 5 9-5M3 16l9 5 9-5"/></svg>세 가지 학습 조건</h3>
+          <ul>
+            <li>① 전통 집단수업 (교사 1 : 약 30명)</li>
+            <li>② 완전학습 (형성평가 + 교정)</li>
+            <li>③ 1:1·소집단 개인교습</li>
+          </ul>
+        </div>
       </div>
-      <div class="card">
-        <h3><svg class="ic" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 12l9 5 9-5M3 16l9 5 9-5"/></svg>세 가지 학습 조건</h3>
-        <ul>
-          <li>① 전통 집단수업 (교사 1 : 다수)</li>
-          <li>② 완전학습 (형성평가 + 교정)</li>
-          <li>③ 1:1·소집단 개인교습</li>
-        </ul>
-      </div>
+      <div class="note">같은 학생·같은 시간 — 조건만 바꿔 성취가 어떻게 달라지는지를 쟀다.</div>
     </div>
   </section>
 
   <!-- 5 결과 막대그래프 -->
-  <section class="slide light">
-    <div class="kicker">결과</div>
-    <h2>‘2 시그마’ 효과 — 목표 도달률</h2>
-    <div class="rule"></div>
-    <div class="vizrow">
-      <div class="vizwrap">
-        <svg class="viz bars" viewBox="0 0 560 300" role="img" aria-label="목표 도달률: 전통 20퍼센트, 완전학습 70퍼센트, 개인교습 90퍼센트">
-          <line x1="60" y1="250" x2="530" y2="250" stroke="var(--line)" stroke-width="2"/>
-          <!-- 전통 -->
-          <rect x="110" y="210" width="90" height="40" rx="6" fill="#9fb2c6"/>
-          <text x="155" y="198" text-anchor="middle" fill="#66768a" font-size="24" font-weight="800">20%</text>
-          <text x="155" y="272" text-anchor="middle" fill="#182634" font-size="16" font-weight="600">전통 수업</text>
-          <!-- 완전학습 -->
-          <rect x="250" y="110" width="90" height="140" rx="6" fill="#3d6a94"/>
-          <text x="295" y="98" text-anchor="middle" fill="#0f2a44" font-size="24" font-weight="800">70%</text>
-          <text x="295" y="150" text-anchor="middle" fill="#eaf4ff" font-size="17" font-weight="800">+1σ</text>
-          <text x="295" y="272" text-anchor="middle" fill="#182634" font-size="16" font-weight="600">완전학습</text>
-          <!-- 개인교습 -->
-          <rect x="390" y="70" width="90" height="180" rx="6" fill="#1fc7b1"/>
-          <text x="435" y="58" text-anchor="middle" fill="#0f7a6c" font-size="24" font-weight="800">90%</text>
-          <text x="435" y="120" text-anchor="middle" fill="#04302a" font-size="17" font-weight="800">+2σ</text>
-          <text x="435" y="272" text-anchor="middle" fill="#182634" font-size="16" font-weight="600">1:1 개인교습</text>
-        </svg>
-      </div>
-      <div style="flex:1;min-width:240px">
-        <div class="note" style="margin-top:0">상위 <b>20%만</b> 도달하던 수준을 완전학습 <b>70%</b>·개인교습 <b>90%</b>가 도달.</div>
-        <div class="note">타고난 적성보다 <b>‘학습 조건’</b>이 성취를 결정 — 적성–성취 상관 +.60 → +.25.</div>
+  <section class="slide light content">
+    <div class="head">
+      <div class="kicker">결과 — 목표 도달률</div>
+      <h2>상위 20%만 도달하던 수준에, 90%가 도달했다</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="bodyarea">
+      <div class="vizrow">
+        <div class="vizwrap">
+          <svg class="viz bars" viewBox="0 0 560 300" role="img" aria-label="목표 도달률: 전통 20퍼센트, 완전학습 70퍼센트, 개인교습 90퍼센트">
+            <line x1="60" y1="50" x2="530" y2="50" stroke="#e4e9ef" stroke-width="1.5" stroke-dasharray="4 4"/>
+            <text x="56" y="54" text-anchor="end" fill="#9aa7b5" font-size="12">100%</text>
+            <line x1="60" y1="210" x2="530" y2="210" stroke="#e4e9ef" stroke-width="1.5" stroke-dasharray="4 4"/>
+            <text x="56" y="214" text-anchor="end" fill="#9aa7b5" font-size="12">20%</text>
+            <line x1="60" y1="250" x2="530" y2="250" stroke="#cfd8e0" stroke-width="2"/>
+            <!-- 전통 -->
+            <path d="M110,216 q0,-6 6,-6 h78 q6,0 6,6 V250 H110 Z" fill="#c9d4de"/>
+            <text x="155" y="198" text-anchor="middle" fill="#66768a" font-size="23" font-weight="800">20%</text>
+            <text x="155" y="272" text-anchor="middle" fill="#182634" font-size="16" font-weight="600">전통 수업</text>
+            <!-- 완전학습 -->
+            <path d="M250,116 q0,-6 6,-6 h78 q6,0 6,6 V250 H250 Z" fill="#8fa5ba"/>
+            <text x="295" y="98" text-anchor="middle" fill="#0f2a44" font-size="23" font-weight="800">70%</text>
+            <text x="295" y="140" text-anchor="middle" fill="#0f2a44" font-size="16" font-weight="800">+1σ</text>
+            <text x="295" y="272" text-anchor="middle" fill="#182634" font-size="16" font-weight="600">완전학습</text>
+            <!-- 개인교습 -->
+            <path d="M390,76 q0,-6 6,-6 h78 q6,0 6,6 V250 H390 Z" fill="#1fc7b1"/>
+            <text x="435" y="58" text-anchor="middle" fill="#0f2a44" font-size="23" font-weight="800">90%</text>
+            <text x="435" y="100" text-anchor="middle" fill="#0f2a44" font-size="16" font-weight="800">+2σ</text>
+            <text x="435" y="272" text-anchor="middle" fill="#182634" font-size="16" font-weight="600">1:1 개인교습</text>
+          </svg>
+          <div class="vizcap">막대 속 σ는 동일 실험의 효과크기(전통 수업 대비, 별도 측정치)</div>
+        </div>
+        <div style="flex:1;min-width:240px">
+          <div class="note" style="margin-top:0">전통 수업에서 <b>상위 20%만</b> 도달하던 성취 수준.</div>
+          <div class="note">조건을 바꾸자 완전학습 <b>70%</b>, 1:1 교습 <b>90%</b>의 학생이 같은 수준에 도달했다.</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- 6 핵심 메시지 -->
-  <section class="slide soft">
-    <div class="kicker">핵심 메시지</div>
-    <h2>‘2 시그마 문제’란</h2>
-    <div class="rule"></div>
-    <ul class="b">
-      <li><b>대부분의 학생</b>이 이 높은 수준에 도달할 잠재력을 가지고 있다.</li>
-      <li>가장 좋은 조건(1:1)에서 <b>2σ</b> 향상 — 그러나 사회 전체에 제공하기엔 비용이 너무 크다.</li>
-      <li>핵심 과제: 1:1 교습에 <b>근접하면서도 대규모로 가능한</b> 방법을 찾는 것.</li>
-    </ul>
+  <!-- 6 부수효과 -->
+  <section class="slide light content">
+    <div class="head">
+      <div class="kicker">부수 효과</div>
+      <h2>성적만 오른 게 아니다</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="bodyarea">
+      <div class="vizrow">
+        <div class="vizwrap">
+          <svg class="viz slope" viewBox="0 0 420 214" role="img" aria-label="적성과 성취의 상관계수가 전통 0.60에서 완전학습 0.35, 개인교습 0.25로 하락">
+            <line x1="40" y1="170" x2="390" y2="170" stroke="#cfd8e0" stroke-width="1.5"/>
+            <polyline points="70,50 210,100 350,120" fill="none" stroke="#3d6a94" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="70" cy="50" r="6" fill="#3d6a94" stroke="#fff" stroke-width="2"/>
+            <circle cx="210" cy="100" r="6" fill="#3d6a94" stroke="#fff" stroke-width="2"/>
+            <circle cx="350" cy="120" r="7" fill="#1fc7b1" stroke="#fff" stroke-width="2"/>
+            <text x="70" y="34" text-anchor="middle" fill="#0f2a44" font-size="19" font-weight="800">+.60</text>
+            <text x="210" y="84" text-anchor="middle" fill="#0f2a44" font-size="19" font-weight="800">+.35</text>
+            <text x="350" y="104" text-anchor="middle" fill="#0f2a44" font-size="19" font-weight="800">+.25</text>
+            <text x="70" y="192" text-anchor="middle" fill="#66768a" font-size="14">전통 수업</text>
+            <text x="210" y="192" text-anchor="middle" fill="#66768a" font-size="14">완전학습</text>
+            <text x="350" y="192" text-anchor="middle" fill="#182634" font-size="14" font-weight="700">1:1 개인교습</text>
+          </svg>
+          <div class="vizcap">적성–성취 상관계수 — 타고난 적성의 영향력이 절반 이하로</div>
+        </div>
+        <div style="flex:1;min-width:260px">
+          <ul class="b">
+            <li><b>학습 몰입 시간</b> — 65% → 75% → 90% 이상으로 상승.</li>
+            <li><b>태도·흥미</b> — 1:1 교습에서 가장 긍정적, 전통 수업에서 가장 낮음.</li>
+            <li>성취를 결정하는 것은 타고난 적성이 아니라 <b>‘좋은 학습 조건’</b>이다.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- 7 인용 -->
+  <!-- 7 핵심 메시지 -->
+  <section class="slide soft content">
+    <div class="head">
+      <div class="kicker">핵심 메시지</div>
+      <h2>잠재력은 충분하다 — 문제는 비용이다</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="bodyarea">
+      <ul class="b">
+        <li><b>대부분의 학생</b>이 이 높은 수준에 도달할 잠재력을 가지고 있다 — 블룸의 결론.</li>
+        <li>그 잠재력을 가로막는 것은 능력이 아니라, <b>1:1 교습의 비용</b>이다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 8 인용 -->
   <section class="slide soft">
     <div class="quotemark">“</div>
     <div class="quote">일대일 개인교습에 근접한 효과를 내면서도, 대규모로 실현 가능한 집단 교수·학습 조건을 찾을 수 있는가?</div>
     <div class="attrib">— Benjamin Bloom, ‘The 2 Sigma Problem’ (1984)</div>
   </section>
 
-  <!-- 8 섹션02 -->
-  <section class="slide navy">
-    <div class="secnum">02</div><div class="rule"></div><div class="sectitle">해법 — AI, 고전에서 실증으로</div>
+  <!-- 9 섹션 02 -->
+  <section class="slide navy sec">
+    <div class="gnum">02</div>
+    <div class="sectrack"><span>01 문제</span><span class="on">02 해법</span><span>03 제주</span></div>
+    <div class="secnum">02</div>
+    <div class="sectitle">해법 — AI, 고전에서 실증으로</div>
+    <div class="secsub">지능형 튜터링에서 생성형 AI까지 — 실증은 두 갈래로 쌓여 왔다.</div>
   </section>
 
-  <!-- 9 ITS -->
-  <section class="slide light">
-    <div class="kicker">① 생성형 AI 이전</div>
-    <h2>지능형 튜터링 시스템(ITS)</h2>
-    <div class="rule"></div>
-    <ul class="b">
-      <li><b>VanLehn(2011)</b> — 단계형 ITS는 인간 교사에 근접한 효과.</li>
-      <li><b>Kulik &amp; Fletcher(2016)</b> — ITS 중앙값 <b>+0.66σ</b>, 92% 연구에서 전통수업 능가.<span class="s">효과는 평가도구·구현 충실도에 좌우</span></li>
-      <li>‘2σ’는 인간만의 값이 아니라, <b>잘 설계된 기술로 좁힐 수 있는 격차</b>다.</li>
-    </ul>
-  </section>
-
-  <!-- 10 RCT -->
-  <section class="slide light">
-    <div class="kicker">② 생성형 AI 시대 (2023~)</div>
-    <h2>최신 무작위통제연구(RCT)</h2>
-    <div class="rule"></div>
-    <ul class="b">
-      <li><b>Kestin 외(2025, 하버드)</b> — 잘 설계된 AI 튜터가 활동중심 수업보다 <b>2배 이상</b> 학습 이득, 더 짧은 시간에.</li>
-      <li><b>나이지리아 대규모 RCT(World Bank, 2024)</b> — 생성형 AI 튜터 영어수업, 유의한 성취 향상.</li>
-      <li>공통점 — “AI를 쓰면”이 아니라 <b>“잘 설계된 AI가”</b> 오른다.</li>
-    </ul>
-  </section>
-
-  <!-- 11 작동 원리 (루프 다이어그램) -->
-  <section class="slide navy">
-    <div class="kicker">어떻게 2σ를 푸는가</div>
-    <h2>작동 원리 — 숙달을 향한 루프</h2>
-    <div class="rule"></div>
-    <div class="vizwrap">
-      <svg class="viz loop" viewBox="0 0 760 244" role="img" aria-label="형성평가 진단에서 맞춤 교정, 재도전으로 이어져 숙달까지 반복되는 루프">
-        <defs><marker id="lp" markerWidth="10" markerHeight="10" refX="7" refY="3.2" orient="auto"><path d="M0,0 L7,3.2 L0,6.4Z" fill="#7ee0d3"/></marker></defs>
-        <g font-weight="700">
-          <rect x="24" y="34" width="196" height="86" rx="16" fill="#fff"/>
-          <text x="122" y="70" text-anchor="middle" fill="#0f2a44" font-size="20">형성평가</text>
-          <text x="122" y="96" text-anchor="middle" fill="#66768a" font-size="15">진단</text>
-          <rect x="282" y="34" width="196" height="86" rx="16" fill="#fff"/>
-          <text x="380" y="70" text-anchor="middle" fill="#0f2a44" font-size="20">맞춤 교정</text>
-          <text x="380" y="96" text-anchor="middle" fill="#66768a" font-size="15">설명·힌트</text>
-          <rect x="540" y="34" width="196" height="86" rx="16" fill="#fff"/>
-          <text x="638" y="70" text-anchor="middle" fill="#0f2a44" font-size="20">재도전</text>
-          <text x="638" y="96" text-anchor="middle" fill="#66768a" font-size="15">재출제</text>
-        </g>
-        <line x1="226" y1="77" x2="276" y2="77" stroke="#7ee0d3" stroke-width="3" marker-end="url(#lp)"/>
-        <line x1="484" y1="77" x2="534" y2="77" stroke="#7ee0d3" stroke-width="3" marker-end="url(#lp)"/>
-        <path d="M632,126 C632,198 128,198 128,132" fill="none" stroke="#7ee0d3" stroke-width="3" stroke-dasharray="2 0" marker-end="url(#lp)"/>
-        <text x="380" y="228" text-anchor="middle" fill="#7ee0d3" font-size="17" font-weight="800">숙달할 때까지 반복</text>
-      </svg>
+  <!-- 10 ITS + σ 사다리 -->
+  <section class="slide light content">
+    <div class="head">
+      <div class="kicker">① 생성형 AI 이전 — 지능형 튜터링 시스템(ITS)</div>
+      <h2>AI 이전에도, 기술은 격차의 1/3을 좁혔다</h2>
+      <div class="rule"></div>
     </div>
-    <div class="chips">
-      <div class="chip"><b>AI = 학생별 튜터</b> — 숙달을 향해 이 루프를 스스로 돈다(30명이면 30개 루프 동시에)</div>
-      <div class="chip"><b>교사 = 지휘자</b> — 서로 다른 속도의 학생을 조율·개입</div>
-    </div>
-    <div class="capline">초개별화 = 완전학습의 개별화 + AI 적응형 대화를, <b style="color:var(--accent2)">대규모로</b>.</div>
-  </section>
-
-  <!-- 12 콘텐츠가 아니라 조건 (아이콘 카드) -->
-  <section class="slide light">
-    <div class="kicker">그러나 신중하게</div>
-    <h2>‘콘텐츠’가 아니라 ‘조건’에 투자한다</h2>
-    <div class="rule"></div>
-    <div class="cards">
-      <div class="card">
-        <h3><svg class="ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>무엇에 투자하나</h3>
-        <ul>
-          <li>ⓐ 좋은 재료 — 고성능 AI의 공적 보장</li>
-          <li>ⓑ 좋은 주방 — 도구·전량 기록·환류</li>
-          <li>ⓒ 교사 역량 — 좋은 수업 설계</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3><svg class="ic" viewBox="0 0 24 24" style="stroke:#c65a5a"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg>무엇이 아닌가</h3>
-        <ul>
-          <li>제주가 콘텐츠를 직접 찍어내는 일이 아니다</li>
-          <li>콘텐츠는 교사·확장 생태계의 몫</li>
-          <li>근거는 축적 중 → 자체 시범으로 검증</li>
-        </ul>
+    <div class="bodyarea">
+      <ul class="b" style="max-width:72ch">
+        <li><b>VanLehn(2011)</b> — 인간 1:1 교습의 실제 효과는 2σ 통념보다 작게 재추정. 그 위에서 단계형 ITS는 <b>인간 교사에 근접</b>.</li>
+        <li><b>Kulik &amp; Fletcher(2016)</b> — 50개 통제 평가 메타분석: ITS 중앙값 <b>+0.66σ</b>, 92%의 연구에서 전통 수업 능가.<span class="s">효과는 평가도구·구현 충실도에 좌우</span></li>
+      </ul>
+      <div class="vizwrap" style="margin-top:1.5rem">
+        <svg class="viz ladder" viewBox="0 0 700 175" role="img" aria-label="효과크기 축 위의 위치: 전통 0, ITS 0.66시그마, 완전학습 1시그마, 1:1 교습 2시그마">
+          <line x1="60" y1="100" x2="640" y2="100" stroke="#cfd8e0" stroke-width="2"/>
+          <g stroke="#cfd8e0" stroke-width="1.5"><line x1="60" y1="94" x2="60" y2="106"/><line x1="350" y1="94" x2="350" y2="106"/><line x1="640" y1="94" x2="640" y2="106"/></g>
+          <circle cx="60" cy="100" r="8" fill="#c9d4de" stroke="#fff" stroke-width="2"/>
+          <circle cx="251" cy="100" r="8" fill="#3d6a94" stroke="#fff" stroke-width="2"/>
+          <circle cx="350" cy="100" r="8" fill="#8fa5ba" stroke="#fff" stroke-width="2"/>
+          <circle cx="640" cy="100" r="9" fill="#1fc7b1" stroke="#fff" stroke-width="2"/>
+          <text x="60" y="66" text-anchor="middle" fill="#66768a" font-size="15" font-weight="700">전통 수업<tspan x="60" dy="17" font-size="13" font-weight="600">0σ</tspan></text>
+          <text x="251" y="49" text-anchor="middle" fill="#0f2a44" font-size="15" font-weight="800">ITS<tspan x="251" dy="17" font-size="13" font-weight="700">+0.66σ</tspan></text>
+          <text x="350" y="66" text-anchor="middle" fill="#66768a" font-size="15" font-weight="700">완전학습<tspan x="350" dy="17" font-size="13" font-weight="600">+1σ</tspan></text>
+          <text x="640" y="49" text-anchor="middle" fill="#0f2a44" font-size="15" font-weight="800">1:1 교습<tspan x="640" dy="17" font-size="13" font-weight="700">+2σ</tspan></text>
+          <text x="60" y="132" text-anchor="middle" fill="#9aa7b5" font-size="13">백분위 50</text>
+          <text x="251" y="132" text-anchor="middle" fill="#66768a" font-size="13" font-weight="700">75</text>
+          <text x="350" y="132" text-anchor="middle" fill="#9aa7b5" font-size="13">84</text>
+          <text x="640" y="132" text-anchor="middle" fill="#66768a" font-size="13" font-weight="700">98</text>
+          <text x="60" y="158" fill="#9aa7b5" font-size="12">아래 숫자: 전통 수업 평균 학생 대비 백분위</text>
+        </svg>
       </div>
     </div>
   </section>
 
-  <!-- 13 섹션03 -->
-  <section class="slide navy">
-    <div class="secnum">03</div><div class="rule"></div><div class="sectitle">제주 초개별화로</div>
+  <!-- 11 RCT 빅넘버 -->
+  <section class="slide light content">
+    <div class="head">
+      <div class="kicker">② 생성형 AI 시대 (2023~) — 무작위통제연구(RCT)</div>
+      <h2>잘 설계된 AI 튜터는 교실 수업을 능가하기 시작했다</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="bodyarea">
+      <div class="ev">
+        <div class="evnum">약 2배</div>
+        <div class="evtxt"><b>Kestin 외(2025, 하버드 물리학 수업 RCT · Scientific Reports)</b> — AI 튜터 학습 집단이 활동중심 수업 대비 약 2배의 학습 이득을, 더 짧은 시간에.<span class="s">대학 단일 과목 결과 — 초·중등 일반화는 자체 시범으로 검증할 문제</span></div>
+      </div>
+      <div class="ev">
+        <div class="evnum">유의미<em>한 향상</em></div>
+        <div class="evtxt"><b>나이지리아 파일럿 RCT(World Bank, 2024)</b> — 생성형 AI 튜터를 활용한 중등 영어수업에서 유의한 성취 향상.<span class="s">단기 시범 결과 — 지속 효과는 추가 검증 필요 (Brookings, 2024 정리)</span></div>
+      </div>
+      <div class="note">두 연구의 공통 결론 — <b>“AI를 쓰면”이 아니라 “잘 설계된 AI가”</b> 오른다.</div>
+    </div>
   </section>
 
-  <!-- 14 시사점 -->
-  <section class="slide light">
-    <div class="kicker">시사점</div>
-    <h2>핵심공약과의 연결</h2>
-    <div class="rule"></div>
-    <ul class="b" style="max-width:66ch">
-      <li><b>2 시그마 문제의 해법</b> — AI가 비용 장벽을 낮춰 공약의 논리적 출발점이 된다.</li>
-      <li><b>초개별화의 이론적 뿌리</b> — 블룸 완전학습(형성평가+교정)의 AI·디지털 구현.</li>
-      <li><b>형평성</b> — “적성보다 학습 조건” → AI 접근 공적 보장이 출발선·격차를 해소.</li>
-      <li><b>목표 수준</b> — “대부분의 학생이 높은 수준 도달 가능” = ‘한 아이도 놓치지 않는’ 책임교육.</li>
-    </ul>
+  <!-- 12 작동 원리 루프 -->
+  <section class="slide navy content">
+    <div class="head">
+      <div class="kicker">어떻게 2σ를 푸는가</div>
+      <h2>숙달까지 도는 루프 — 30명이면, 30개가 동시에</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="bodyarea">
+      <div class="vizwrap">
+        <svg class="viz loop" viewBox="0 0 760 280" role="img" aria-label="형성평가 진단에서 맞춤 교정, 재도전으로 이어지는 루프. 숙달하면 다음 목표로 빠져나가고, 학생들은 루프의 서로 다른 지점을 동시에 돈다">
+          <defs>
+            <marker id="lp" markerWidth="10" markerHeight="10" refX="7" refY="3.2" orient="auto"><path d="M0,0 L7,3.2 L0,6.4Z" fill="#7ee0d3"/></marker>
+            <marker id="lpa" markerWidth="10" markerHeight="10" refX="7" refY="3.2" orient="auto"><path d="M0,0 L7,3.2 L0,6.4Z" fill="#f4a23b"/></marker>
+          </defs>
+          <!-- 숙달 탈출 -->
+          <line x1="638" y1="70" x2="638" y2="38" stroke="#f4a23b" stroke-width="3" marker-end="url(#lpa)"/>
+          <text x="638" y="24" text-anchor="middle" fill="#f4a23b" font-size="17" font-weight="800">숙달 → 다음 목표</text>
+          <g font-weight="700">
+            <rect x="24" y="70" width="196" height="86" rx="16" fill="#fff"/>
+            <text x="122" y="106" text-anchor="middle" fill="#0f2a44" font-size="20">형성평가</text>
+            <text x="122" y="132" text-anchor="middle" fill="#66768a" font-size="15">진단</text>
+            <rect x="282" y="70" width="196" height="86" rx="16" fill="#fff"/>
+            <text x="380" y="106" text-anchor="middle" fill="#0f2a44" font-size="20">맞춤 교정</text>
+            <text x="380" y="132" text-anchor="middle" fill="#66768a" font-size="15">설명·힌트</text>
+            <rect x="540" y="70" width="196" height="86" rx="16" fill="#fff"/>
+            <text x="638" y="106" text-anchor="middle" fill="#0f2a44" font-size="20">재도전</text>
+            <text x="638" y="132" text-anchor="middle" fill="#66768a" font-size="15">재출제</text>
+          </g>
+          <line x1="226" y1="113" x2="276" y2="113" stroke="#7ee0d3" stroke-width="3" marker-end="url(#lp)"/>
+          <line x1="484" y1="113" x2="534" y2="113" stroke="#7ee0d3" stroke-width="3" marker-end="url(#lp)"/>
+          <path d="M632,162 C632,234 128,234 128,168" fill="none" stroke="#7ee0d3" stroke-width="3" marker-end="url(#lp)"/>
+          <!-- 학생들: 루프의 서로 다른 지점 -->
+          <g fill="#f4a23b" stroke="#0f2a44" stroke-width="2">
+            <circle cx="250" cy="113" r="6"/><circle cx="508" cy="113" r="6"/>
+            <circle cx="560" cy="222" r="6"/><circle cx="380" cy="231" r="6"/>
+            <circle cx="200" cy="222" r="6"/><circle cx="128" cy="180" r="6"/>
+          </g>
+          <circle cx="638" cy="52" r="6" fill="#f4a23b" stroke="#0f2a44" stroke-width="2"/>
+          <text x="652" y="57" fill="#f4c98a" font-size="13" font-weight="700">✓</text>
+          <text x="380" y="264" text-anchor="middle" fill="#7ee0d3" font-size="16" font-weight="800">숙달할 때까지 반복 — 점(●)은 서로 다른 지점을 도는 학생들 ×30</text>
+        </svg>
+      </div>
+      <div class="chips">
+        <div class="chip"><b>AI = 학생별 개인 튜터</b>숙달을 향해 이 루프를 실시간으로, 학생마다 돌린다.</div>
+        <div class="chip"><b>교사 = 수업의 지휘자</b>서로 다른 속도로 나아가는 학생 전체를 보며 조율하고 개입한다.</div>
+      </div>
+      <div class="capline">초개별화 = 완전학습의 개별화 + AI 적응형 대화를, <b style="color:var(--accent2)">대규모로</b>.</div>
+    </div>
   </section>
 
-  <!-- 15 맺음 -->
+  <!-- 13 섹션 03 -->
+  <section class="slide navy sec">
+    <div class="gnum">03</div>
+    <div class="sectrack"><span>01 문제</span><span>02 해법</span><span class="on">03 제주</span></div>
+    <div class="secnum">03</div>
+    <div class="sectitle">제주 초개별화로</div>
+    <div class="secsub">근거에서 정책으로 — 무엇에 투자할 것인가.</div>
+  </section>
+
+  <!-- 14 시사점 2×2 -->
+  <section class="slide light content">
+    <div class="head">
+      <div class="kicker">시사점</div>
+      <h2>블룸의 숙제가, ‘한 아이도 놓치지 않는’ 교육의 근거가 된다</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="bodyarea">
+      <div class="cards">
+        <div class="card">
+          <h3><svg class="ic" viewBox="0 0 24 24"><path d="M12 3v18M5 10l7-7 7 7"/></svg>2 시그마 문제의 해법</h3>
+          <p>AI가 1:1 교습의 <b>비용 장벽</b>을 낮춘다 — 공약의 논리적 출발점.</p>
+        </div>
+        <div class="card">
+          <h3><svg class="ic" viewBox="0 0 24 24"><path d="M12 21C7 17 4 13.5 4 9.5 4 6.5 6.5 4 9.5 4c1 0 2 .3 2.5 1 .5-.7 1.5-1 2.5-1 3 0 5.5 2.5 5.5 5.5 0 4-3 7.5-8 11.5z"/></svg>초개별화의 이론적 뿌리</h3>
+          <p>성장 이력 기반 맞춤 학습·과정 중심 평가 = <b>완전학습(형성평가+교정)의 AI 구현</b>.</p>
+        </div>
+        <div class="card">
+          <h3><svg class="ic" viewBox="0 0 24 24"><path d="M3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18z"/><circle cx="12" cy="12" r="9"/></svg>형평성</h3>
+          <p>적성이 아니라 <b>학습 조건</b>이 성취를 결정한다 → AI 접근의 공적 보장은 출발선 격차 <b>완화의 조건</b>.</p>
+        </div>
+        <div class="card">
+          <h3><svg class="ic" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M3.5 20c0-3 2.5-5 5.5-5s5.5 2 5.5 5"/><path d="M17 8.5l1.5 1.5L21.5 7"/></svg>교사를 대체하지 않는다</h3>
+          <p>반복 진단·교정은 AI가, <b>수업 설계와 조율·개입은 교사가</b> — 역할의 재편.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 그래서 제주는 -->
+  <section class="slide light content">
+    <div class="head">
+      <div class="kicker">그래서 제주는</div>
+      <h2>‘콘텐츠’가 아니라 ‘조건’에 투자한다</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="bodyarea">
+      <div class="cards">
+        <div class="card">
+          <h3><svg class="ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>무엇에 투자하나</h3>
+          <ul>
+            <li>ⓐ <b>좋은 재료</b> — 고성능 AI의 공평한 제공</li>
+            <li>ⓑ <b>좋은 주방</b> — 수업·평가 도구, 학습기록의 안전한 관리와 환류</li>
+            <li>ⓒ <b>교사 역량</b> — 좋은 수업을 설계하는 힘 (투자 1순위)</li>
+          </ul>
+        </div>
+        <div class="card warn">
+          <h3><svg class="ic warn" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg>무엇이 아닌가</h3>
+          <ul>
+            <li>교육청이 콘텐츠를 직접 찍어내는 일이 아니다 — 콘텐츠는 <b>교사와 확장 생태계</b>의 몫</li>
+            <li>과장된 확신이 아니다 — 근거는 아직 <b>축적 중</b></li>
+          </ul>
+        </div>
+      </div>
+      <div class="note">따라서 ‘재료·주방·교사 역량’에 투자하고, <b>자체 시범으로 효과를 검증</b>하며 추진한다.</div>
+    </div>
+  </section>
+
+  <!-- 16 맺음 -->
   <section class="slide navy">
-    <div class="wm">✓</div>
-    <div class="kicker">한 줄로</div>
-    <div class="closing">블룸(1984)이 비용 때문에 미룬 ‘1:1 교습의 대규모 실현’을, AI가 <b style="color:var(--accent2)">실시간 개별화와 환류</b>로 푼다 — 학생 한 명 한 명에게 개인교습에 준하는 조건을, 대규모로.</div>
+    <div class="kicker">맺음</div>
+    <div class="closing">1984년의 숙제를,<br>제주가 푼다</div>
+    <div class="closesub">블룸이 비용 때문에 미룬 ‘1:1 교습의 대규모 실현’ — AI가 실시간 개별화와 환류로, 학생 한 명 한 명에게 개인교습에 준하는 조건을 제공한다.</div>
+    <div class="closelast">자체 시범으로 검증하며, 한 아이도 놓치지 않게.</div>
+  </section>
+
+  <!-- 17 참고문헌 -->
+  <section class="slide light content">
+    <div class="head">
+      <div class="kicker">참고문헌</div>
+      <h2>근거 문헌</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="bodyarea">
+      <ol class="refs">
+        <li>Bloom, B. S. (1984). The 2 Sigma Problem: The Search for Methods of Group Instruction as Effective as One-to-One Tutoring. <i>Educational Researcher</i>, 13(6), 4–16.</li>
+        <li>Bloom, B. S. (1968). Learning for Mastery. <i>Evaluation Comment</i>, 1(2).</li>
+        <li>VanLehn, K. (2011). The Relative Effectiveness of Human Tutoring, Intelligent Tutoring Systems, and Other Tutoring Systems. <i>Educational Psychologist</i>, 46(4), 197–221.</li>
+        <li>Kulik, J. A., &amp; Fletcher, J. D. (2016). Effectiveness of Intelligent Tutoring Systems: A Meta-Analytic Review. <i>Review of Educational Research</i>, 86(1), 42–78.</li>
+        <li>Kestin, G., Miller, K., Klales, A., Milbourne, T., &amp; Ponti, G. (2025). AI tutoring outperforms in-class active learning. <i>Scientific Reports</i>, 15, 17458.</li>
+        <li>Brookings (2024). <i>What the research shows about generative AI in tutoring</i> — World Bank 나이지리아 RCT 정리.</li>
+      </ol>
+      <div class="cite"><b>인용 시 요지</b> — “블룸(1984)은 1:1 개인교습이 집단수업보다 2 표준편차 높은 성취를 낸다는 것을 실증하고, 이를 대규모로 실현할 방법을 찾는 것을 ‘2 시그마 문제’로 제기했다. AI 활용 맞춤형 교육은 그 비용 장벽을 낮춰 이 문제를 풀 현실적 수단이다.”</div>
+      <div class="srcline">원문: 「고의숙 교육감의 초개별화 맞춤형 교육 이론적 배경」(bloom-2sigma.html) · 제주특별자치도교육감 당선인 준비위원회 미래학력분과</div>
+    </div>
   </section>
 
 </div>
 
 <div class="foot">초개별화 맞춤형 교육 · 블룸 2σ</div>
-<div class="counter" id="counter">1 / 15</div>
+<div class="counter" id="counter">1 / 17</div>
 <div class="hint" id="hint"><kbd>←</kbd><kbd>→</kbd> 또는 클릭으로 이동 · <kbd>F</kbd> 전체화면</div>
 
 <script>
@@ -345,13 +550,14 @@ ul.b li .s::before{content:"— "}
   var progress=document.getElementById('progress'),counter=document.getElementById('counter'),hint=document.getElementById('hint');
   var i=0,N=slides.length;
   function show(n){i=Math.max(0,Math.min(N-1,n));slides.forEach(function(s,k){s.classList.toggle('active',k===i);});
+    document.body.classList.toggle('on-dark',slides[i].classList.contains('navy')||slides[i].classList.contains('sec'));
     progress.style.width=((i+1)/N*100)+'%';counter.textContent=(i+1)+' / '+N;history.replaceState(null,'','#'+(i+1));}
   document.addEventListener('keydown',function(e){
     if(['ArrowRight','ArrowDown',' ','PageDown'].indexOf(e.key)>-1){e.preventDefault();show(i+1);}
     else if(['ArrowLeft','ArrowUp','PageUp'].indexOf(e.key)>-1){e.preventDefault();show(i-1);}
     else if(e.key==='Home'){show(0);}else if(e.key==='End'){show(N-1);}
     else if(e.key==='f'||e.key==='F'){var d=document;d.fullscreenElement?d.exitFullscreen():d.documentElement.requestFullscreen();}});
-  document.addEventListener('click',function(e){if(e.target.closest('a'))return;show(e.clientX/window.innerWidth>0.35?i+1:i-1);});
+  document.addEventListener('click',function(e){if(e.target.closest('a'))return;show(e.clientX/window.innerWidth>0.15?i+1:i-1);});
   var sx=null;
   document.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;},{passive:true});
   document.addEventListener('touchend',function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>45)show(i+(dx<0?1:-1));sx=null;},{passive:true});
