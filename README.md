@@ -7,7 +7,7 @@
 Pages 활성화 후 아래 주소에서 열람할 수 있습니다.
 
 - 목록: `https://timefullkr.github.io/pubic/`
-- 벤저민 블룸 · 2 시그마 문제: `https://timefullkr.github.io/pubic/bloom-2sigma.html`
+- 벤저민 블룸 · 2 시그마 문제: `https://timefullkr.github.io/pubic/bloom-2sigma.html` (PDF: `https://timefullkr.github.io/pubic/bloom-2sigma.pdf`)
 - AI 교육 패러다임: `https://timefullkr.github.io/pubic/paradigm.html`
 - AX 전환 요약: `https://timefullkr.github.io/pubic/ax-transformation.html`
 
