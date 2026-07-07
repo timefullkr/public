@@ -182,7 +182,7 @@ def main():
 AX(AI 전환)를 '도구 도입'이 아니라 사람·프로세스의 전환으로 보는 관점을 교육에 적용 — 교사 대체 우려, 에듀테크 과잉, 형평.</li>
 <li><a href="paradigm.html"><b>AI 교육 패러다임</b></a><br>
 AI 교육을 '무엇을'이 아니라 '어떻게'로 보는 관점 — 최고급 AI 접근의 공적 보장(토대), 활용 역량(핵심), 평가·교사 역할의 전환.</li>
-<li><a href="bloom-2sigma.html"><b>고의숙 교육감의 "초개별화 맞춤형 교육"</b></a><a class="idx-pdf" href="bloom-2sigma-slides.html">발표</a><a class="idx-pdf" href="bloom-2sigma.pdf">PDF</a><br>
+<li><a href="bloom-2sigma.html"><b>고의숙 교육감의 "초개별화 맞춤형 교육"</b></a><a class="idx-pdf" href="bloom-2sigma-slides.html">PPT</a><a class="idx-pdf" href="bloom-2sigma.pdf">PDF</a><br>
 핵심 공약 '초개별화 맞춤형 교육'의 이론적 근거 — 1:1 개인교습이 집단수업보다 2 표준편차 높은 성취를 낸다는 블룸의 실증(2 시그마 문제)을, AI로 대규모 실현한다.</li>
 </ul>"""
     index_html = TEMPLATE.format(title="제주교육 AI 플랫폼", css=CSS, body=index_body)
