@@ -165,7 +165,7 @@ body.pen-on .canvas-container{pointer-events:auto;touch-action:none}
 .ftools{position:fixed;top:2.2vh;right:calc(2.4vw + 50px);z-index:30;display:none;gap:.4rem;align-items:center;flex-wrap:wrap;justify-content:flex-end;max-width:calc(96vw - 110px);
   background:rgba(13,30,48,.88);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:.4rem .6rem;backdrop-filter:blur(6px)}
 body.tools-on .ftools{display:flex}
-.ftools .tbtn{height:30px;padding:0 .7rem;border-radius:8px;border:1px solid rgba(255,255,255,.22);background:transparent;color:#c7d5e2;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap}
+.ftools .tbtn{width:30px;height:30px;padding:0;border-radius:8px;border:1px solid rgba(255,255,255,.22);background:transparent;color:#c7d5e2;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center}
 .ftools .tbtn:hover{border-color:var(--accent);color:#fff}
 .ftools .tbtn.active{border-color:var(--accent);background:rgba(31,199,177,.16);color:#fff}
 .ftools .flabel{font-size:12px;color:#8fa3b8;font-weight:600;white-space:nowrap}
@@ -588,23 +588,22 @@ body.tools-on .ftools{display:flex}
 <canvas id="draw"></canvas>
 <button class="anntoggle" id="annToggle" title="주석 도구 켜기/끄기 (P)" aria-label="주석 도구"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.8 2.8 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg></button>
 <div class="ftools" id="ftools">
-  <span class="flabel">도구</span>
-  <button id="selBtn" class="tbtn" title="주석 선택·이동·크기조절">선택</button>
-  <button id="penBtn" class="tbtn" title="자유 드로잉">펜</button>
-  <button id="lineBtn" class="tbtn" title="드래그로 직선 그리기">직선</button>
-  <button id="rectBtn" class="tbtn" title="드래그로 사각형 그리기">사각형</button>
-  <button id="circBtn" class="tbtn" title="드래그로 원 그리기">원</button>
-  <button id="textBtn" class="tbtn" title="클릭한 위치에 텍스트 입력">텍스트</button>
+  <button id="selBtn" class="tbtn" title="선택 — 주석 이동·크기조절"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3l16 7-7 2-2 7-7-16z"/></svg></button>
+  <button id="penBtn" class="tbtn" title="펜 — 자유 드로잉"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.8 2.8 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg></button>
+  <button id="lineBtn" class="tbtn" title="직선 — 드래그로 그리기"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 19L19 5"/></svg></button>
+  <button id="rectBtn" class="tbtn" title="사각형 — 드래그로 그리기"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="1.5"/></svg></button>
+  <button id="circBtn" class="tbtn" title="원 — 드래그로 그리기"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/></svg></button>
+  <button id="textBtn" class="tbtn" title="텍스트 — 클릭한 위치에 입력" style="font-weight:800;font-size:15px">T</button>
   <span class="sep"></span>
-  <span class="flabel">색상</span><input type="color" id="colorPick" value="#e53935" title="색상 선택">
-  <span class="flabel">두께</span><input type="range" id="widthPick" min="1" max="12" step="1" value="4" title="선 두께"><span class="flabel" id="widthVal">4px</span>
+  <input type="color" id="colorPick" value="#e53935" title="색상 선택">
+  <input type="range" id="widthPick" min="1" max="12" step="1" value="4" title="선 두께"><span class="flabel" id="widthVal">4px</span>
   <span class="sep"></span>
-  <button id="undoBtn" class="tbtn" title="실행취소 (Ctrl+Z)">되돌리기</button>
-  <button id="redoBtn" class="tbtn" title="다시실행 (Ctrl+Y)">다시</button>
-  <button id="delBtn" class="tbtn" title="선택한 주석 삭제 (Delete)">삭제</button>
-  <button id="clearBtn" class="tbtn" title="이 슬라이드 주석 모두 지우기">전체 지우기</button>
+  <button id="undoBtn" class="tbtn" title="실행취소 (Ctrl+Z)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg></button>
+  <button id="redoBtn" class="tbtn" title="다시실행 (Ctrl+Y)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14l5-5-5-5"/><path d="M20 9H10a6 6 0 0 0 0 12h3"/></svg></button>
+  <button id="delBtn" class="tbtn" title="선택한 주석 삭제 (Delete)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2M5 6l1 14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-14"/><path d="M10 11v6M14 11v6"/></svg></button>
+  <button id="clearBtn" class="tbtn" title="이 슬라이드 주석 모두 지우기"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20H8.5L3 14.5a2 2 0 0 1 0-2.8l8-8a2 2 0 0 1 2.8 0l6.7 6.7a2 2 0 0 1 0 2.8L14 20"/><path d="M7 11l6 6"/></svg></button>
   <span class="sep"></span>
-  <button id="saveBtn" class="tbtn" title="주석을 PNG 이미지로 저장">저장</button>
+  <button id="saveBtn" class="tbtn" title="주석을 PNG 이미지로 저장"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 21h16"/></svg></button>
 </div>
 <div class="hint" id="hint"><kbd>←</kbd><kbd>→</kbd><kbd>PgUp</kbd><kbd>PgDn</kbd> 또는 화면 좌·우 가장자리 클릭 · <kbd>F</kbd> 전체화면</div>
 
