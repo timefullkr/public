@@ -125,7 +125,11 @@ ul.b li .s::before{content:"— "}
 .viz.bells .b2{animation:bellshift 1.4s cubic-bezier(.2,.7,.2,1) .8s both}
 .viz.bells .bn{animation:barfade .7s ease 2.4s both}
 @keyframes bellshift{from{opacity:0;transform:translateX(-90px)}to{opacity:1;transform:translateX(0)}}
-@media (prefers-reduced-motion:reduce),print{.bar,.barval,.viz.bells .b1,.viz.bells .b2,.viz.bells .bn{animation:none}}
+/* 슬로프 차트: 하강선이 그려지며 점·값 순차 등장 */
+.viz.slope .sline{stroke-dasharray:300;animation:linedraw 1.6s cubic-bezier(.4,0,.2,1) .2s both}
+.viz.slope .sd{animation:barfade .45s ease both}
+@keyframes linedraw{from{stroke-dashoffset:300}to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce),print{.bar,.barval,.viz.bells .b1,.viz.bells .b2,.viz.bells .bn,.viz.slope .sline,.viz.slope .sd{animation:none}}
 .navy .vizcap{color:#c7d5e2}
 .chips{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.4rem}
 .chip{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:.95rem 1.2rem;font-size:clamp(1.254rem,1.98vw,1.584rem);line-height:1.45;font-weight:500}
@@ -344,13 +348,13 @@ body.tools-on .ftools{display:flex}
         <div class="vizwrap">
           <svg class="viz slope" viewBox="0 0 420 214" role="img" aria-label="적성과 성취의 상관계수가 전통 0.60에서 완전학습 0.35, 개인교습 0.25로 하락">
             <line x1="40" y1="170" x2="390" y2="170" stroke="rgba(255,255,255,.30)" stroke-width="1.5"/>
-            <polyline points="70,50 210,100 350,120" fill="none" stroke="#6f9cc6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="70" cy="50" r="6" fill="#6f9cc6" stroke="#14283e" stroke-width="2"/>
-            <circle cx="210" cy="100" r="6" fill="#6f9cc6" stroke="#14283e" stroke-width="2"/>
-            <circle cx="350" cy="120" r="7" fill="#1fc7b1" stroke="#14283e" stroke-width="2"/>
-            <text x="70" y="34" text-anchor="middle" fill="#e9eff6" font-size="19" font-weight="800">+.60</text>
-            <text x="210" y="84" text-anchor="middle" fill="#e9eff6" font-size="19" font-weight="800">+.35</text>
-            <text x="350" y="104" text-anchor="middle" fill="#e9eff6" font-size="19" font-weight="800">+.25</text>
+            <polyline class="sline" points="70,50 210,100 350,120" fill="none" stroke="#6f9cc6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle class="sd" style="animation-delay:.25s" cx="70" cy="50" r="6" fill="#6f9cc6" stroke="#14283e" stroke-width="2"/>
+            <circle class="sd" style="animation-delay:.95s" cx="210" cy="100" r="6" fill="#6f9cc6" stroke="#14283e" stroke-width="2"/>
+            <circle class="sd" style="animation-delay:1.6s" cx="350" cy="120" r="7" fill="#1fc7b1" stroke="#14283e" stroke-width="2"/>
+            <text class="sd" style="animation-delay:.25s" x="70" y="34" text-anchor="middle" fill="#e9eff6" font-size="19" font-weight="800">+.60</text>
+            <text class="sd" style="animation-delay:.95s" x="210" y="84" text-anchor="middle" fill="#e9eff6" font-size="19" font-weight="800">+.35</text>
+            <text class="sd" style="animation-delay:1.6s" x="350" y="104" text-anchor="middle" fill="#e9eff6" font-size="19" font-weight="800">+.25</text>
             <text x="70" y="192" text-anchor="middle" fill="#9fb3c8" font-size="14">전통 수업</text>
             <text x="210" y="192" text-anchor="middle" fill="#9fb3c8" font-size="14">완전학습</text>
             <text x="350" y="192" text-anchor="middle" fill="#e9eff6" font-size="14" font-weight="700">1:1 개인교습</text>
