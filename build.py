@@ -49,7 +49,7 @@ CSS = """
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--fg);
  font-family:"Pretendard Variable","Pretendard",-apple-system,BlinkMacSystemFont,"Segoe UI","Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif;
- line-height:1.72;font-size:17px;word-break:keep-all;overflow-wrap:anywhere}
+ line-height:1.72;font-size:19px;word-break:keep-all;overflow-wrap:anywhere}
 .wrap{max-width:820px;margin:0 auto;padding:32px 22px 80px}
 nav.top{max-width:820px;margin:0 auto;padding:12px 22px;border-bottom:1px solid var(--line);font-size:14px}
 nav.top a.home{display:inline-flex;align-items:center;gap:10px;color:var(--muted);text-decoration:none}
