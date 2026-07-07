@@ -408,41 +408,44 @@ body.on-dark .hint{color:rgba(255,255,255,.55)}
     </div>
     <div class="bodyarea">
       <div class="vizwrap">
-        <svg class="viz loop" viewBox="0 0 760 280" role="img" aria-label="형성평가 진단에서 맞춤 교정, 재도전으로 이어지는 루프. 숙달하면 다음 목표로 빠져나가고, 학생들은 루프의 서로 다른 지점을 동시에 돈다">
+        <svg class="viz loop" viewBox="0 0 760 330" role="img" aria-label="형성평가에서 도달한 학생은 다음 목표와 심화로 나아가고, 미도달 학생은 오개념 진단과 최적화된 설명 콘텐츠의 실시간 생성(멀티모달)으로 맞춤 교정을 받아 재도전하며 숙달까지 순환한다">
           <defs>
             <marker id="lp" markerWidth="10" markerHeight="10" refX="7" refY="3.2" orient="auto"><path d="M0,0 L7,3.2 L0,6.4Z" fill="#7ee0d3"/></marker>
             <marker id="lpa" markerWidth="10" markerHeight="10" refX="7" refY="3.2" orient="auto"><path d="M0,0 L7,3.2 L0,6.4Z" fill="#f4a23b"/></marker>
           </defs>
-          <!-- 숙달 탈출 -->
-          <line x1="638" y1="70" x2="638" y2="38" stroke="#f4a23b" stroke-width="3" marker-end="url(#lpa)"/>
-          <text x="638" y="24" text-anchor="middle" fill="#f4a23b" font-size="17" font-weight="800">숙달 → 다음 목표</text>
+          <!-- 분기 ①: 도달 → 다음 목표·심화 (형성평가 위로 탈출) -->
+          <line x1="122" y1="128" x2="122" y2="84" stroke="#f4a23b" stroke-width="3" marker-end="url(#lpa)"/>
+          <circle cx="122" cy="108" r="6" fill="#f4a23b" stroke="#0f2a44" stroke-width="2"/>
+          <text x="138" y="112" fill="#f4c98a" font-size="13" font-weight="700">✓</text>
+          <text x="144" y="70" text-anchor="start" fill="#f4a23b" font-size="17" font-weight="800">도달 → 다음 목표 · 심화</text>
           <g font-weight="700">
-            <rect x="24" y="70" width="196" height="86" rx="16" fill="#fff"/>
-            <text x="122" y="106" text-anchor="middle" fill="#0f2a44" font-size="20">형성평가</text>
-            <text x="122" y="132" text-anchor="middle" fill="#9fb3c8" font-size="15">진단</text>
-            <rect x="282" y="70" width="196" height="86" rx="16" fill="#fff"/>
-            <text x="380" y="106" text-anchor="middle" fill="#0f2a44" font-size="20">맞춤 교정</text>
-            <text x="380" y="132" text-anchor="middle" fill="#9fb3c8" font-size="15">설명·힌트</text>
-            <rect x="540" y="70" width="196" height="86" rx="16" fill="#fff"/>
-            <text x="638" y="106" text-anchor="middle" fill="#0f2a44" font-size="20">재도전</text>
-            <text x="638" y="132" text-anchor="middle" fill="#9fb3c8" font-size="15">재출제</text>
+            <rect x="24" y="130" width="196" height="86" rx="16" fill="#fff"/>
+            <text x="122" y="166" text-anchor="middle" fill="#0f2a44" font-size="20">형성평가</text>
+            <text x="122" y="192" text-anchor="middle" fill="#66768a" font-size="15">진단</text>
+            <rect x="282" y="124" width="220" height="104" rx="16" fill="#fff"/>
+            <text x="392" y="156" text-anchor="middle" fill="#0f2a44" font-size="20">맞춤 교정</text>
+            <text x="392" y="182" text-anchor="middle" fill="#66768a" font-size="14">오개념 진단 · 최적 설명</text>
+            <text x="392" y="202" text-anchor="middle" fill="#66768a" font-size="14">실시간 생성 (멀티모달)</text>
+            <rect x="540" y="130" width="196" height="86" rx="16" fill="#fff"/>
+            <text x="638" y="166" text-anchor="middle" fill="#0f2a44" font-size="20">재도전</text>
+            <text x="638" y="192" text-anchor="middle" fill="#66768a" font-size="15">맞춤 재출제</text>
           </g>
-          <line x1="226" y1="113" x2="276" y2="113" stroke="#7ee0d3" stroke-width="3" marker-end="url(#lp)"/>
-          <line x1="484" y1="113" x2="534" y2="113" stroke="#7ee0d3" stroke-width="3" marker-end="url(#lp)"/>
-          <path d="M632,162 C632,234 128,234 128,168" fill="none" stroke="#7ee0d3" stroke-width="3" marker-end="url(#lp)"/>
+          <!-- 분기 ②: 미도달 → 맞춤 교정 → 재도전 → 다시 형성평가 -->
+          <text x="251" y="160" text-anchor="middle" fill="#c7d5e2" font-size="13" font-weight="700">미도달</text>
+          <line x1="226" y1="173" x2="276" y2="173" stroke="#7ee0d3" stroke-width="3" marker-end="url(#lp)"/>
+          <line x1="508" y1="173" x2="534" y2="173" stroke="#7ee0d3" stroke-width="3" marker-end="url(#lp)"/>
+          <path d="M632,222 C632,296 128,296 128,224" fill="none" stroke="#7ee0d3" stroke-width="3" marker-end="url(#lp)"/>
           <!-- 학생들: 루프의 서로 다른 지점 -->
           <g fill="#f4a23b" stroke="#0f2a44" stroke-width="2">
-            <circle cx="250" cy="113" r="6"/><circle cx="508" cy="113" r="6"/>
-            <circle cx="560" cy="222" r="6"/><circle cx="380" cy="231" r="6"/>
-            <circle cx="200" cy="222" r="6"/><circle cx="128" cy="180" r="6"/>
+            <circle cx="251" cy="173" r="6"/><circle cx="521" cy="173" r="6"/>
+            <circle cx="560" cy="274" r="6"/><circle cx="380" cy="287" r="6"/>
+            <circle cx="200" cy="274" r="6"/><circle cx="128" cy="244" r="6"/>
           </g>
-          <circle cx="638" cy="52" r="6" fill="#f4a23b" stroke="#0f2a44" stroke-width="2"/>
-          <text x="652" y="57" fill="#f4c98a" font-size="13" font-weight="700">✓</text>
-          <text x="380" y="264" text-anchor="middle" fill="#7ee0d3" font-size="16" font-weight="800">숙달할 때까지 반복 — 점(●)은 서로 다른 지점을 도는 학생들 ×30</text>
+          <text x="380" y="322" text-anchor="middle" fill="#7ee0d3" font-size="16" font-weight="800">미도달 루프 — 숙달할 때까지 반복 · 점(●)은 서로 다른 지점을 도는 학생들 ×30</text>
         </svg>
       </div>
       <div class="chips">
-        <div class="chip"><b>AI = 학생별 개인 튜터</b>숙달을 향해 이 루프를 실시간으로, 학생마다 돌린다.</div>
+        <div class="chip"><b>AI = 학생별 개인 튜터</b>오개념을 짚고, 그 학생에게 최적화된 설명·예시·문항을 멀티모달(글·그림·음성)로 실시간 생성한다.</div>
         <div class="chip"><b>교사 = 수업의 지휘자</b>서로 다른 속도로 나아가는 학생 전체를 보며 조율하고 개입한다.</div>
       </div>
       <div class="capline">초개별화 = 완전학습의 개별화 + AI 적응형 대화를, <b style="color:var(--accent2)">대규모로</b>.</div>
