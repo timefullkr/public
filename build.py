@@ -169,7 +169,7 @@ def main():
             make_pdf(slug, pdf)
 
     index_body = """<h1 align="center">모두가 주인공! 함께 성장하는 제주교육 AI 플랫폼</h1>
-<p class="lead-sub">학생·교사·행정이 함께 쓰는 AI — 교수학습부터 학교 업무까지</p>
+<p class="lead-sub">학생·교사·행정 모두 함께 쓰는 AI — 교수학습부터 학교 업무까지</p>
 <p>미래학력분과 관련 자료 중 외부 공개용 참고 문서입니다. 아래에서 각 문서를 열람할 수 있습니다.</p>
 <ul>
 <li><a href="ax-transformation.html"><b>AX 전환과 교육</b></a><br>
