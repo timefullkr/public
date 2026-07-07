@@ -18,7 +18,10 @@ body{
   background:#08131f;color:var(--ink);overflow:hidden;word-break:keep-all;-webkit-font-smoothing:antialiased;
 }
 .deck{position:fixed;inset:0}
-.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:8vh 8vw;overflow:hidden}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:flex-start;padding:8vh 8vw;overflow:hidden}
+/* 세로 2:3 분할 — 콘텐츠를 시각적 중심(기하 중앙보다 위)에 앉힌다 */
+.slide:not(.content)::before{content:"";flex:2 0 0}
+.slide:not(.content)::after{content:"";flex:3 0 0}
 .slide.active{display:flex;animation:in .5s cubic-bezier(.2,.7,.2,1)}
 @keyframes in{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 .slide.light{background:#fff;color:var(--ink)}
@@ -29,7 +32,9 @@ body{
 /* 콘텐츠 슬라이드: 헤더 존 고정(제목 축이 슬라이드마다 출렁이지 않도록) */
 .slide.content{justify-content:flex-start;padding-top:9vh;padding-bottom:7vh}
 .head{min-height:17vh;flex:none}
-.bodyarea{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+.bodyarea{flex:1;display:flex;flex-direction:column;min-height:0}
+.bodyarea::before{content:"";flex:2 0 0;max-height:9vh}
+.bodyarea::after{content:"";flex:3 0 0}
 
 .kicker{font-size:clamp(.8rem,1.35vw,1.05rem);font-weight:700;letter-spacing:.05em;color:var(--accent2);
   margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}
