@@ -98,7 +98,7 @@ TEMPLATE = """<!doctype html>
 <style>{css}</style>
 </head>
 <body>
-<nav class="top"><a class="home" href="index.html" title="제주도교육인수위원회 미래학력분과 홈"><img class="logo" src="logo-jje.jpg" alt="제주특별자치도교육청"><span>제주도교육인수위원회 미래학력분과</span></a></nav>
+<nav class="top"><a class="home" href="index.html" title="제주특별자치도교육감 당선인 인수위원회 미래학력분과 홈"><img class="logo" src="logo-jje.jpg" alt="제주특별자치도교육청"><span>제주특별자치도교육감 당선인 인수위원회 미래학력분과</span></a></nav>
 <main class="wrap">
 {body}
 </main>
