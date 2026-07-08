@@ -97,6 +97,7 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
 .card-actions{display:flex;gap:8px;flex-wrap:wrap}
 .card-actions a{font-size:12.5px;font-weight:600;padding:3px 10px;border:1px solid var(--line);border-radius:999px;background:var(--bg);color:var(--fg)}
 .card-actions a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+.card-group{margin-left:auto;align-self:center;font-size:12px;color:var(--muted);opacity:.75}
 /* 홀수 채움 카드 — 제주교육지표 이미지, 링크·호버 없음 */
 .card.filler{align-items:center;justify-content:center;padding:26px;background:#fff}
 .card.filler:hover{border-color:var(--line);box-shadow:none}
@@ -212,6 +213,8 @@ def card(d):
         actions.append(f'<a href="{d["slides"]}">슬라이드</a>')
     if d.get("pdf"):
         actions.append(f'<a href="{d["pdf"]}">PDF</a>')
+    if d.get("group"):   # 분과명 — 카드 하단 오른쪽 옅은 글씨
+        actions.append(f'<span class="card-group">{d["group"]}</span>')
     return (f'<article class="card">{thumb}<div class="card-body">'
             f'<h2 class="card-title"><a href="{d["slug"]}">{d["title"]}</a></h2>'
             f'<p class="card-desc">{d["desc"]}</p>'
@@ -220,24 +223,16 @@ def card(d):
 
 
 def index_body():
-    # 분과(group)별 섹션 — docs.json 등장 순서 유지. 다른 분과 문서는 group 만 달리해 추가하면 된다.
-    groups = {}
-    for d in DOCS:
-        groups.setdefault(d.get("group", "기타"), []).append(d)
-    filler = ('<div class="card filler" aria-hidden="true">'
-              '<img src="img/제주교육지표-세로.png" alt="" loading="lazy"></div>')
-    sections = []
-    for gname, gdocs in groups.items():
-        cards = "\n".join(card(d) for d in gdocs)
-        if len(gdocs) % 2 == 1:   # 2열 그리드 홀수 보정 — 마지막 칸을 교육지표 이미지로 채움
-            cards += "\n" + filler
-        heading = f"<h2>{gname}</h2>\n" if len(groups) > 1 else ""   # 분과가 여럿일 때만 구분 제목
-        sections.append(f'{heading}<div class="cards">\n{cards}\n</div>')
+    # 단일 카드 그리드 — 분과명은 각 카드 하단 오른쪽에 표시. 홀수면 교육지표 이미지로 채움.
+    cards = "\n".join(card(d) for d in DOCS)
+    if len(DOCS) % 2 == 1:
+        cards += ('\n<div class="card filler" aria-hidden="true">'
+                  '<img src="img/제주교육지표-세로.png" alt="" loading="lazy"></div>')
     intro = f'<p>{SITE["intro"]}</p>\n' if SITE.get("intro") else ""
     return (f'<h1 align="center">{SITE["heading"]}</h1>\n'
             f'<p class="lead-sub">{SITE["subtitle"]}</p>\n'
             f'{intro}'
-            + "\n".join(sections))
+            f'<div class="cards">\n{cards}\n</div>')
 
 
 def main():
