@@ -53,6 +53,7 @@ md 문서를 받아 저장소 루트 `bloom-2sigma-slides.html` 스타일의 단
 - **Fabric.js 주석 툴바**: 선택·펜·직선·사각형·원·텍스트·색·두께·undo/redo·삭제·전체지우기·PNG 저장. 우상단 연필 토글(P 키). 슬라이드별 잉크 저장/복원.
 - **홈 버튼**(좌상단, pubic 홈 링크), 진행바·카운터·힌트, 인쇄 대응(`@media print` — 슬라이드 전부 표시·landscape·도구 숨김).
 - 폰트 크기는 전부 `clamp()` — 새 요소를 추가할 때도 clamp로.
+- **모바일 대응**(`@media (max-width:820px)`): ① `html{font-size:70%}` — rem 기반 clamp 가 전부 비례 축소된다. ② `.slide{overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}` — 세로 화면에서 넘치는 내용을 스크롤로 접근(기본은 overflow:hidden 이라 폰에서 아랫부분을 볼 방법이 없다). ③ 데스크톱 배치용 `transform:translate(...)`가 걸린 viz(사다리·루프 등)는 `transform:none;max-width:100%`로 해제 — 안 하면 오른쪽이 잘린다. 새 viz 에 배치용 transform 을 줄 때는 반드시 모바일 해제 규칙을 같이 추가할 것.
 
 ## 검증 절차 (필수)
 
@@ -71,6 +72,8 @@ CHROME="/c/Program Files/Google/Chrome/Application/chrome.exe"
 - Chrome이 없으면 Edge(`msedge.exe`)로 대체 가능 — 같은 플래그를 지원한다.
 - 해시 진입(`#n`)은 인트로를 생략하므로 2장 이후는 virtual-time-budget을 짧게 잡아도 된다. 1장(표지)만 인트로 시간 포함.
 - 확인 항목: 텍스트 오버플로/잘림, 차트 비례 정확성, 헤더 축 정렬, 애니메이션 시작·끝 상태, 콘솔 에러(`--enable-logging` 시).
+- **캡처 함정(이 PC)**: Windows 배율 125% 때문에 헤드리스가 페이지를 `window-size × 1.26` CSS px 로 렌더하고 비트맵은 window-size 그대로라 **스크린샷 오른쪽이 잘려 보인다**(`--force-device-scale-factor=1` 무시됨). 모바일 잘림 여부는 스크린샷만 믿지 말고 probe 로 판정: `</body>` 앞에 `getBoundingClientRect` 로 요소 right·`scrollWidth` vs `clientWidth` 를 `document.title` 에 쓰는 스크립트를 끼워 `--dump-dom` 으로 읽는다. 또한 헤드리스 창은 CSS 폭 ~477px 밑으로 안 줄어들어 실제 폰 폭(320~430) 재현 불가 — 좁은 폭 이슈는 레이아웃 수식으로 검증한다.
+- CSS 애니메이션은 `--virtual-time-budget` 을 안 따르는 경우가 있다 — 슬라이드쇼류는 `animation-delay` 를 N초 당긴 사본을 만들어 원하는 시점 프레임을 즉시 캡처한다.
 
 ## 선택 옵션 (요청 시에만)
 
