@@ -240,11 +240,11 @@ def card(d):
 
 
 def index_body():
-    # 단일 카드 그리드 — 분과명은 각 카드 하단 오른쪽에 표시. 홀수면 교육지표 이미지로 채움.
+    # 단일 카드 그리드 — 분과명은 각 카드 하단 오른쪽에 표시. 홀수면 교육지표 이미지를 첫 카드로 채움.
     cards = "\n".join(card(d) for d in DOCS)
     if len(DOCS) % 2 == 1:
-        cards += ('\n<div class="card filler" aria-hidden="true">'
-                  '<img src="img/제주교육지표-세로.png" alt="" loading="lazy"></div>')
+        cards = ('<div class="card filler" aria-hidden="true">'
+                 '<img src="img/제주교육지표-세로.png" alt="" loading="lazy"></div>\n') + cards
     intro = f'<p>{SITE["intro"]}</p>\n' if SITE.get("intro") else ""
     return (f'<h1 align="center">{SITE["heading"]}</h1>\n'
             f'<p class="lead-sub">{SITE["subtitle"]}</p>\n'
