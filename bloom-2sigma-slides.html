@@ -773,7 +773,7 @@ body.tools-on .ftools{display:flex}
   show((parseInt((location.hash||'').slice(1),10)||1)-1);
 })();
 
-/* 인트로 시퀀스: 페이드인 5s → 멈춤 3s → 페이드아웃 3s(표지 드러남). 클릭·키 입력으로 건너뛰기 */
+/* 인트로 시퀀스: 페이드인 5s → 멈춤 1s → 페이드아웃 3s(표지 드러남). 클릭·키 입력으로 건너뛰기 */
 (function(){
   var intro=document.getElementById('intro');
   if(!intro)return;
@@ -789,7 +789,7 @@ body.tools-on .ftools{display:flex}
   requestAnimationFrame(function(){requestAnimationFrame(function(){
     intro.querySelector('.q').style.opacity='1';
   });});
-  t=setTimeout(window.__endIntro,8000);   /* 5s 페이드인 + 3s 멈춤 후 자동 진행 */
+  t=setTimeout(window.__endIntro,6000);   /* 5s 페이드인 + 1s 멈춤 후 자동 진행 */
 })();
 </script>
 </body>
