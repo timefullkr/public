@@ -94,7 +94,7 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
 .card-title a{color:var(--fg)}
 .card-title a:hover{color:var(--accent);text-decoration:none}
 .card-desc{margin:0;font-size:.86rem;line-height:1.6;color:var(--muted);flex:1}
-.card-actions{display:flex;gap:8px;flex-wrap:wrap}
+.card-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
 .card-actions a{font-size:12.5px;font-weight:600;padding:3px 10px;border:1px solid var(--line);border-radius:999px;background:var(--bg);color:var(--fg)}
 .card-actions a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
 .card-group{margin-left:auto;align-self:center;font-size:12px;color:var(--muted);opacity:.75}
