@@ -98,10 +98,15 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
 .card-actions a{font-size:12.5px;font-weight:600;padding:3px 10px;border:1px solid var(--line);border-radius:999px;background:var(--bg);color:var(--fg)}
 .card-actions a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
 .card-group{margin-left:auto;align-self:center;font-size:12px;color:var(--muted);opacity:.75}
-/* 홀수 채움 카드 — 제주교육지표 이미지(투명 배경), 링크·호버 없음 */
+/* 홀수 채움 카드 — 제주교육지표 이미지(투명 배경), 링크·호버 없음. 반짝임 획은 별도 레이어로 트윙클 */
 .card.filler{align-items:center;justify-content:center;padding:26px;background:#e6ebf1}
 .card.filler:hover{border-color:var(--line);box-shadow:none}
-.card.filler img{width:82%;max-width:340px;height:auto}
+.card.filler .fwrap{position:relative;width:82%;max-width:340px}
+.card.filler img{display:block;width:100%;height:auto}
+.card.filler .spark{position:absolute;inset:0;transform-origin:12% 9%;
+  animation:sparkle 2.4s ease-in-out infinite}
+@keyframes sparkle{0%,100%{opacity:.15;transform:scale(.92)}45%,60%{opacity:1;transform:scale(1.06)}}
+@media (prefers-reduced-motion:reduce){.card.filler .spark{animation:none;opacity:1;transform:none}}
 @media print{nav.top,.foot,.pdflink{display:none}body{font-size:11pt;font-family:"Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif}.wrap{max-width:none}}
 """
 
@@ -258,8 +263,10 @@ def index_body():
     # 단일 카드 그리드 — 분과명은 각 카드 하단 오른쪽에 표시. 홀수면 교육지표 이미지를 첫 카드로 채움.
     cards = "\n".join(card(d) for d in DOCS)
     if len(DOCS) % 2 == 1:
-        cards = ('<div class="card filler" aria-hidden="true">'
-                 '<img src="img/제주교육지표-세로.png" alt="" loading="lazy"></div>\n') + cards
+        cards = ('<div class="card filler" aria-hidden="true"><div class="fwrap">'
+                 '<img src="img/제주교육지표-세로-base.png" alt="" loading="lazy">'
+                 '<img class="spark" src="img/제주교육지표-세로-spark.png" alt="" loading="lazy">'
+                 '</div></div>\n') + cards
     intro = f'<p>{SITE["intro"]}</p>\n' if SITE.get("intro") else ""
     # show_heading: false 면 제목·부제 숨김 (교육지표 카드가 슬로건을 대신함)
     head = (f'<h1 align="center">{SITE["heading"]}</h1>\n'
