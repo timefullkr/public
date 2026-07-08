@@ -261,9 +261,10 @@ def index_body():
         cards = ('<div class="card filler" aria-hidden="true">'
                  '<img src="img/제주교육지표-세로.png" alt="" loading="lazy"></div>\n') + cards
     intro = f'<p>{SITE["intro"]}</p>\n' if SITE.get("intro") else ""
-    return (f'<h1 align="center">{SITE["heading"]}</h1>\n'
-            f'<p class="lead-sub">{SITE["subtitle"]}</p>\n'
-            f'{intro}'
+    # show_heading: false 면 제목·부제 숨김 (교육지표 카드가 슬로건을 대신함)
+    head = (f'<h1 align="center">{SITE["heading"]}</h1>\n'
+            f'<p class="lead-sub">{SITE["subtitle"]}</p>\n') if SITE.get("show_heading", True) else ""
+    return (f'{head}{intro}'
             f'<div class="cards">\n{cards}\n</div>')
 
 
