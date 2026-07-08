@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 495" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto;max-width:1000px;" font-family="Malgun Gothic, 맑은 고딕, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#555"/>
+    </marker>
+    <marker id="arrb" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#2c3e7a"/>
+    </marker>
+    <marker id="arrbs" markerWidth="9" markerHeight="9" refX="2" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M7,0 L0,3 L7,6 Z" fill="#2c3e7a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1000" height="495" fill="#ffffff"/>
+
+  <!-- 사용자 -->
+  <rect x="400" y="10" width="200" height="40" rx="6" fill="#fff8e6" stroke="#b8860b"/>
+  <text x="500" y="28" text-anchor="middle" font-size="12" font-weight="bold" fill="#7a5b00">사용자</text>
+  <text x="500" y="43" text-anchor="middle" font-size="9.5" fill="#7a5b00">교사 · 학생 · 학부모</text>
+  <line x1="470" y1="50" x2="300" y2="93" stroke="#555" stroke-width="1.4" marker-end="url(#arr)"/>
+  <text x="350" y="68" text-anchor="middle" font-size="9.5" fill="#555">로그인(SSO)</text>
+
+  <!-- 바당1 -->
+  <rect x="30" y="93" width="480" height="278" rx="8" fill="#f5f7fc" stroke="#2c3e7a" stroke-width="2"/>
+  <text x="270" y="113" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#2c3e7a">바당1 (AIEP) — 인공지능 맞춤형 교수학습 플랫폼 · LMS</text>
+  <text x="270" y="128" text-anchor="middle" font-size="9" fill="#5a6b8a">11개 시·도 공동(NIA) · 2025.12 오픈 · 기존 운영</text>
+
+  <rect x="45" y="138" width="215" height="36" rx="4" fill="#fff" stroke="#c2cae0"/>
+  <text x="152" y="161" text-anchor="middle" font-size="10.5">통합인증 · <tspan font-weight="bold">SAML 2.0</tspan></text>
+  <rect x="270" y="138" width="225" height="36" rx="4" fill="#fff" stroke="#c2cae0"/>
+  <text x="382" y="161" text-anchor="middle" font-size="10.5">학생정보(명부) · <tspan font-weight="bold">OneRoster</tspan></text>
+
+  <rect x="45" y="182" width="450" height="34" rx="4" fill="#fff" stroke="#c2cae0"/>
+  <text x="270" y="204" text-anchor="middle" font-size="10.5">교육포털 · 클래스 / 수업 / 학생 배정 관리</text>
+
+  <rect x="45" y="224" width="215" height="34" rx="4" fill="#fff" stroke="#c2cae0"/>
+  <text x="152" y="246" text-anchor="middle" font-size="10.5">학습분석 대시보드</text>
+  <rect x="280" y="224" width="215" height="34" rx="4" fill="#fff" stroke="#c2cae0"/>
+  <text x="387" y="246" text-anchor="middle" font-size="10.5">LRS(학습기록) · <tspan font-weight="bold">xAPI</tspan></text>
+
+  <rect x="45" y="266" width="450" height="36" rx="4" fill="#e8ecf7" stroke="#2c3e7a"/>
+  <text x="270" y="289" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#2c3e7a">API Gateway · 연계계층 (LTI · API · OpenAPI)</text>
+
+  <rect x="45" y="310" width="450" height="46" rx="4" fill="#fafbff" stroke="#dde3f2"/>
+  <text x="270" y="328" text-anchor="middle" font-size="9.3" fill="#444">채널: 네이버 웨일 · MS Teams · Google Classroom · 민간 LMS</text>
+  <text x="270" y="345" text-anchor="middle" font-size="9.3" fill="#444">기존 외부연계: AIDT · 에듀테크 13종 (표준 API)</text>
+
+  <!-- 바당2 -->
+  <rect x="650" y="93" width="320" height="278" rx="8" fill="#eef7ee" stroke="#2e7d32" stroke-width="2"/>
+  <text x="810" y="113" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#2e7d32">바당2 (AI 접근 게이트웨이) · 신규</text>
+  <text x="810" y="128" text-anchor="middle" font-size="9" fill="#3a6b3a">미래학력분과 추가 · 추론은 외부 LLM</text>
+
+  <rect x="665" y="138" width="290" height="32" rx="4" fill="#fff" stroke="#bcdcbc"/>
+  <text x="810" y="159" text-anchor="middle" font-size="10.5">AI 대화 · 튜터 UI (바당 내 LTI 도구)</text>
+  <rect x="665" y="176" width="290" height="32" rx="4" fill="#fff" stroke="#bcdcbc"/>
+  <text x="810" y="197" text-anchor="middle" font-size="10.5">모델 라우팅 · 토큰 cap(비용 상한)</text>
+  <rect x="665" y="214" width="290" height="32" rx="4" fill="#fff" stroke="#bcdcbc"/>
+  <text x="810" y="235" text-anchor="middle" font-size="10.5">안전 필터 (연령별 차단·검수)</text>
+  <rect x="665" y="252" width="290" height="32" rx="4" fill="#e3f1e3" stroke="#2e7d32"/>
+  <text x="810" y="273" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#2e7d32">전체 송수신 로깅 (전문 전량)</text>
+  <rect x="665" y="290" width="290" height="32" rx="4" fill="#fff" stroke="#bcdcbc"/>
+  <text x="810" y="311" text-anchor="middle" font-size="10.5">데이터 · 대시보드 연계</text>
+
+  <!-- 바당1 ↔ 바당2 표준 연계 -->
+  <line x1="510" y1="150" x2="648" y2="150" stroke="#2c3e7a" stroke-width="1.5" marker-end="url(#arrb)"/>
+  <text x="579" y="144" text-anchor="middle" font-size="9.5" fill="#2c3e7a">SAML 2.0 SSO</text>
+  <line x1="510" y1="195" x2="648" y2="195" stroke="#2c3e7a" stroke-width="1.5" marker-end="url(#arrb)"/>
+  <text x="579" y="189" text-anchor="middle" font-size="9.5" fill="#2c3e7a">OneRoster 명부</text>
+  <line x1="510" y1="240" x2="648" y2="240" stroke="#2c3e7a" stroke-width="1.5" marker-end="url(#arrb)"/>
+  <text x="579" y="234" text-anchor="middle" font-size="9.5" fill="#2c3e7a">LTI 도구등록</text>
+  <line x1="512" y1="288" x2="648" y2="288" stroke="#2c3e7a" stroke-width="1.5" marker-start="url(#arrbs)"/>
+  <text x="579" y="282" text-anchor="middle" font-size="9.5" fill="#2c3e7a">xAPI 기록환류</text>
+
+  <!-- 하단 -->
+  <line x1="200" y1="371" x2="200" y2="394" stroke="#555" stroke-width="1.4" marker-end="url(#arr)"/>
+  <rect x="30" y="396" width="480" height="58" rx="6" fill="#f3f3f3" stroke="#999"/>
+  <text x="270" y="418" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#444">바당1 기존 외부연계 (표준 API)</text>
+  <text x="270" y="436" text-anchor="middle" font-size="9.5" fill="#444">AIDT(AI디지털교과서) · 에듀테크 13종 · 외부 LMS</text>
+
+  <line x1="725" y1="371" x2="725" y2="394" stroke="#b8860b" stroke-width="1.6" marker-end="url(#arr)" marker-start="url(#arr)"/>
+  <rect x="650" y="396" width="150" height="58" rx="6" fill="#fff4e6" stroke="#b8860b"/>
+  <text x="725" y="418" text-anchor="middle" font-size="10" font-weight="bold" fill="#7a5b00">외부 AI 벤더(LLM)</text>
+  <text x="725" y="434" text-anchor="middle" font-size="9.3" fill="#7a5b00">Claude 등 · 추론</text>
+  <text x="725" y="448" text-anchor="middle" font-size="8.6" fill="#7a5b00">요청 / 응답</text>
+
+  <line x1="895" y1="371" x2="895" y2="394" stroke="#555" stroke-width="1.4" marker-end="url(#arr)"/>
+  <rect x="820" y="396" width="150" height="58" rx="6" fill="#eef2fb" stroke="#2c3e7a"/>
+  <text x="895" y="416" text-anchor="middle" font-size="10" font-weight="bold" fill="#2c3e7a">교육청 로그 DB</text>
+  <text x="895" y="431" text-anchor="middle" font-size="9.3" fill="#2c3e7a">송수신 전문 전량</text>
+  <text x="895" y="445" text-anchor="middle" font-size="9.3" fill="#2c3e7a">국내 보관</text>
+
+  <!-- 범례 -->
+  <rect x="30" y="468" width="14" height="12" fill="#f5f7fc" stroke="#2c3e7a"/>
+  <text x="50" y="478" font-size="9" fill="#333">기존(바당1)</text>
+  <rect x="160" y="468" width="14" height="12" fill="#eef7ee" stroke="#2e7d32"/>
+  <text x="180" y="478" font-size="9" fill="#333">신규(바당2)</text>
+  <text x="300" y="478" font-size="9" fill="#555">파란 화살표 = 바당 표준 연계(SAML·OneRoster·LTI·xAPI) · 추론만 외부 LLM</text>
+</svg>

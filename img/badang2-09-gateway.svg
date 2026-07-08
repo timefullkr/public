@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 350" role="img" aria-label="학생·교사·교직원의 모든 AI 사용이 코어 게이트웨이(안전필터·비식별·전량 로깅)를 지나 외부 LLM에 닿는 구조" font-family="Pretendard,'Malgun Gothic',sans-serif">
+  <rect width="560" height="350" fill="#0f2a44"/>
+  <defs>
+    <marker id="gR" markerWidth="10" markerHeight="10" refX="7" refY="3.2" orient="auto"><path d="M0,0 L7,3.2 L0,6.4Z" fill="#7ee0d3"/></marker>
+  </defs>
+  <text x="40" y="52" fill="#fff" font-size="17" font-weight="800">모든 AI 사용이 한 길목을 지난다</text>
+  <g font-weight="700">
+    <rect x="30" y="92" width="96" height="44" rx="10" fill="#fff"/><text x="78" y="119" text-anchor="middle" fill="#0f2a44" font-size="13">학생</text>
+    <rect x="30" y="150" width="96" height="44" rx="10" fill="#fff"/><text x="78" y="177" text-anchor="middle" fill="#0f2a44" font-size="13">교사</text>
+    <rect x="30" y="208" width="96" height="44" rx="10" fill="#fff"/><text x="78" y="235" text-anchor="middle" fill="#0f2a44" font-size="13">교직원</text>
+  </g>
+  <g stroke="#7ee0d3" stroke-width="2.5">
+    <line x1="126" y1="114" x2="170" y2="150" marker-end="url(#gR)"/>
+    <line x1="126" y1="172" x2="170" y2="172" marker-end="url(#gR)"/>
+    <line x1="126" y1="230" x2="170" y2="194" marker-end="url(#gR)"/>
+  </g>
+  <rect x="176" y="96" width="200" height="152" rx="14" fill="#fff"/>
+  <text x="276" y="126" text-anchor="middle" fill="#0f2a44" font-size="15" font-weight="800">코어 게이트웨이</text>
+  <g fill="#33475c" font-size="12" font-weight="600" text-anchor="middle">
+    <text x="276" y="152">인증 · 모델 라우터</text>
+    <text x="276" y="174">안전필터 · 위기감지</text>
+    <text x="276" y="196">PII 비식별 — 가명 토큰</text>
+    <text x="276" y="218">전량 송수신 로깅</text>
+  </g>
+  <g stroke="#7ee0d3" stroke-width="2.5" stroke-dasharray="6 5">
+    <line x1="376" y1="130" x2="424" y2="118" marker-end="url(#gR)"/>
+    <line x1="376" y1="172" x2="424" y2="172" marker-end="url(#gR)"/>
+    <line x1="376" y1="214" x2="424" y2="226" marker-end="url(#gR)"/>
+  </g>
+  <g font-weight="700">
+    <rect x="430" y="96" width="100" height="44" rx="10" fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/><text x="480" y="123" text-anchor="middle" fill="#e9eff6" font-size="12">Claude</text>
+    <rect x="430" y="150" width="100" height="44" rx="10" fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/><text x="480" y="177" text-anchor="middle" fill="#e9eff6" font-size="12">GPT · 국산</text>
+    <rect x="430" y="204" width="100" height="44" rx="10" fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.4)" stroke-width="1.5" stroke-dasharray="5 4"/><text x="480" y="231" text-anchor="middle" fill="#c7d5e2" font-size="11">교육부 LLM</text>
+  </g>
+  <text x="453" y="76" text-anchor="middle" fill="#7ee0d3" font-size="11" font-weight="800">어댑터(plug-in)</text>
+  <text x="280" y="290" text-anchor="middle" fill="#f4c98a" font-size="13" font-weight="700">기록은 교육청 DB — 국내 보관 · GPU 서버 불필요</text>
+  <text x="280" y="318" text-anchor="middle" fill="#c7d5e2" font-size="12">벤더 앱 직접 사용으로는 통제·기록 불가 — 게이트웨이 독점이 사업의 근거</text>
+</svg>

@@ -1,0 +1,967 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>제주교육 AI 플랫폼(바당2) 개발(안) · 발표 슬라이드</title>
+<link rel="icon" href="logo-jje.jpg">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --navy:#0f2a44; --navy2:#173b5c; --accent:#1fc7b1; --accent2:#7ee0d3; --accent-ink:#0b7265;
+  --amber:#f4a23b; --amber-ink:#b26305; --ink:#182634; --muted:#93a8be; --light:#f4f7fa; --line:#e4e9ef; --steel:#93a9c2;
+  --ink-d:#e9eff6; --body-d:#c3d2e2; --surface-d:#14283e; --card-d:#1d3550;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Segoe UI","Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+  background:#08131f;color:var(--ink);overflow:hidden;word-break:keep-all;-webkit-font-smoothing:antialiased;
+}
+.deck{position:fixed;inset:0}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:flex-start;padding:8vh 8vw;overflow:hidden}
+/* 세로 2:3 분할 — 콘텐츠를 시각적 중심(기하 중앙보다 위)에 앉힌다 */
+.slide:not(.content)::before{content:"";flex:2 0 0}
+.slide:not(.content)::after{content:"";flex:3 0 0}
+.slide.active{display:flex;animation:in .5s cubic-bezier(.2,.7,.2,1)}
+@keyframes in{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+/* 전면 다크 — 명암 반전 없이 명도 단계·색온도·빛의 방향으로 리듬을 만든다 */
+.slide.light{background:radial-gradient(60% 40% at 50% 0%,rgba(255,255,255,.03),transparent),var(--surface-d);color:var(--body-d)}
+.slide.navy{background:radial-gradient(130% 120% at 82% 8%, #1e4d78 0%, var(--navy) 55%, #081827 100%);color:#fff}
+.slide.soft{background:linear-gradient(165deg,#0e3134 0%,#0d2337 75%);color:var(--body-d)}
+.slide.sec{background:linear-gradient(90deg,var(--accent),rgba(31,199,177,0)) left bottom/100% 4px no-repeat,linear-gradient(135deg,#0a1f33 0%,#050f1a 100%);color:#fff}
+
+/* 콘텐츠 슬라이드: 헤더 존 고정(제목 축이 슬라이드마다 출렁이지 않도록) */
+.slide.content{justify-content:flex-start;padding-top:9vh;padding-bottom:7vh}
+.head{min-height:17vh;flex:none}
+.bodyarea{flex:1;display:flex;flex-direction:column;min-height:0}
+.bodyarea::before{content:"";flex:2 0 0;max-height:9vh}
+.bodyarea::after{content:"";flex:3 0 0}
+
+.kicker{font-size:clamp(1.056rem,1.782vw,1.386rem);font-weight:700;letter-spacing:.05em;color:var(--accent2);
+  margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}
+.kicker::before{content:"";width:26px;height:3px;background:var(--accent);border-radius:2px;flex:none}
+.light .kicker,.soft .kicker{color:var(--accent2)}
+.light .kicker::before,.soft .kicker::before{background:var(--accent)}
+
+h1.t{font-size:clamp(3.036rem,6.864vw,5.28rem);font-weight:800;line-height:1.16;letter-spacing:-.02em}
+.sub{font-size:clamp(1.584rem,3.168vw,2.508rem);font-weight:600;margin-top:1.1rem;color:var(--accent2)}
+.hook{font-size:clamp(1.386rem,2.508vw,1.914rem);color:#e8f2fa;margin-top:2.2rem;font-weight:600}
+.tag{font-size:clamp(1.188rem,1.848vw,1.452rem);color:#c7d5e2;margin-top:.8rem;font-weight:500}
+
+.slide h2{font-size:clamp(2.046rem,4.224vw,3.3rem);font-weight:800;line-height:1.22;letter-spacing:-.01em;color:var(--ink-d)}
+.slide.navy h2,.slide.sec h2{color:#fff}
+.rule{width:60px;height:5px;background:var(--accent);border-radius:3px;margin:1rem 0 0}
+
+/* 섹션 구분 */
+.gnum{position:absolute;right:-4vw;bottom:-8vh;font-size:clamp(23.76rem,55.44vw,47.52rem);font-weight:800;color:rgba(31,199,177,.07);line-height:.8;pointer-events:none;user-select:none;letter-spacing:-.05em}
+.sectrack{position:absolute;top:6vh;left:8vw;display:flex;gap:1.6rem;font-size:clamp(1.122rem,1.716vw,1.386rem);font-weight:700;color:rgba(255,255,255,.35)}
+.sectrack .on{color:var(--accent2)}
+.secnum{font-size:clamp(5.28rem,14.52vw,11.22rem);font-weight:800;color:var(--accent);line-height:.9;letter-spacing:-.03em}
+.sectitle{font-size:clamp(2.508rem,5.544vw,4.224rem);font-weight:800;margin-top:.8rem}
+.secsub{font-size:clamp(1.386rem,2.508vw,1.98rem);color:#c7d5e2;margin-top:1.4rem;font-weight:500;max-width:44ch}
+
+.statwrap{display:flex;align-items:center;gap:clamp(1.5rem,4vw,3.5rem);flex-wrap:wrap}
+.statnum{font-size:clamp(5.94rem,17.16vw,13.2rem);font-weight:800;color:var(--amber);line-height:.85;letter-spacing:-.04em}
+.statcap{max-width:44ch;margin-top:1.2rem}
+.statcap .big{font-size:clamp(1.452rem,2.64vw,2.112rem);font-weight:700;line-height:1.4}
+.statcap .small{font-size:clamp(1.254rem,2.046vw,1.584rem);color:#c7d5e2;margin-top:1rem;line-height:1.55}
+
+ul.b{list-style:none;display:flex;flex-direction:column;gap:clamp(.7rem,1.6vh,1.25rem);max-width:64ch}
+ul.b li{position:relative;padding-left:2rem;font-size:clamp(1.346rem,2.31vw,1.848rem);line-height:1.55;font-weight:500}
+ul.b li::before{content:"";position:absolute;left:0;top:.55em;width:11px;height:11px;border-radius:3px;background:var(--accent);transform:rotate(45deg)}
+.navy ul.b li::before{background:var(--accent2)}
+ul.b li b{font-weight:700;color:var(--ink-d)}
+.navy ul.b li b{color:#fff}
+ul.b li .s{display:block;font-size:.82em;color:var(--muted);font-weight:500;margin-top:.2rem}
+ul.b li .s::before{content:"— "}
+
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1rem,2.2vw,1.8rem)}
+.card{background:var(--card-d);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:clamp(1.1rem,2.2vw,1.7rem);box-shadow:0 14px 34px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06)}
+.card.warn{border-top:3px solid var(--amber);background:linear-gradient(180deg,rgba(244,162,59,.07),rgba(244,162,59,0) 45%),var(--card-d)}
+.card h3{font-size:clamp(1.346rem,2.376vw,1.782rem);color:var(--ink-d);font-weight:800;margin-bottom:.9rem;display:flex;align-items:center;gap:.6rem}
+.card ul{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.card li{position:relative;padding-left:1.4rem;font-size:clamp(1.254rem,1.914vw,1.558rem);line-height:1.5;font-weight:500}
+.card li::before{content:"·";position:absolute;left:.3rem;color:#4dd4c0;font-weight:800;font-size:1.3em;top:-.15em}
+.card p{font-size:clamp(1.254rem,1.914vw,1.558rem);line-height:1.55;font-weight:500}
+.card p b{font-weight:700;color:var(--ink-d)}
+.card li b{font-weight:700;color:var(--ink-d)}
+.ic{width:1.5em;height:1.5em;stroke:#4dd4c0;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ic.warn{stroke:#f4b45e}
+
+/* 근거 빅넘버 행 */
+.ev{display:grid;grid-template-columns:minmax(150px,.3fr) 1fr;gap:clamp(1rem,2.5vw,2rem);align-items:center;padding:clamp(.8rem,2vh,1.3rem) 0;border-top:1px solid rgba(255,255,255,.12)}
+.ev:first-of-type{border-top:0}
+.evnum{font-size:clamp(3.168rem,7.26vw,5.544rem);font-weight:800;color:var(--ink-d);letter-spacing:-.02em;line-height:1}
+.evnum em{font-style:normal;font-size:.5em;font-weight:700;color:var(--muted)}
+.evtxt{font-size:clamp(1.32rem,2.112vw,1.716rem);line-height:1.55;font-weight:500}
+.evtxt b{font-weight:700;color:var(--ink-d)}
+.evtxt .s{display:block;font-size:.82em;color:var(--muted);margin-top:.25rem}
+.evtxt .s::before{content:"— "}
+
+.note{margin-top:1.2rem;font-size:clamp(1.294rem,2.046vw,1.65rem);color:var(--muted);font-weight:500}
+.note b{color:var(--ink-d);font-weight:700}
+
+.quotemark{font-size:clamp(5.28rem,13.2vw,10.56rem);color:var(--accent);line-height:.6;font-weight:800;margin-bottom:.3rem}
+.quote{font-size:clamp(1.98rem,4.092vw,3.3rem);font-weight:700;line-height:1.45;color:var(--ink-d);max-width:24ch}
+.attrib{margin-top:1.6rem;font-size:clamp(1.32rem,2.112vw,1.65rem);color:var(--muted);font-weight:600}
+
+.closing{font-size:clamp(2.64rem,5.808vw,4.62rem);font-weight:800;line-height:1.28;letter-spacing:-.01em}
+.closesub{font-size:clamp(1.452rem,2.64vw,2.112rem);font-weight:500;line-height:1.6;color:#dbe7f1;margin-top:1.8rem;max-width:52ch}
+.closelast{font-size:clamp(1.386rem,2.376vw,1.848rem);font-weight:700;color:var(--amber);margin-top:2rem}
+
+/* 데이터/다이어그램 SVG */
+.vizrow{display:flex;align-items:center;gap:clamp(1.2rem,3vw,3rem);flex-wrap:wrap}
+.vizwrap{flex:1;min-width:280px;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.viz{width:100%;height:auto;display:block}
+.viz.loop{max-width:1080px;transform:translateY(-70px)}
+.viz.stack{max-width:620px}.viz.cycle{max-width:1040px}.viz.gw{max-width:1080px}.viz.map{max-width:1080px}.viz.mkt{max-width:980px}.viz.tl{max-width:1100px}
+.vizcap{margin-top:.6rem;font-size:clamp(1.122rem,1.716vw,1.386rem);color:var(--muted);font-weight:500;text-align:center}
+/* 막대그래프 애니메이션: 기준선에서 자라나고, 값은 뒤따라 페이드인 (슬라이드 진입 때마다 재생) */
+.bar{transform-box:fill-box;transform-origin:center bottom;animation:bargrow .9s cubic-bezier(.2,.7,.2,1) both}
+.barval{animation:barfade .45s ease both}
+@keyframes bargrow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes barfade{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce),print{.bar,.barval{animation:none}}
+.navy .vizcap{color:#c7d5e2}
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.4rem}
+.chip{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:.95rem 1.2rem;font-size:clamp(1.254rem,1.98vw,1.584rem);line-height:1.45;font-weight:500}
+.chip b{color:var(--accent2);font-weight:800;display:block;margin-bottom:.2rem}
+.chips.c4{grid-template-columns:repeat(4,1fr)}
+@media (max-width:820px){.chips.c4{grid-template-columns:1fr 1fr}}
+.capline{margin-top:1.2rem;font-size:clamp(1.32rem,2.178vw,1.716rem);color:#c7d5e2;font-weight:600}
+
+/* 참고문헌 */
+.refs{list-style:none;display:flex;flex-direction:column;gap:.55rem;max-width:78ch;counter-reset:ref}
+.refs li{position:relative;padding-left:1.8rem;font-size:clamp(.984rem,1.56vw,1.224rem);line-height:1.55;color:var(--muted);counter-increment:ref}
+.refs li::before{content:counter(ref);position:absolute;left:0;top:.1em;width:1.25em;height:1.25em;border-radius:50%;background:var(--card-d);border:1px solid rgba(255,255,255,.12);color:var(--ink-d);font-size:.85em;font-weight:700;display:flex;align-items:center;justify-content:center}
+.refs li i{font-style:italic}
+.refs a{color:inherit;text-decoration:underline;text-decoration-color:rgba(255,255,255,.22);text-underline-offset:3px}
+.refs a:hover{color:var(--accent2);text-decoration-color:var(--accent2)}
+.cite{margin-top:1.4rem;padding:.9rem 1.2rem;background:var(--card-d);border-left:4px solid var(--accent);border-radius:6px;font-size:clamp(1.056rem,1.62vw,1.296rem);line-height:1.6;color:var(--body-d);max-width:78ch}
+.cite b{color:var(--ink-d)}
+.srcline{margin-top:1.2rem;font-size:clamp(.936rem,1.44vw,1.14rem);color:var(--muted)}
+
+.wm{position:absolute;right:5vw;bottom:1vh;font-size:clamp(15.84rem,42.24vw,36.96rem);font-weight:800;color:rgba(255,255,255,.05);line-height:.8;pointer-events:none;user-select:none;letter-spacing:-.05em}
+
+/* 인트로: 질문 페이드인(5s) → 멈춤(3s) → 페이드아웃(3s)과 동시에 표지 드러남 */
+#intro{position:fixed;inset:0;background:#08131f;z-index:40;display:flex;align-items:center;justify-content:center;padding:8vw;transition:opacity 3s ease}
+#intro .q{font-size:clamp(.95rem,1.9vw,1.6rem);font-weight:600;color:#a9c2db;opacity:0;transition:opacity 5s ease;text-align:center;white-space:nowrap;line-height:1.6}
+#intro.out{opacity:0;pointer-events:none}
+@media print{#intro{display:none}}
+
+.progress{position:fixed;bottom:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0;z-index:20;transition:width .35s ease}
+.foot{position:fixed;left:2.4vw;bottom:2vh;font-size:.82rem;color:var(--muted);z-index:20;font-weight:600}
+.counter{position:fixed;right:2.4vw;bottom:2vh;font-size:.82rem;color:var(--muted);z-index:20;font-weight:600;font-variant-numeric:tabular-nums}
+body.on-dark .foot,body.on-dark .counter{color:rgba(255,255,255,.55)}
+.hint{position:fixed;left:50%;bottom:2vh;transform:translateX(-50%);font-size:.78rem;color:var(--muted);z-index:20;opacity:.9;transition:opacity .6s;display:flex;gap:.5rem;align-items:center}
+body.on-dark .hint{color:rgba(255,255,255,.55)}
+.hint.hide{opacity:0}
+.hint kbd{background:rgba(120,140,160,.18);border:1px solid rgba(120,140,160,.35);border-radius:5px;padding:.05em .45em;font-family:inherit;font-size:.9em}
+
+/* 펜·텍스트 주석 레이어 (Fabric.js) */
+.canvas-container{position:fixed!important;inset:0;z-index:25;pointer-events:none}
+body.pen-on .canvas-container{pointer-events:auto;touch-action:none}
+/* 좌상단 홈 버튼 */
+.homebtn{position:fixed;top:2.2vh;left:2.4vw;z-index:30;width:38px;height:38px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.22);background:rgba(13,30,48,.78);color:#8fa3b8;
+  display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);
+  opacity:.28;transition:opacity .25s ease}
+.homebtn:hover{border-color:var(--accent);color:#fff;text-decoration:none;opacity:1}
+@media print{.homebtn{display:none!important}}
+
+/* 좌·우 중앙 이전/다음 버튼 */
+.navarrow{position:fixed;top:50%;transform:translateY(-50%);z-index:30;width:44px;height:44px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.22);background:rgba(13,30,48,.78);color:#8fa3b8;cursor:pointer;padding:0;
+  display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);
+  opacity:.28;transition:opacity .25s ease}
+.navarrow:hover{border-color:var(--accent);color:#fff;opacity:1}
+.navarrow.prev{left:1.4vw}
+.navarrow.next{right:1.4vw}
+@media print{.navarrow{display:none!important}}
+
+/* 우상단 주석 토글(기본 꺼짐) + 상단 좌측 툴바 */
+.anntoggle{position:fixed;top:2.2vh;right:2.4vw;z-index:30;width:38px;height:38px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.22);background:rgba(13,30,48,.78);color:#8fa3b8;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;padding:0;backdrop-filter:blur(6px);
+  opacity:.28;transition:opacity .25s ease}
+.anntoggle:hover{border-color:var(--accent);color:#fff;opacity:1}
+.anntoggle.active{border-color:var(--accent);color:var(--accent2);opacity:1}
+.ftools{position:fixed;top:2.2vh;right:calc(2.4vw + 50px);z-index:30;display:none;gap:.4rem;align-items:center;flex-wrap:wrap;justify-content:flex-end;max-width:calc(96vw - 110px);
+  background:rgba(13,30,48,.88);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:.4rem .6rem;backdrop-filter:blur(6px)}
+body.tools-on .ftools{display:flex}
+.ftools .tbtn{width:30px;height:30px;padding:0;border-radius:8px;border:1px solid rgba(255,255,255,.22);background:transparent;color:#c7d5e2;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center}
+.ftools .tbtn:hover{border-color:var(--accent);color:#fff}
+.ftools .tbtn.active{border-color:var(--accent);background:rgba(31,199,177,.16);color:#fff}
+.ftools .flabel{font-size:12px;color:#8fa3b8;font-weight:600;white-space:nowrap}
+.ftools .sep{width:1px;height:20px;background:rgba(255,255,255,.18)}
+.ftools input[type=color]{width:28px;height:26px;border:1px solid rgba(255,255,255,.25);border-radius:6px;background:transparent;padding:1px;cursor:pointer}
+.ftools input[type=range]{width:76px;accent-color:var(--accent);cursor:pointer}
+@media print{.ftools,.anntoggle,.canvas-container{display:none!important}}
+
+@media (max-width:640px){.cards,.chips{grid-template-columns:1fr}.statwrap,.vizrow{flex-direction:column;align-items:flex-start}.ev{grid-template-columns:1fr;gap:.2rem}.counter,.foot{font-size:.72rem}.sectrack{position:static;margin-bottom:2rem}}
+/* 모바일: 좁은 화면에서 슬라이드 내용이 화면보다 길면 내부 세로 스크롤로 볼 수 있게 */
+@media (max-width:820px){html{font-size:70%}.slide{overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+  .viz.loop{transform:none;max-width:100%}}   /* 데스크톱 배치용 이동 해제 — 오른쪽 잘림 방지 */
+@media print{body{overflow:visible}.slide{display:flex!important;position:relative;inset:auto;height:100vh;page-break-after:always;animation:none}.progress,.foot,.counter,.hint{display:none!important}@page{size:landscape}}
+</style>
+</head>
+<body class="on-dark">
+<div id="intro"><div class="q">그릇은 완성됐다 — <b style="color:var(--amber);font-weight:700">AI 알맹이</b>는 <b style="color:#6cb2ff;font-weight:700">어떻게</b> 채우나?</div></div>
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+  <!-- 1 표지 -->
+  <section class="slide navy active">
+    <div class="wm">AI</div>
+    <div class="kicker">제주도교육감직인수위원회</div>
+    <h1 class="t">제주교육 AI 플랫폼<br>(바당2) 개발(안)</h1>
+    <div class="sub">모든 학생의 AI 접근, 공교육이 안전하게 보장한다</div>
+    <div class="hook">로그인 한 번 — AI 수업·업무의 모든 활동이 기록되고, 맞춤으로 되돌아온다.</div>
+    <div class="tag">「AI 접근 공적 보장」 공약 실현 계획 · 2026. 7.</div>
+  </section>
+
+  <!-- 2 섹션 01 -->
+  <section class="slide navy sec">
+    <div class="gnum">01</div>
+    <div class="sectrack"><span class="on">01 왜</span><span>02 설계</span><span>03 실행</span></div>
+    <div class="secnum">01</div>
+    <div class="sectitle">왜 — 그릇과 알맹이</div>
+    <div class="secsub">바당(LMS)이 비워 둔 세 가지, 그리고 그것을 채울 계층의 정의와 위치.</div>
+  </section>
+
+  <!-- 3 문제: 세 공백 -->
+  <section class="slide light content">
+    <div class="head">
+      <div class="kicker">출발점 — 바당(AIEP) 진단</div>
+      <h2>그릇은 완성됐다 — 세 가지가 비어 있다</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="bodyarea">
+      <div class="ev">
+        <div class="evnum">①</div>
+        <div class="evtxt"><b>학생용 생성형 AI가 없다</b> — 교육청 현안 문서가 명시: "AI모델 부재(2차 구축 시 개발 필요)".<span class="s">교육부(KERIS) 교육특화 LLM은 별도 트랙 — 시점·범위 불확실</span></div>
+      </div>
+      <div class="ev">
+        <div class="evnum">②</div>
+        <div class="evtxt"><b>송수신 데이터를 확보하지 못한다</b> — SSO로 연결만 할 뿐, 학생이 AI와 주고받은 전문(프롬프트·응답)은 벤더에 남고 교육청에는 없다.</div>
+      </div>
+      <div class="ev">
+        <div class="evnum">③</div>
+        <div class="evtxt"><b>안전·거버넌스 장치가 없다</b> — 교육청이 직접 안전필터·로깅·통제할 수단 부재. 벤더 앱 직접 사용은 통제·기록 자체가 불가능.</div>
+      </div>
+      <div class="note">바당은 LMS(그릇)로서는 완성 — 진단 전체는 전편 「바당(AIEP) 현황과 개선 방안」 참조. <b>바당2는 정확히 이 세 공백을 메운다.</b></div>
+    </div>
+  </section>
+
+  <!-- 4 정의: 플러그인 계층 -->
+  <section class="slide light content">
+    <div class="head">
+      <div class="kicker">바당2란 — 정의와 위치</div>
+      <h2>재구축이 아니라, 그릇 위에 얹는 ‘AI 계층’이다</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="bodyarea">
+      <div class="vizrow">
+        <div style="flex:1;min-width:280px">
+          <ul class="b">
+            <li><b>바당은 그대로 둔다</b> — 소스코드 복제·분기(fork)가 아니라, 이미 갖춰진 개방형 표준에 밖에서 끼우는(plug-in) 외부 도구.<span class="s">NIA·타 시·도와 코드 충돌·중복 구축 없음</span></li>
+            <li><b>제주 전용 · 직접 소유</b> — 11개 시·도 공동(다자 합의)과 달리, AI 변화에 맞춰 제주가 기민하게 확장·변경.</li>
+            <li><b>수업을 넘어 업무까지</b> — 학생·교사 수업 + 교직원 행정 업무를 동일 게이트웨이로.<span class="s">단, 교직원은 학생과 권한·안전·보안정책 분리</span></li>
+          </ul>
+        </div>
+        <div class="vizwrap">
+          <svg class="viz stack" viewBox="0 0 640 360" role="img" aria-label="바당(LMS) 위에 바당2(AI 접근·추론 게이트웨이)가 SAML·OneRoster·LTI·xAPI 표준으로 결합하고, 추론은 외부 LLM API가 수행하는 구조도">
+            <defs>
+              <marker id="sR" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6Z" fill="#7ee0d3"/></marker>
+            </defs>
+            <g font-weight="700">
+              <rect x="40" y="44" width="380" height="96" rx="14" fill="rgba(31,199,177,.14)" stroke="#1fc7b1" stroke-width="2.5"/>
+              <text x="230" y="84" text-anchor="middle" fill="#eafffb" font-size="19">바당2 — AI 접근·추론 게이트웨이</text>
+              <text x="230" y="110" text-anchor="middle" fill="#9fd8ce" font-size="13">신설 · 제주 직접 소유·통제</text>
+              <rect x="40" y="216" width="380" height="96" rx="14" fill="#fff"/>
+              <text x="230" y="256" text-anchor="middle" fill="#0f2a44" font-size="19">바당(AIEP) — LMS 그릇</text>
+              <text x="230" y="282" text-anchor="middle" fill="#66768a" font-size="13">계정·명부 · 클래스·수업 · 학습기록(LRS)</text>
+            </g>
+            <!-- 표준 커넥터 4종 -->
+            <g stroke="#7ee0d3" stroke-width="3">
+              <line x1="90" y1="216" x2="90" y2="140"/><line x1="183" y1="216" x2="183" y2="140"/>
+              <line x1="276" y1="216" x2="276" y2="140"/><line x1="369" y1="216" x2="369" y2="140"/>
+            </g>
+            <g fill="#7ee0d3" font-size="12" font-weight="800" text-anchor="middle" stroke="#14283e" stroke-width="7" paint-order="stroke">
+              <text x="90" y="184">SAML</text><text x="183" y="184">OneRoster</text><text x="276" y="184">LTI</text><text x="369" y="184">xAPI</text>
+            </g>
+            <g fill="#9fb3c8" font-size="10.5" font-weight="600" text-anchor="middle" stroke="#14283e" stroke-width="6" paint-order="stroke">
+              <text x="90" y="202">인증</text><text x="183" y="202">명부</text><text x="276" y="202">도구</text><text x="369" y="202">기록</text>
+            </g>
+            <!-- 외부 LLM -->
+            <line x1="420" y1="92" x2="472" y2="92" stroke="#7ee0d3" stroke-width="3" marker-end="url(#sR)"/>
+            <text x="446" y="80" text-anchor="middle" fill="#7ee0d3" font-size="11" font-weight="700">추론</text>
+            <rect x="478" y="56" width="140" height="72" rx="12" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/>
+            <text x="548" y="87" text-anchor="middle" fill="#e9eff6" font-size="14" font-weight="800">외부 LLM API</text>
+            <text x="548" y="108" text-anchor="middle" fill="#9fb3c8" font-size="11">Claude · GPT · 국산 …</text>
+            <text x="548" y="152" text-anchor="middle" fill="#c7d5e2" font-size="11.5">GPU 서버 불필요</text>
+            <text x="320" y="344" text-anchor="middle" fill="#c7d5e2" font-size="13" font-weight="600">바당2 = 바당의 「LTI 외부 도구 + xAPI 기록 제공자」</text>
+          </svg>
+          <div class="vizcap">포크(복제)가 아니라 표준 연계 — 바당 코드는 건드리지 않는다</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 핵심 가치: 선순환 -->
+  <section class="slide navy content">
+    <div class="head">
+      <div class="kicker">핵심 가치 — 데이터 선순환</div>
+      <h2>접근 → 활동 → 전량 기록 → 분석 → 맞춤 환류</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="bodyarea">
+      <div class="vizwrap">
+        <svg class="viz cycle" viewBox="0 0 1040 300" role="img" aria-label="로그인 한 번의 접근에서 AI 대화·수업·업무 활동, 교육청 DB 전량 기록, 학습분석·안전 분석을 거쳐 맞춤 데이터·콘텐츠로 활동에 되돌아오는 선순환 흐름도">
+          <defs>
+            <marker id="cR" markerWidth="10" markerHeight="10" refX="7" refY="3.2" orient="auto"><path d="M0,0 L7,3.2 L0,6.4Z" fill="#7ee0d3"/></marker>
+            <marker id="cA" markerWidth="10" markerHeight="10" refX="7" refY="3.2" orient="auto"><path d="M0,0 L7,3.2 L0,6.4Z" fill="#f4a23b"/></marker>
+          </defs>
+          <g font-weight="700">
+            <rect x="20" y="70" width="168" height="88" rx="16" fill="#fff"/>
+            <text x="104" y="106" text-anchor="middle" fill="#0f2a44" font-size="19">접근</text>
+            <text x="104" y="132" text-anchor="middle" fill="#66768a" font-size="13">로그인 한 번 (SSO·LTI)</text>
+            <rect x="224" y="70" width="168" height="88" rx="16" fill="#fff"/>
+            <text x="308" y="106" text-anchor="middle" fill="#0f2a44" font-size="19">활동</text>
+            <text x="308" y="132" text-anchor="middle" fill="#66768a" font-size="13">AI 대화 · 수업 · 업무</text>
+            <rect x="428" y="70" width="168" height="88" rx="16" fill="#fff" stroke="#f4a23b" stroke-width="3.5"/>
+            <text x="512" y="106" text-anchor="middle" fill="#b26305" font-size="19">전량 기록</text>
+            <text x="512" y="132" text-anchor="middle" fill="#66768a" font-size="13">교육청 DB — 소유</text>
+            <rect x="632" y="70" width="168" height="88" rx="16" fill="#fff"/>
+            <text x="716" y="106" text-anchor="middle" fill="#0f2a44" font-size="19">분석</text>
+            <text x="716" y="132" text-anchor="middle" fill="#66768a" font-size="13">학습분석 · 안전 · 오개념</text>
+            <rect x="836" y="70" width="168" height="88" rx="16" fill="#fff"/>
+            <text x="920" y="106" text-anchor="middle" fill="#0f2a44" font-size="19">맞춤 환류</text>
+            <text x="920" y="132" text-anchor="middle" fill="#66768a" font-size="13">맞춤 데이터 · 콘텐츠</text>
+          </g>
+          <g stroke="#7ee0d3" stroke-width="3">
+            <line x1="192" y1="114" x2="218" y2="114" marker-end="url(#cR)"/>
+            <line x1="396" y1="114" x2="422" y2="114" marker-end="url(#cR)"/>
+            <line x1="600" y1="114" x2="626" y2="114" marker-end="url(#cR)"/>
+            <line x1="804" y1="114" x2="830" y2="114" marker-end="url(#cR)"/>
+          </g>
+          <path d="M920,162 C920,262 320,262 310,164" fill="none" stroke="#f4a23b" stroke-width="3" marker-end="url(#cA)"/>
+          <text x="615" y="278" text-anchor="middle" fill="#f4c98a" font-size="16" font-weight="800">쌓인 데이터가 수업·업무로 되돌아온다 — 선순환</text>
+        </svg>
+        <div class="vizcap">단순 AI 챗봇이 아니다 — 모든 활동이 코어 게이트웨이를 경유해 기록·분석·환류된다</div>
+      </div>
+      <div class="chips">
+        <div class="chip"><b>기록은 제주가 소유</b>송수신 전문 원본은 교육청 DB에 국내 보관 — 벤더에 남지 않는다.</div>
+        <div class="chip"><b>그릇과 알맹이</b>바당(LMS)이 그릇이라면, 바당2는 거기 채우는 AI 알맹이 + 안전장치.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 국내외 위치: 8요소 -->
+  <section class="slide light content">
+    <div class="head">
+      <div class="kicker">국내외 위치</div>
+      <h2>새 발명이 아니라, ‘첫 온전한 조립’이다</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="bodyarea">
+      <div class="chips c4" style="margin-top:0">
+        <div class="chip"><b>① 공공 소유</b>게이트웨이</div>
+        <div class="chip"><b>② 벤더앱급 챗 UX</b>멀티모달</div>
+        <div class="chip"><b>③ 전량 로깅</b>송수신 전문</div>
+        <div class="chip"><b>④ PII 비식별</b>가명 토큰만 전송</div>
+        <div class="chip"><b>⑤ 멀티 LLM</b>라우팅·폴백</div>
+        <div class="chip"><b>⑥ 안전필터</b>위기감지</div>
+        <div class="chip"><b>⑦ 토큰·비용 통제</b>사용량 cap·정산</div>
+        <div class="chip"><b>⑧ 확장 생태계</b>교사·서드파티</div>
+      </div>
+      <div class="note">국내외 20여 개 플랫폼을 같은 자로 재본 결과, <b>이 8요소를 모두 갖춘 사례는 공개 자료상 확인되지 않는다</b> — 세계가 조각으로만 운영해 온 패턴을 교육 맥락에서 처음으로 온전히 조립하는 사업.<br><span style="font-size:.85em">국내(AIDT·하이러닝·서울런)는 8요소 결합 미구현 · 수치·아키텍처 일부는 공개 자료 기반 추정.</span></div>
+    </div>
+  </section>
+
+  <!-- 7 반면교사 -->
+  <section class="slide light content">
+    <div class="head">
+      <div class="kicker">반면교사와 최근접 사례</div>
+      <h2>위험은 게이트웨이가 아니라, 소유와 비식별의 실패였다</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="bodyarea">
+      <div class="cards">
+        <div class="card warn">
+          <h3><svg class="ic warn" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg>美 LAUSD “Ed” — 실패</h3>
+          <ul>
+            <li>LA통합교육구(학생 43만) AI 비서, 2024.3. 출시</li>
+            <li><b>벤더(AllHere) 소유 인프라 + 비식별 부재</b> — 학생 PII를 무관한 프롬프트에도 주입·해외 전송</li>
+            <li>벤더 도산 → <b>출시 석 달 만에 중단</b>(2024.6.14.)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3><svg class="ic" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 12l9 5 9-5M3 16l9 5 9-5"/></svg>싱가포르 SLS — 최근접</h3>
+          <ul>
+            <li>Sentinel·LionGuard — <b>모델무관 가드레일 게이트웨이</b>로 가장 근접한 공공 사례</li>
+            <li>다만 전량 로깅·비식별은 <b>탐지 수준(△)</b> — 8요소 완비는 아님</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note">교훈 — 위험은 게이트웨이 패턴 자체가 아니라 <b>누가 소유하며, 비식별이 실제로 강제되는가</b>. 바당2의 <b>① 공공 소유 ② 게이트웨이 독점 ③ 강제 비식별·국내 보관</b>은 이 실패를 구조적으로 차단하는 설계다.</div>
+    </div>
+  </section>
+
+  <!-- 8 섹션 02 -->
+  <section class="slide navy sec">
+    <div class="gnum">02</div>
+    <div class="sectrack"><span>01 왜</span><span class="on">02 설계</span><span>03 실행</span></div>
+    <div class="secnum">02</div>
+    <div class="sectitle">설계 — 모든 길은 관문을 지난다</div>
+    <div class="secsub">게이트웨이 독점이 성립해야 기록·안전·통제가 성립한다 — 그 대가도 설계에 넣었다.</div>
+  </section>
+
+  <!-- 9 게이트웨이 독점 -->
+  <section class="slide navy content">
+    <div class="head">
+      <div class="kicker">설계 원칙 ① — 게이트웨이 독점</div>
+      <h2>모든 AI 사용이 한 길목을 지난다</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="bodyarea">
+      <div class="vizwrap">
+        <svg class="viz gw" viewBox="0 0 1060 345" role="img" aria-label="학생·교사·교직원의 모든 AI 사용이 인증·모델 라우터·안전필터·PII 비식별·전량 로깅을 갖춘 코어 게이트웨이를 지나 어댑터로 연결된 외부 LLM(클로드, GPT, 국산, 교육부 특화 LLM 예정)에 닿고, 기록은 교육청 DB와 바당 LRS로 적재되는 구조도">
+          <defs>
+            <marker id="gR" markerWidth="10" markerHeight="10" refX="7" refY="3.2" orient="auto"><path d="M0,0 L7,3.2 L0,6.4Z" fill="#7ee0d3"/></marker>
+            <marker id="gA" markerWidth="10" markerHeight="10" refX="7" refY="3.2" orient="auto"><path d="M0,0 L7,3.2 L0,6.4Z" fill="#f4a23b"/></marker>
+          </defs>
+          <g font-weight="700">
+            <rect x="20" y="40" width="150" height="54" rx="12" fill="#fff"/><text x="95" y="73" text-anchor="middle" fill="#0f2a44" font-size="16">학생</text>
+            <rect x="20" y="112" width="150" height="54" rx="12" fill="#fff"/><text x="95" y="145" text-anchor="middle" fill="#0f2a44" font-size="16">교사</text>
+            <rect x="20" y="184" width="150" height="54" rx="12" fill="#fff"/><text x="95" y="211" text-anchor="middle" fill="#0f2a44" font-size="15">교직원</text><text x="95" y="228" text-anchor="middle" fill="#66768a" font-size="11">행정 업무</text>
+          </g>
+          <g stroke="#7ee0d3" stroke-width="3">
+            <line x1="170" y1="67" x2="244" y2="110" marker-end="url(#gR)"/>
+            <line x1="170" y1="139" x2="244" y2="139" marker-end="url(#gR)"/>
+            <line x1="170" y1="211" x2="244" y2="168" marker-end="url(#gR)"/>
+          </g>
+          <rect x="252" y="30" width="330" height="230" rx="16" fill="#fff"/>
+          <text x="417" y="64" text-anchor="middle" fill="#0f2a44" font-size="19" font-weight="800">코어 게이트웨이</text>
+          <g fill="#33475c" font-size="14.5" font-weight="600" text-anchor="middle">
+            <text x="417" y="98">인증·SSO (SAML · LTI)</text>
+            <text x="417" y="126">모델 라우터 (어댑터 레지스트리)</text>
+            <text x="417" y="154">안전필터 · 위기감지</text>
+            <text x="417" y="182">PII 비식별 — 벤더엔 가명 토큰만</text>
+            <text x="417" y="210">전량 송수신 로깅</text>
+          </g>
+          <text x="417" y="241" text-anchor="middle" fill="#66768a" font-size="12">얇고 고정 — 구체 구현은 코어에 박지 않는다</text>
+          <g stroke="#7ee0d3" stroke-width="2.5" stroke-dasharray="6 5">
+            <line x1="582" y1="64" x2="662" y2="58" marker-end="url(#gR)"/>
+            <line x1="582" y1="122" x2="662" y2="120" marker-end="url(#gR)"/>
+            <line x1="582" y1="180" x2="662" y2="182" marker-end="url(#gR)"/>
+            <line x1="582" y1="228" x2="662" y2="244" marker-end="url(#gR)"/>
+          </g>
+          <text x="622" y="40" text-anchor="middle" fill="#7ee0d3" font-size="12" font-weight="800">어댑터(plug-in)</text>
+          <g font-weight="700">
+            <rect x="668" y="34" width="170" height="48" rx="10" fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/><text x="753" y="63" text-anchor="middle" fill="#e9eff6" font-size="14">Claude</text>
+            <rect x="668" y="96" width="170" height="48" rx="10" fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/><text x="753" y="125" text-anchor="middle" fill="#e9eff6" font-size="14">GPT · Gemini</text>
+            <rect x="668" y="158" width="170" height="48" rx="10" fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/><text x="753" y="187" text-anchor="middle" fill="#e9eff6" font-size="14">국산 LLM</text>
+            <rect x="668" y="220" width="170" height="48" rx="10" fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.35)" stroke-width="1.5" stroke-dasharray="5 4"/><text x="753" y="243" text-anchor="middle" fill="#c7d5e2" font-size="13">교육부 특화 LLM</text><text x="753" y="260" text-anchor="middle" fill="#9fb3c8" font-size="11">(예정 — 어댑터로 수용)</text>
+          </g>
+          <line x1="417" y1="260" x2="417" y2="292" stroke="#f4a23b" stroke-width="3" marker-end="url(#gA)"/>
+          <rect x="200" y="296" width="434" height="42" rx="10" fill="rgba(244,162,59,.14)" stroke="#f4a23b" stroke-width="1.5"/>
+          <text x="417" y="322" text-anchor="middle" fill="#f4c98a" font-size="14" font-weight="700">교육청 DB — 전문 원본 · 국내 보관 · 학습활동은 xAPI → 바당 LRS</text>
+          <text x="920" y="300" text-anchor="middle" fill="#c7d5e2" font-size="13" font-weight="600">추론은 외부 API —</text>
+          <text x="920" y="320" text-anchor="middle" fill="#c7d5e2" font-size="13" font-weight="600">GPU 서버 불필요</text>
+        </svg>
+        <div class="vizcap">벤더 앱 직접 사용(A안)으로는 송수신 전문 확보·통제가 불가능 — 독점(B안)이 본 사업의 직접 근거</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 독점의 대가 -->
+  <section class="slide light content">
+    <div class="head">
+      <div class="kicker">설계 원칙 ② — 독점의 대가</div>
+      <h2>한 길목에 모이면, 가용성과 품질이 값이다</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="bodyarea">
+      <div class="cards">
+        <div class="card">
+          <h3><svg class="ic" viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 4.5-3 8-7 9-4-1-7-4.5-7-9V7l7-4z"/></svg>가용성 — 단일 장애점(SPOF) 방어</h3>
+          <ul>
+            <li>코어 <b>HA·무중단 배포·오토스케일</b></li>
+            <li>외부 LLM 장애 → <b>타 벤더 폴백</b> · 기능 축소(degrade) 범위 사전 정의 · 서킷브레이커</li>
+            <li><b>분기 1회 이상 폴백 전환 훈련</b> — SLA로 보장(RFP 필수)</li>
+          </ul>
+        </div>
+        <div class="card warn">
+          <h3><svg class="ic warn" viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>우회 — 품질이 낮으면 독점이 무너진다</h3>
+          <ul>
+            <li>학생이 개인기기·무료 벤더앱으로 우회하면 <b>로깅 독점 붕괴</b></li>
+            <li>과제·평가는 <b>바당2 경유만 인정</b>(세션 토큰·산출물 표식) + MDM·네트워크 정책 연계</li>
+            <li>기술만으론 100% 불가 — <b>정책 + 기술 병행</b></li>
+          </ul>
+        </div>
+      </div>
+      <div class="note">“안전·로깅은 못 끄되, 추론은 멈출 수 있다”는 실패 모드를 <b>인정하고 설계한다.</b></div>
+    </div>
+  </section>
+
+  <!-- 11 모듈형 아키텍처 -->
+  <section class="slide light content">
+    <div class="head">
+      <div class="kicker">설계 원칙 ③ — 대원칙(불변)</div>
+      <h2>새 모델·기능은 ‘코어 수정 없이’ 붙인다</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="bodyarea">
+      <ul class="b" style="max-width:72ch">
+        <li><b>코어는 얇고 고정</b> — 인증·라우터·안전필터·전량 로깅·바당 연계, 길목 기능만. 구체 구현(어떤 모델·기능)은 코어에 박지 않는다.</li>
+        <li><b>모델 = 어댑터</b> — 새 벤더·모델(Claude·GPT·국산·교육부 특화 LLM)은 어댑터 추가 + 설정 등록으로.<span class="s">코어 라우터 무수정</span></li>
+        <li><b>기능 = 확장 슬롯</b> — 교육 도구는 LTI, AI 도구·데이터는 MCP 표준으로. 새 규격 발명 없이 확장.</li>
+        <li><b>코어도 늙는다</b> — 확장 마켓은 코어 기능의 ‘더 나은 대안’까지 허용, 무엇을 쓸지는 학교·교사가 선택.<span class="s">코어가 낡아도 플랫폼은 늙지 않는다</span></li>
+        <li><b>단 하나의 불변</b> — 어떤 어댑터·모듈·확장이 붙든 반드시 코어 게이트웨이를 경유. 로깅·안전·개인정보는 우회할 수 없다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 12 개인정보 -->
+  <section class="slide soft content">
+    <div class="head">
+      <div class="kicker">설계 원칙 ④ — 개인정보, 신뢰의 조건</div>
+      <h2>벤더에는 가명 토큰만 — 기록은 감시가 아니다</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="bodyarea">
+      <ul class="b" style="max-width:72ch">
+        <li><b>전송 전 비식별</b> — 규칙(정규식)+경량 NER 온프레미스 엔진. 결정적·재현가능·감사가능, CPU급 동작.<span class="s">매핑 보유로 법적으로는 ‘가명정보’ — 익명이 아니며 안전조치 의무(§28-4) 적용</span></li>
+        <li><b>매핑 테이블 = 최우선 보안자산</b> — 유일한 재식별 통로. KMS/HSM 격리 · 2인 승인 · 전건 감사로그.</li>
+        <li><b>벤더 계약(DPA) 4대 필수조항</b> — 학습 미사용 · 제로 리텐션 · 국외 이전 제한 · 침해 통지. 미제공 벤더는 어댑터 등록 불가.</li>
+        <li><b>기록 ≠ 상시 열람</b> — 교사 열람은 집계·요약 기본, 원문은 필요최소·사유 기록. 학습 중 질문·오답·시행착오는 평가에 불리하게 쓰지 않는다.<span class="s">학생이 안심하고 물어야 위기감지·초개별화의 입력이 유지된다</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 13 섹션 03 -->
+  <section class="slide navy sec">
+    <div class="gnum">03</div>
+    <div class="sectrack"><span>01 왜</span><span>02 설계</span><span class="on">03 실행</span></div>
+    <div class="secnum">03</div>
+    <div class="sectitle">실행 — 기능·생태계·일정</div>
+    <div class="secsub">열 개의 기능 모듈, 민간과의 분업, 그리고 2027년 9월 개통.</div>
+  </section>
+
+  <!-- 14 기능 지도 -->
+  <section class="slide light content">
+    <div class="head">
+      <div class="kicker">기능 구성 — 10개 모듈</div>
+      <h2>열 개의 기능이 하나의 엔진을 이룬다</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="bodyarea">
+      <div class="vizwrap">
+        <svg class="viz map" viewBox="0 0 1060 330" role="img" aria-label="코어 게이트웨이 위에 공통 클라이언트인 기능 2(고도화된 채팅 인터페이스)가 놓이고 그 위에 기능 1 실시간 수업, 기능 3 학습 루프, 기능 8 수업설계·평가, 기능 9 수업 나눔, 기능 4 학습기록이 올라가며, 왼쪽에 항상 켜지는 기능 5 안전·개인정보, 기능 6 접근성·형평, 기능 7 토큰·비용, 오른쪽에 기능 10 확장 마켓이 결합하는 구조도">
+          <rect x="20" y="30" width="168" height="256" rx="14" fill="rgba(244,162,59,.10)" stroke="#f4a23b" stroke-width="1.8"/>
+          <text x="104" y="58" text-anchor="middle" fill="#f4c98a" font-size="14" font-weight="800">항상 ON — 끌 수 없음</text>
+          <g font-weight="700">
+            <rect x="36" y="72" width="136" height="56" rx="10" fill="#fff"/><text x="104" y="96" text-anchor="middle" fill="#0f2a44" font-size="13.5">5 안전·개인정보</text><text x="104" y="114" text-anchor="middle" fill="#66768a" font-size="10.5">필터·위기감지·비식별</text>
+            <rect x="36" y="142" width="136" height="56" rx="10" fill="#fff"/><text x="104" y="166" text-anchor="middle" fill="#0f2a44" font-size="13.5">6 접근성·형평</text><text x="104" y="184" text-anchor="middle" fill="#66768a" font-size="10.5">TTS·STT·다국어·저사양</text>
+            <rect x="36" y="212" width="136" height="56" rx="10" fill="#fff"/><text x="104" y="236" text-anchor="middle" fill="#0f2a44" font-size="13.5">7 토큰·비용</text><text x="104" y="254" text-anchor="middle" fill="#66768a" font-size="10.5">cap·폴백·정산</text>
+          </g>
+          <text x="552" y="20" text-anchor="middle" fill="#9fb3c8" font-size="13" font-weight="700">기능 모듈 — 교사가 학급·과목에 맞게 on/off</text>
+          <g font-weight="700">
+            <rect x="216" y="30" width="124" height="66" rx="10" fill="#fff"/><text x="278" y="58" text-anchor="middle" fill="#0f2a44" font-size="13.5">1 실시간 수업</text><text x="278" y="76" text-anchor="middle" fill="#66768a" font-size="10.5">채팅수업·출제·모둠</text>
+            <rect x="352" y="30" width="124" height="66" rx="10" fill="#fff"/><text x="414" y="58" text-anchor="middle" fill="#0f2a44" font-size="13.5">3 학습 루프</text><text x="414" y="76" text-anchor="middle" fill="#66768a" font-size="10.5">지식추적·현황판</text>
+            <rect x="488" y="30" width="124" height="66" rx="10" fill="#fff"/><text x="550" y="58" text-anchor="middle" fill="#0f2a44" font-size="13.5">8 설계·평가</text><text x="550" y="76" text-anchor="middle" fill="#66768a" font-size="10.5">교사 작업대</text>
+            <rect x="624" y="30" width="124" height="66" rx="10" fill="#fff"/><text x="686" y="58" text-anchor="middle" fill="#0f2a44" font-size="13.5">9 수업 나눔</text><text x="686" y="76" text-anchor="middle" fill="#66768a" font-size="10.5">패키지·프롬프트 공유</text>
+            <rect x="760" y="30" width="124" height="66" rx="10" fill="#fff"/><text x="822" y="58" text-anchor="middle" fill="#0f2a44" font-size="13.5">4 학습기록</text><text x="822" y="76" text-anchor="middle" fill="#66768a" font-size="10.5">학습일지·누가기록</text>
+          </g>
+          <rect x="216" y="118" width="668" height="62" rx="12" fill="rgba(31,199,177,.14)" stroke="#1fc7b1" stroke-width="2.5"/>
+          <text x="550" y="146" text-anchor="middle" fill="#eafffb" font-size="16" font-weight="800">2 고도화된 채팅 인터페이스 — 공통 클라이언트(토대)</text>
+          <text x="550" y="167" text-anchor="middle" fill="#9fd8ce" font-size="12">스트리밍 · 멀티모달 · 렌더링 · 모바일 — 모든 기능이 이 위에서 동작</text>
+          <rect x="216" y="200" width="668" height="62" rx="12" fill="#fff"/>
+          <text x="550" y="228" text-anchor="middle" fill="#0f2a44" font-size="16" font-weight="800">코어 게이트웨이 — 인증 · 라우팅 · 안전필터 · 전량 로깅</text>
+          <text x="550" y="249" text-anchor="middle" fill="#66768a" font-size="12">모든 상호작용이 경유 (§설계)</text>
+          <rect x="912" y="30" width="128" height="232" rx="14" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.3)" stroke-width="1.8" stroke-dasharray="7 5"/>
+          <text x="976" y="130" text-anchor="middle" fill="#e9eff6" font-size="14" font-weight="800">10 확장 마켓</text>
+          <text x="976" y="152" text-anchor="middle" fill="#9fb3c8" font-size="11">LTI·MCP 슬롯</text>
+          <text x="976" y="170" text-anchor="middle" fill="#9fb3c8" font-size="11">더 나은 대안 허용</text>
+          <text x="550" y="296" text-anchor="middle" fill="#c7d5e2" font-size="13" font-weight="600">앞 번호일수록 사용 빈도 높은 주요 기능 — 도입 범위·우선순위는 RFP 단계에서 확정</text>
+        </svg>
+        <div class="vizcap">기능 2가 모든 기능이 올라타는 공통 토대 — 왼쪽 3종(안전·접근성·토큰)은 항상 ON</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 초개별화 엔진: 30개 루프 -->
+  <section class="slide navy content">
+    <div class="head">
+      <div class="kicker">기능 3 — 학습 상태·루프 인프라 (초개별화 엔진)</div>
+      <h2>학급 30명이면, 30개의 루프가 각자의 속도로 돈다</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="bodyarea">
+      <div class="vizwrap">
+        <svg class="viz loop" viewBox="0 0 1010 330" role="img" aria-label="수업(교수학습) 후 형성평가에서 도달한 학생은 다음 목표와 심화로 나아가고, 미도달 학생은 오개념 진단과 최적화된 설명 콘텐츠의 실시간 생성(멀티모달)으로 맞춤 개별 학습 후 재 형성평가를 신청하며 숙달까지 순환한다">
+          <defs>
+            <marker id="lp" markerWidth="10" markerHeight="10" refX="7" refY="3.2" orient="auto"><path d="M0,0 L7,3.2 L0,6.4Z" fill="#7ee0d3"/></marker>
+            <marker id="lpa" markerWidth="10" markerHeight="10" refX="7" refY="3.2" orient="auto"><path d="M0,0 L7,3.2 L0,6.4Z" fill="#f4a23b"/></marker>
+          </defs>
+          <line x1="370" y1="128" x2="370" y2="84" stroke="#f4a23b" stroke-width="3" marker-end="url(#lpa)"/>
+          <circle cx="370" cy="108" r="6" fill="#f4a23b" stroke="#0f2a44" stroke-width="2"/>
+          <text x="386" y="112" fill="#f4c98a" font-size="13" font-weight="700">✓</text>
+          <text x="392" y="70" text-anchor="start" fill="#f4a23b" font-size="17" font-weight="800">도달 → 다음 목표 · 심화</text>
+          <g font-weight="700">
+            <rect x="24" y="130" width="196" height="86" rx="16" fill="#fff"/>
+            <text x="122" y="166" text-anchor="middle" fill="#0f2a44" font-size="20">수업</text>
+            <text x="122" y="192" text-anchor="middle" fill="#66768a" font-size="15">교수학습</text>
+            <rect x="272" y="130" width="196" height="86" rx="16" fill="#fff"/>
+            <text x="370" y="166" text-anchor="middle" fill="#0f2a44" font-size="20">형성평가</text>
+            <text x="370" y="192" text-anchor="middle" fill="#66768a" font-size="15">진단</text>
+            <rect x="520" y="124" width="220" height="104" rx="16" fill="#fff"/>
+            <text x="630" y="156" text-anchor="middle" fill="#0f2a44" font-size="20">맞춤 개별 학습</text>
+            <text x="630" y="182" text-anchor="middle" fill="#66768a" font-size="14">오개념 진단 · 최적 설명</text>
+            <text x="630" y="202" text-anchor="middle" fill="#66768a" font-size="14">실시간 생성 (멀티모달)</text>
+            <rect x="788" y="130" width="196" height="86" rx="16" fill="#fff"/>
+            <text x="886" y="166" text-anchor="middle" fill="#0f2a44" font-size="20">재 형성평가 신청</text>
+            <text x="886" y="192" text-anchor="middle" fill="#66768a" font-size="15">맞춤 재출제</text>
+          </g>
+          <line x1="226" y1="173" x2="266" y2="173" stroke="#7ee0d3" stroke-width="3" marker-end="url(#lp)"/>
+          <text x="494" y="160" text-anchor="middle" fill="#c7d5e2" font-size="13" font-weight="700">미도달</text>
+          <line x1="474" y1="173" x2="514" y2="173" stroke="#7ee0d3" stroke-width="3" marker-end="url(#lp)"/>
+          <line x1="746" y1="173" x2="782" y2="173" stroke="#7ee0d3" stroke-width="3" marker-end="url(#lp)"/>
+          <path d="M880,222 C880,296 376,296 376,224" fill="none" stroke="#7ee0d3" stroke-width="3" marker-end="url(#lp)"/>
+          <g fill="#f4a23b" stroke="#0f2a44" stroke-width="2">
+            <circle cx="494" cy="173" r="6"/><circle cx="764" cy="173" r="6"/>
+            <circle cx="800" cy="270" r="6"/><circle cx="628" cy="287" r="6"/>
+            <circle cx="455" cy="270" r="6"/><circle cx="378" cy="246" r="6"/>
+          </g>
+          <text x="628" y="322" text-anchor="middle" fill="#7ee0d3" font-size="16" font-weight="800">미도달 루프 — 숙달할 때까지 반복 · 점(●)은 서로 다른 지점을 도는 학생들 ×30</text>
+        </svg>
+      </div>
+      <div class="chips">
+        <div class="chip"><b>데이터가 모델보다 먼저다</b>시범 단계는 형성평가 정오답 기반 규칙형 숙달 판정으로 시작 — 통계적 지식 추적은 데이터가 쌓인 뒤 2단계 고도화.</div>
+        <div class="chip"><b>교사 = 지휘자</b>30개 대화창 대신 현황판 집계로 정체 학생·개입 지점을 결정. 분기는 추천일 뿐 — 최종 결정·무효화 권한은 교사.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16 기능 2: 승부는 인터페이스 -->
+  <section class="slide light content">
+    <div class="head">
+      <div class="kicker">기능 2 — 성패의 전제</div>
+      <h2>모델은 API로 평준화된다 — 승부는 인터페이스다</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="bodyarea">
+      <div class="cards">
+        <div class="card warn">
+          <h3><svg class="ic warn" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg>‘API만 붙인’ 서비스의 5대 실패</h3>
+          <ul>
+            <li>① 스트리밍 없음 — 빈 화면 → 이탈</li>
+            <li>② 마크다운·표·수식·코드 렌더링 부실</li>
+            <li>③ 대화 맥락 관리 실패 · ④ 결과물 활용 불가</li>
+            <li>⑤ 모바일 미대응<b> — 교육용 AI가 파일럿만 하고 사라지는 주된 이유</b></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3><svg class="ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>바당2의 추격 체제</h3>
+          <ul>
+            <li><b>검증된 오픈소스 챗 클라이언트</b> 기반 + 고유부(게이트웨이·안전·LTI)는 플러그인으로 격리</li>
+            <li><b>월 주기 릴리스</b> — 벤더 앱 기능 격차 상시 점검·반영</li>
+            <li>에듀테크소프트랩 교육연구사 + 업체의 <b>상설 개선 체제</b>(구축과 분리된 지속 개선 계약)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note">품질이 낮으면 학생은 벤더 앱으로 우회하고 전량 로깅이 무너진다 — <b>UI/UX 품질이 사업 성패의 전제.</b></div>
+    </div>
+  </section>
+
+  <!-- 17 생태계·마켓 -->
+  <section class="slide light content">
+    <div class="head">
+      <div class="kicker">기능 10 — 확장 마켓과 생태계</div>
+      <h2>공공은 토대, 민간은 속도 — 이용료는 전액 개발자에게</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="bodyarea">
+      <div class="vizwrap">
+        <svg class="viz mkt" viewBox="0 0 960 282" role="img" aria-label="개발자가 만든 확장이 AI 교육위원회의 계획서·콘텐츠 2단계 심사(수수료, 교사 면제)를 거쳐 마켓에 게시되고 학교가 도입하며, 학교 이용료는 전액 개발자에게 돌아가는 유통 흐름도">
+          <defs>
+            <marker id="mR" markerWidth="10" markerHeight="10" refX="7" refY="3.2" orient="auto"><path d="M0,0 L7,3.2 L0,6.4Z" fill="#7ee0d3"/></marker>
+            <marker id="mG" markerWidth="10" markerHeight="10" refX="7" refY="3.2" orient="auto"><path d="M0,0 L7,3.2 L0,6.4Z" fill="#9fb3c8"/></marker>
+            <marker id="mA" markerWidth="10" markerHeight="10" refX="7" refY="3.2" orient="auto"><path d="M0,0 L7,3.2 L0,6.4Z" fill="#f4a23b"/></marker>
+          </defs>
+          <g font-weight="700">
+            <rect x="24" y="46" width="180" height="82" rx="12" fill="#fff"/>
+            <text x="114" y="80" text-anchor="middle" fill="#0f2a44" font-size="17">개발자</text>
+            <text x="114" y="104" text-anchor="middle" fill="#66768a" font-size="12">에듀테크 업체 · 교사</text>
+            <rect x="266" y="46" width="188" height="82" rx="12" fill="rgba(244,162,59,.14)" stroke="#f4a23b" stroke-width="2"/>
+            <text x="360" y="74" text-anchor="middle" fill="#f4c98a" font-size="15">AI 교육위원회</text>
+            <text x="360" y="95" text-anchor="middle" fill="#e9eff6" font-size="12">심사 ① 계획서 ② 콘텐츠</text>
+            <text x="360" y="113" text-anchor="middle" fill="#f4c98a" font-size="11.5">수수료 — 교사는 면제</text>
+            <rect x="516" y="46" width="180" height="82" rx="12" fill="#fff"/>
+            <text x="606" y="80" text-anchor="middle" fill="#0f2a44" font-size="17">확장 마켓</text>
+            <text x="606" y="104" text-anchor="middle" fill="#66768a" font-size="12">게시 · 발견 · 평점</text>
+            <rect x="756" y="46" width="180" height="82" rx="12" fill="#fff"/>
+            <text x="846" y="80" text-anchor="middle" fill="#0f2a44" font-size="17">학교</text>
+            <text x="846" y="104" text-anchor="middle" fill="#66768a" font-size="12">도입 · 사용</text>
+          </g>
+          <g stroke="#7ee0d3" stroke-width="3">
+            <line x1="204" y1="87" x2="260" y2="87" marker-end="url(#mR)"/>
+            <line x1="454" y1="87" x2="510" y2="87" marker-end="url(#mR)"/>
+            <line x1="696" y1="87" x2="750" y2="87" marker-end="url(#mR)"/>
+          </g>
+          <path d="M310,128 C260,168 170,168 126,130" fill="none" stroke="#9fb3c8" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#mG)"/>
+          <text x="214" y="178" text-anchor="middle" fill="#9fb3c8" font-size="12" font-weight="600">보완·반려</text>
+          <path d="M840,128 C840,242 130,242 116,132" fill="none" stroke="#f4a23b" stroke-width="3" marker-end="url(#mA)"/>
+          <text x="480" y="246" text-anchor="middle" fill="#f4c98a" font-size="15" font-weight="800">학교 이용료 전액(100%) → 개발자 · 교육청 수입은 심사 수수료뿐</text>
+          <text x="480" y="268" text-anchor="middle" fill="#c7d5e2" font-size="12.5" font-weight="600">좋은 콘텐츠일수록 개발자 수익이 커진다 — 제주 에듀테크 산업 육성</text>
+        </svg>
+        <div class="vizcap">시범 단계는 무료·선언형(LTI·MCP) 확장만 — 코드 실행형·수익모델은 전면시행 단계(샌드박스·보안 심사 전제)</div>
+      </div>
+      <div class="note">교육청은 절차상 빠른 기능 변경이 어렵다 — 공공은 <b>안정적 토대</b>(게이트웨이·표준·안전)에 충실하고, 빠르게 바뀌는 응용은 <b>민간의 속도</b>에 맡긴다.</div>
+    </div>
+  </section>
+
+  <!-- 18 일정 -->
+  <section class="slide light content">
+    <div class="head">
+      <div class="kicker">추진 일정(안)</div>
+      <h2>2027년 9월, 초·중·고 여섯 학교에서 연다</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="bodyarea">
+      <div class="vizwrap">
+        <svg class="viz tl" viewBox="0 0 1100 250" role="img" aria-label="2026년 7월 15일 개발TF 조직, 2026 하반기 기획·ISMP·RFP, 재원 확보 T0, T+2에서 7까지 구축, T+7에서 8까지 검수를 거쳐 2027년 9월 초·중·고 6교 시범 개통과 AI 교육위원회 출범, 이후 효과검증과 전면시행으로 이어지는 일정표">
+          <line x1="40" y1="140" x2="1060" y2="140" stroke="rgba(255,255,255,.30)" stroke-width="2.5"/>
+          <g stroke="#7ee0d3" stroke-width="2">
+            <line x1="95" y1="140" x2="95" y2="100"/><line x1="430" y1="140" x2="430" y2="100"/><line x1="740" y1="140" x2="740" y2="100"/><line x1="905" y1="140" x2="905" y2="88"/>
+          </g>
+          <g stroke="rgba(255,255,255,.35)" stroke-width="2">
+            <line x1="260" y1="140" x2="260" y2="180"/><line x1="590" y1="140" x2="590" y2="180"/><line x1="1020" y1="140" x2="1020" y2="180"/>
+          </g>
+          <circle cx="95" cy="140" r="7" fill="#7ee0d3" stroke="#14283e" stroke-width="2"/>
+          <circle cx="260" cy="140" r="7" fill="#93a9c2" stroke="#14283e" stroke-width="2"/>
+          <rect x="421" y="131" width="18" height="18" rx="3" transform="rotate(45 430 140)" fill="#f4a23b" stroke="#14283e" stroke-width="2"/>
+          <circle cx="590" cy="140" r="7" fill="#93a9c2" stroke="#14283e" stroke-width="2"/>
+          <circle cx="740" cy="140" r="7" fill="#93a9c2" stroke="#14283e" stroke-width="2"/>
+          <circle cx="905" cy="140" r="11" fill="#1fc7b1" stroke="#14283e" stroke-width="2.5"/>
+          <circle cx="1020" cy="140" r="7" fill="#93a9c2" stroke="#14283e" stroke-width="2"/>
+          <g text-anchor="middle" font-weight="700">
+            <text x="95" y="76" fill="#e9eff6" font-size="15">개발TF 조직<tspan x="95" dy="17" font-size="12.5" fill="#7ee0d3">2026.7.15. 전</tspan></text>
+            <text x="260" y="204" fill="#e9eff6" font-size="15">기획 · ISMP · RFP<tspan x="260" dy="17" font-size="12.5" fill="#9fb3c8">2026 하반기 — T0 이전 수행</tspan></text>
+            <text x="430" y="76" fill="#f4c98a" font-size="15">T0 — 재원 확보<tspan x="430" dy="17" font-size="12.5" fill="#9fb3c8">이후는 T+n(상대 개월)</tspan></text>
+            <text x="590" y="204" fill="#e9eff6" font-size="15">구축 (MVP)<tspan x="590" dy="17" font-size="12.5" fill="#9fb3c8">T+2~7 — 사업자 선정 후</tspan></text>
+            <text x="740" y="76" fill="#e9eff6" font-size="15">검수<tspan x="740" dy="17" font-size="12.5" fill="#9fb3c8">T+7~8 · 보안/PIA</tspan></text>
+            <text x="905" y="46" fill="#eafffb" font-size="17" font-weight="800">시범 개통 2027.9<tspan x="905" dy="18" font-size="12.5" fill="#7ee0d3" font-weight="700">초·중·고 각 2교(6교) · 한 학기</tspan><tspan x="905" dy="16" font-size="12.5" fill="#7ee0d3" font-weight="700">AI 교육위원회 출범</tspan></text>
+            <text x="1020" y="204" fill="#e9eff6" font-size="15">전면시행<tspan x="1020" dy="17" font-size="12.5" fill="#9fb3c8">효과검증·심의 후</tspan></text>
+          </g>
+        </svg>
+        <div class="vizcap">ISMP(요구 상세화·RFP)를 T0 이전에 마쳐야 2027.9 개통이 유지된다 — 기획사 ≠ 구축사</div>
+      </div>
+      <div class="note">기획용 추진 계획(안) — 사업범위·일정은 <b>재원 확보(T0) · AIEP 2차 구축(’26.8.~’27.2.)과의 정합</b>을 맞춰 확정. 시범 부하 기준 2,200명.</div>
+    </div>
+  </section>
+
+  <!-- 19 맺음 -->
+  <section class="slide navy">
+    <div class="kicker">맺음</div>
+    <div class="closing">그릇은 이미 있다.<br>이제 알맹이를 채운다</div>
+    <div class="closesub">표준 콘센트를 갖춘 바당 위에, 제주가 소유·통제하는 AI 게이트웨이 계층을 얹는다 — 모든 학생·교사·교직원의 AI 활동을 안전하게 보장하고, 그 모든 기록이 맞춤 교육으로 되돌아오게 한다.</div>
+    <div class="closelast">개발TF 조직 2026.7.15. — 준비는 지금 시작한다.</div>
+  </section>
+
+  <!-- 20 출처 -->
+  <section class="slide light content">
+    <div class="head">
+      <div class="kicker">출처</div>
+      <h2>근거 문서</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="bodyarea">
+      <ol class="refs">
+        <li>「인공지능 맞춤형 교수학습 플랫폼 구축 현안 사항」, 제주특별자치도교육청 디지털미래기획과 (’26.6.) — §1 다섯 문제·[붙임1] 시스템 구성도의 근거.</li>
+        <li><a href="badang-status.html">「인공지능 맞춤형 교수학습 플랫폼 바당 현황 및 개선 방안」 — 본 덱의 전편(현황 진단·공백 ①~⑭)</a>.</li>
+        <li><a href="paradigm.html">「AI 교육 패러다임」 — 왜·무엇을(본 개발안은 그 실현·구현)</a>.</li>
+        <li><a href="bloom-2sigma.html">「고의숙 교육감의 초개별화 맞춤형 교육 이론적 배경」 — 블룸 2σ·숙달 루프의 이론적 뿌리</a>.</li>
+        <li><a href="https://en.wikipedia.org/wiki/Ed_(chatbot)" target="_blank" rel="noopener">Ed (chatbot) — Wikipedia. LAUSD AI 비서 ‘Ed’(AllHere)의 2024.3. 출시·2024.6.14. 중단, 학생 데이터 처리 논란 정리.</a></li>
+      </ol>
+      <div class="cite"><b>약어</b> — 바당2(BADANG2, 「제주교육 AI 플랫폼」) · AIEP(인공지능 맞춤형 교수학습 플랫폼=바당) · LMS(학습관리시스템) · LRS(학습기록저장소) · xAPI(학습활동 기록 표준) · LTI(외부 학습 도구 실행 표준) · OneRoster(명부 표준) · SAML(SSO 인증 표준) · MCP(AI-도구 연결 프로토콜) · PII(개인식별정보) · DPA(개인정보 처리 계약) · NER(개체명 인식) · ISMP(정보시스템 마스터플랜) · RFP(제안요청서) · T0(재원 확보 시점) · SLA(서비스 수준 협약) · MVP(최소기능제품) · PIA(개인정보 영향평가)</div>
+      <div class="srcline">원문: 「제주교육 AI 플랫폼(바당2) 개발(안)」(badang2-plan.html) · 제주도교육감직인수위원회 미래학력분과 (’26.6.13. 작성)</div>
+    </div>
+  </section>
+
+</div>
+
+<div class="foot">제주교육 AI 플랫폼(바당2) · 개발(안)</div>
+<div class="counter" id="counter">1 / 20</div>
+<canvas id="draw"></canvas>
+<a class="homebtn" href="https://timefullkr.github.io/pubic/" title="제주교육 AI 플랫폼 홈으로" aria-label="홈"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></svg></a>
+<button class="anntoggle" id="annToggle" title="주석 도구 켜기/끄기 (P)" aria-label="주석 도구"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.8 2.8 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg></button>
+<div class="ftools" id="ftools">
+  <button id="selBtn" class="tbtn" title="선택 — 주석 이동·크기조절"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3l16 7-7 2-2 7-7-16z"/></svg></button>
+  <button id="penBtn" class="tbtn" title="펜 — 자유 드로잉"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.8 2.8 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg></button>
+  <button id="lineBtn" class="tbtn" title="직선 — 드래그로 그리기"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 19L19 5"/></svg></button>
+  <button id="rectBtn" class="tbtn" title="사각형 — 드래그로 그리기"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="1.5"/></svg></button>
+  <button id="circBtn" class="tbtn" title="원 — 드래그로 그리기"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/></svg></button>
+  <button id="textBtn" class="tbtn" title="텍스트 — 클릭한 위치에 입력" style="font-weight:800;font-size:15px">T</button>
+  <span class="sep"></span>
+  <input type="color" id="colorPick" value="#e53935" title="색상 선택">
+  <input type="range" id="widthPick" min="1" max="12" step="1" value="4" title="선 두께"><span class="flabel" id="widthVal">4px</span>
+  <span class="sep"></span>
+  <button id="undoBtn" class="tbtn" title="실행취소 (Ctrl+Z)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg></button>
+  <button id="redoBtn" class="tbtn" title="다시실행 (Ctrl+Y)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14l5-5-5-5"/><path d="M20 9H10a6 6 0 0 0 0 12h3"/></svg></button>
+  <button id="delBtn" class="tbtn" title="선택한 주석 삭제 (Delete)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2M5 6l1 14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-14"/><path d="M10 11v6M14 11v6"/></svg></button>
+  <button id="clearBtn" class="tbtn" title="이 슬라이드 주석 모두 지우기"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20H8.5L3 14.5a2 2 0 0 1 0-2.8l8-8a2 2 0 0 1 2.8 0l6.7 6.7a2 2 0 0 1 0 2.8L14 20"/><path d="M7 11l6 6"/></svg></button>
+  <span class="sep"></span>
+  <button id="saveBtn" class="tbtn" title="주석을 PNG 이미지로 저장"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 21h16"/></svg></button>
+</div>
+<div class="hint" id="hint"><kbd>←</kbd><kbd>→</kbd><kbd>PgUp</kbd><kbd>PgDn</kbd> 또는 화면 좌·우 가장자리 클릭 · <kbd>F</kbd> 전체화면</div>
+<button class="navarrow prev" id="navPrev" title="이전 슬라이드 (←)" aria-label="이전 슬라이드"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+<button class="navarrow next" id="navNext" title="다음 슬라이드 (→)" aria-label="다음 슬라이드"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+
+<script src="https://cdn.jsdelivr.net/npm/fabric@5.3.0/dist/fabric.min.js"></script>
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var progress=document.getElementById('progress'),counter=document.getElementById('counter'),hint=document.getElementById('hint');
+  var i=0,N=slides.length;
+  function show(n){if(window.__saveInk)window.__saveInk();
+    i=Math.max(0,Math.min(N-1,n));slides.forEach(function(s,k){s.classList.toggle('active',k===i);});
+    progress.style.width=((i+1)/N*100)+'%';counter.textContent=(i+1)+' / '+N;history.replaceState(null,'','#'+(i+1));
+    if(window.__loadInk)window.__loadInk();}
+  document.addEventListener('keydown',function(e){
+    if(document.activeElement&&(document.activeElement.tagName==='TEXTAREA'||document.activeElement.tagName==='INPUT'))return;   /* 텍스트 입력 중엔 내비 차단 */
+    if(document.body.classList.contains('intro-on')){if(window.__endIntro)window.__endIntro();return;}
+    if(document.body.classList.contains('pen-on')&&e.key==='Delete'){if(window.__deleteInk)window.__deleteInk();return;}
+    if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&(e.key==='z'||e.key==='Z')){e.preventDefault();if(window.__undoInk)window.__undoInk();return;}
+    if((e.ctrlKey||e.metaKey)&&(e.key==='y'||e.key==='Y'||(e.shiftKey&&(e.key==='z'||e.key==='Z')))){e.preventDefault();if(window.__redoInk)window.__redoInk();return;}
+    if(['ArrowRight','ArrowDown',' ','PageDown'].indexOf(e.key)>-1){e.preventDefault();show(i+1);}
+    else if(['ArrowLeft','ArrowUp','PageUp'].indexOf(e.key)>-1){e.preventDefault();show(i-1);}
+    else if(e.key==='Home'){show(0);}else if(e.key==='End'){show(N-1);}
+    else if(e.key==='p'||e.key==='P'){cyclePen();}
+    else if(e.key==='f'||e.key==='F'){var d=document;d.fullscreenElement?d.exitFullscreen():d.documentElement.requestFullscreen();}});
+  document.addEventListener('click',function(e){if(e.target.closest('a')||e.target.closest('.tools'))return;
+    if(document.body.classList.contains('intro-on')){if(window.__endIntro)window.__endIntro();return;}
+    if(document.body.classList.contains('pen-on'))return;
+    var r=e.clientX/window.innerWidth;
+    if(r<=0.10)show(i-1);else if(r>=0.90)show(i+1);});
+  var sx=null;
+  document.addEventListener('touchstart',function(e){if(document.body.classList.contains('pen-on'))return;sx=e.touches[0].clientX;},{passive:true});
+  document.addEventListener('touchend',function(e){if(document.body.classList.contains('pen-on')||sx===null)return;var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>45)show(i+(dx<0?1:-1));sx=null;},{passive:true});
+  /* 좌·우 중앙 화살표 버튼 — stopPropagation으로 가장자리 클릭 내비와 중복 방지 */
+  document.getElementById('navPrev').addEventListener('click',function(e){e.stopPropagation();if(document.body.classList.contains('intro-on')){if(window.__endIntro)window.__endIntro();return;}show(i-1);});
+  document.getElementById('navNext').addEventListener('click',function(e){e.stopPropagation();if(document.body.classList.contains('intro-on')){if(window.__endIntro)window.__endIntro();return;}show(i+1);});
+  setTimeout(function(){hint.classList.add('hide');},4200);
+
+  /* 주석 툴바(Fabric.js): 선택·펜·직선·사각형·원·텍스트 | 색상·두께 | 되돌리기·다시·삭제·전체지우기 | 저장 */
+  var fc=new fabric.Canvas('draw');
+  var inkStore={},placingText=false,editingText=false;
+  var mode='off',color='#e53935',penW=4;
+  var ft=document.getElementById('ftools');
+  fc.freeDrawingBrush=new fabric.PencilBrush(fc);
+  fc.freeDrawingBrush.width=penW;
+  var TOOL_BTN={select:'selBtn',draw:'penBtn',line:'lineBtn',rect:'rectBtn',circle:'circBtn'};
+  function apply(){var on=mode!=='off';
+    document.body.classList.toggle('pen-on',on);
+    fc.isDrawingMode=(mode==='draw'&&!placingText&&!editingText);
+    fc.freeDrawingBrush.color=color;fc.freeDrawingBrush.width=penW;
+    fc.selection=(mode==='select');
+    fc.skipTargetFind=(mode!=='select'&&!placingText);
+    fc.defaultCursor=placingText?'text':(mode==='select'?'default':'crosshair');
+    [].forEach.call(ft.querySelectorAll('.tbtn'),function(b){b.classList.remove('active');});
+    if(on&&placingText)document.getElementById('textBtn').classList.add('active');
+    else if(on&&TOOL_BTN[mode])document.getElementById(TOOL_BTN[mode]).classList.add('active');
+    if(!on){placingText=false;fc.discardActiveObject();fc.renderAll();}}
+  var annBtn=document.getElementById('annToggle');
+  function setTools(on){document.body.classList.toggle('tools-on',on);annBtn.classList.toggle('active',on);
+    if(on){if(mode==='off')mode='draw';}else{mode='off';placingText=false;}
+    apply();}
+  annBtn.addEventListener('click',function(e){e.stopPropagation();setTools(!document.body.classList.contains('tools-on'));});
+  function cyclePen(){setTools(!document.body.classList.contains('tools-on'));}   /* P 키: 도구 열기/닫기 */
+  function resizeF(){fc.setWidth(window.innerWidth);fc.setHeight(window.innerHeight);fc.renderAll();}
+  window.addEventListener('resize',resizeF);resizeF();
+  /* 히스토리(Ctrl+Z 실행취소 / Ctrl+Y·Ctrl+Shift+Z 다시실행) — 슬라이드별 상태 스냅숏 */
+  var hist={},restoring=false;
+  function histFor(){return hist[i]=hist[i]||{states:[fc.toJSON()],idx:0};}
+  function record(){if(restoring)return;var h=histFor();
+    h.states=h.states.slice(0,h.idx+1);h.states.push(fc.toJSON());
+    if(h.states.length>60)h.states.shift();
+    h.idx=h.states.length-1;}
+  function restore(json){restoring=true;fc.loadFromJSON(json,function(){fc.renderAll();restoring=false;});}
+  window.__undoInk=function(){var h=histFor();if(h.idx>0){h.idx--;restore(h.states[h.idx]);}};
+  window.__redoInk=function(){var h=histFor();if(h.idx<h.states.length-1){h.idx++;restore(h.states[h.idx]);}};
+  fc.on('path:created',function(){record();});
+  fc.on('object:modified',function(){record();});
+  window.__saveInk=function(){inkStore[i]=fc.toJSON();};
+  window.__loadInk=function(){restoring=true;fc.loadFromJSON(inkStore[i]||{objects:[]},function(){fc.renderAll();restoring=false;
+    if(!hist[i])hist[i]={states:[fc.toJSON()],idx:0};});};
+  window.__deleteInk=function(){var a=fc.getActiveObject();if(a&&!a.isEditing){fc.remove(a);fc.renderAll();record();}};
+  document.getElementById('colorPick').addEventListener('input',function(){color=this.value;apply();});
+  document.getElementById('widthPick').addEventListener('input',function(){penW=+this.value;
+    document.getElementById('widthVal').textContent=penW+'px';apply();});
+  ft.addEventListener('click',function(e){e.stopPropagation();
+    var b=e.target.closest('button');if(!b)return;
+    var m={selBtn:'select',penBtn:'draw',lineBtn:'line',rectBtn:'rect',circBtn:'circle'}[b.id];
+    if(m){mode=m;placingText=false;apply();return;}
+    if(b.id==='textBtn'){if(mode==='off')mode='draw';placingText=true;apply();}
+    else if(b.id==='undoBtn'){window.__undoInk();}
+    else if(b.id==='redoBtn'){window.__redoInk();}
+    else if(b.id==='delBtn'){window.__deleteInk();}
+    else if(b.id==='clearBtn'){fc.clear();delete inkStore[i];record();}
+    else if(b.id==='saveBtn'){var prev=fc.backgroundColor;fc.backgroundColor='#0d1e30';
+      var url=fc.toDataURL({format:'png'});fc.backgroundColor=prev;fc.renderAll();
+      var a=document.createElement('a');a.href=url;a.download='slide-'+(i+1)+'-annotation.png';a.click();}});
+  /* 텍스트: T → 위치 클릭 → 그 자리에서 입력 (기존 텍스트 클릭 시 재편집) */
+  fc.on('mouse:down',function(o){
+    if(!placingText)return;
+    placingText=false;editingText=true;apply();
+    if(o.target&&o.target.type==='i-text'){fc.setActiveObject(o.target);o.target.enterEditing();return;}
+    var p=fc.getPointer(o.e);
+    var t=new fabric.IText('',{left:p.x,top:p.y,fill:color,fontSize:26,fontWeight:600,
+      fontFamily:"'Pretendard Variable',Pretendard,'Malgun Gothic','Apple SD Gothic Neo',sans-serif"});
+    fc.add(t);fc.setActiveObject(t);t.enterEditing();});
+  fc.on('text:editing:exited',function(o){
+    if(o.target&&!o.target.text)fc.remove(o.target);   /* 빈 텍스트는 정리 */
+    else record();
+    editingText=false;apply();});
+  /* 사각형·원·직선: 드래그로 그리기 */
+  var shape=null,shapeStart=null;
+  fc.on('mouse:down',function(o){
+    if(placingText||editingText||(mode!=='rect'&&mode!=='line'&&mode!=='circle'))return;
+    var p=fc.getPointer(o.e);shapeStart=p;
+    if(mode==='rect')shape=new fabric.Rect({left:p.x,top:p.y,width:1,height:1,fill:'transparent',stroke:color,strokeWidth:penW,strokeUniform:true});
+    else if(mode==='circle')shape=new fabric.Ellipse({left:p.x,top:p.y,rx:1,ry:1,fill:'transparent',stroke:color,strokeWidth:penW,strokeUniform:true});
+    else shape=new fabric.Line([p.x,p.y,p.x,p.y],{stroke:color,strokeWidth:penW,strokeLineCap:'round'});
+    fc.add(shape);});
+  fc.on('mouse:move',function(o){if(!shape)return;var p=fc.getPointer(o.e);
+    if(mode==='rect')shape.set({left:Math.min(p.x,shapeStart.x),top:Math.min(p.y,shapeStart.y),width:Math.abs(p.x-shapeStart.x),height:Math.abs(p.y-shapeStart.y)});
+    else if(mode==='circle')shape.set({left:Math.min(p.x,shapeStart.x),top:Math.min(p.y,shapeStart.y),rx:Math.abs(p.x-shapeStart.x)/2,ry:Math.abs(p.y-shapeStart.y)/2});
+    else shape.set({x2:p.x,y2:p.y});
+    fc.renderAll();});
+  fc.on('mouse:up',function(){if(shape){shape.setCoords();shape=null;shapeStart=null;record();}});
+
+  show((parseInt((location.hash||'').slice(1),10)||1)-1);
+})();
+
+/* 인트로 시퀀스: 페이드인 5s → 페이드아웃 3s(표지 드러남). 클릭·키 입력으로 건너뛰기 */
+(function(){
+  var intro=document.getElementById('intro');
+  if(!intro)return;
+  var startAt=parseInt((location.hash||'').slice(1),10)||1;
+  if(startAt>1){intro.remove();return;}   /* 특정 슬라이드로 바로 진입하면 인트로 생략 */
+  document.body.classList.add('intro-on');
+  var done=false,t;
+  window.__endIntro=function(){
+    if(done)return;done=true;clearTimeout(t);
+    intro.classList.add('out');
+    setTimeout(function(){intro.remove();document.body.classList.remove('intro-on');},3100);
+  };
+  requestAnimationFrame(function(){requestAnimationFrame(function(){
+    intro.querySelector('.q').style.opacity='1';
+  });});
+  t=setTimeout(window.__endIntro,5000);   /* 5s 페이드인 직후 자동 진행 */
+})();
+</script>
+</body>
+</html>
