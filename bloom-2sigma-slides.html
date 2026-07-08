@@ -177,8 +177,9 @@ body.pen-on .canvas-container{pointer-events:auto;touch-action:none}
 /* 좌·우 중앙 이전/다음 버튼 */
 .navarrow{position:fixed;top:50%;transform:translateY(-50%);z-index:30;width:44px;height:44px;border-radius:50%;
   border:1px solid rgba(255,255,255,.22);background:rgba(13,30,48,.78);color:#8fa3b8;cursor:pointer;padding:0;
-  display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
-.navarrow:hover{border-color:var(--accent);color:#fff}
+  display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);
+  opacity:.28;transition:opacity .25s ease}
+.navarrow:hover{border-color:var(--accent);color:#fff;opacity:1}
 .navarrow.prev{left:1.4vw}
 .navarrow.next{right:1.4vw}
 @media print{.navarrow{display:none!important}}
