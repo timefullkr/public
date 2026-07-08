@@ -52,8 +52,12 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(236px,1fr));gap:18px;margin:1.6em 0}
 .card{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--soft);display:flex;flex-direction:column;transition:border-color .2s,box-shadow .2s}
 .card:hover{border-color:var(--accent);box-shadow:0 4px 18px rgba(0,0,0,.10)}
-.card-thumb{display:block}
-.card-thumb img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}
+.card-thumb{display:block;position:relative;aspect-ratio:16/10;overflow:hidden}
+.card-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+/* 복수 썸네일 슬라이드쇼: 기본은 전부 투명, 첫 장만 표시(애니메이션 미지원 대비), 키프레임이 순환 */
+.card-thumb.multi img{opacity:0}
+.card-thumb.multi img:first-child{opacity:1}
+@media (prefers-reduced-motion:reduce){.card-thumb.multi img{animation:none!important;opacity:0}.card-thumb.multi img:first-child{opacity:1}}
 .card-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
 .card-title{font-size:1.02rem;line-height:1.45;margin:0;padding:0;border:none}
 .card-title a{color:var(--fg)}
@@ -63,6 +67,10 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
 .card-actions a{font-size:12.5px;font-weight:600;padding:3px 10px;border:1px solid var(--line);border-radius:999px;background:var(--bg);color:var(--fg)}
 .card-actions a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
 @media print{nav.top,.foot,.pdflink{display:none}body{font-size:11pt;font-family:"Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif}.wrap{max-width:none}}
+@keyframes cardfade2{0%{opacity:0}8.000%{opacity:1}50.000%{opacity:1}58.000%{opacity:0}100%{opacity:0}}
+.card-thumb.thumbs-2 img{animation:cardfade2 10s linear infinite}
+@keyframes cardfade5{0%{opacity:0}3.200%{opacity:1}20.000%{opacity:1}23.200%{opacity:0}100%{opacity:0}}
+.card-thumb.thumbs-5 img{animation:cardfade5 25s linear infinite}
 </style>
 </head>
 <body>

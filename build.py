@@ -83,8 +83,12 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(236px,1fr));gap:18px;margin:1.6em 0}
 .card{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--soft);display:flex;flex-direction:column;transition:border-color .2s,box-shadow .2s}
 .card:hover{border-color:var(--accent);box-shadow:0 4px 18px rgba(0,0,0,.10)}
-.card-thumb{display:block}
-.card-thumb img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}
+.card-thumb{display:block;position:relative;aspect-ratio:16/10;overflow:hidden}
+.card-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+/* 복수 썸네일 슬라이드쇼: 기본은 전부 투명, 첫 장만 표시(애니메이션 미지원 대비), 키프레임이 순환 */
+.card-thumb.multi img{opacity:0}
+.card-thumb.multi img:first-child{opacity:1}
+@media (prefers-reduced-motion:reduce){.card-thumb.multi img{animation:none!important;opacity:0}.card-thumb.multi img:first-child{opacity:1}}
 .card-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
 .card-title{font-size:1.02rem;line-height:1.45;margin:0;padding:0;border:none}
 .card-title a{color:var(--fg)}
@@ -95,6 +99,17 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
 .card-actions a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
 @media print{nav.top,.foot,.pdflink{display:none}body{font-size:11pt;font-family:"Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif}.wrap{max-width:none}}
 """
+
+# 복수 썸네일 크로스페이드 키프레임 — docs.json 에 등장하는 장수(N)별로 생성.
+# 장당 5초 표시, 0.8초 페이드. 전체 주기 T=5N초, 이미지 i의 delay 는 card() 에서 인라인 지정.
+SLIDE_SECS, FADE_SECS = 5.0, 0.8
+for _n in sorted({len(_d["thumb"]) for _d in DOCS
+                  if isinstance(_d.get("thumb"), list) and len(_d["thumb"]) > 1}):
+    _t = SLIDE_SECS * _n
+    _p1, _p2, _p3 = (FADE_SECS / _t * 100), (SLIDE_SECS / _t * 100), ((SLIDE_SECS + FADE_SECS) / _t * 100)
+    CSS += (f"@keyframes cardfade{_n}{{0%{{opacity:0}}{_p1:.3f}%{{opacity:1}}"
+            f"{_p2:.3f}%{{opacity:1}}{_p3:.3f}%{{opacity:0}}100%{{opacity:0}}}}\n"
+            f".card-thumb.thumbs-{_n} img{{animation:cardfade{_n} {_t:g}s linear infinite}}\n")
 
 TEMPLATE = """<!doctype html>
 <html lang="ko">
@@ -169,11 +184,25 @@ def make_pdf(slug, pdf_name):
 
 
 def card(d):
-    """문서 1건 → 카드 HTML (썸네일 + 제목 + 설명 + 링크 배지)"""
+    """문서 1건 → 카드 HTML (썸네일 + 제목 + 설명 + 링크 배지).
+    thumb 는 문자열(1장 고정) 또는 배열(5초 간격 크로스페이드 순환)."""
     thumb = ""
-    if d.get("thumb"):
-        thumb = (f'<a class="card-thumb" href="{d["slug"]}" tabindex="-1" aria-hidden="true">'
-                 f'<img src="{d["thumb"]}" alt="" loading="lazy"></a>')
+    thumbs = d.get("thumb")
+    if isinstance(thumbs, str):
+        thumbs = [thumbs]
+    if thumbs:
+        if len(thumbs) == 1:
+            cls, imgs = "card-thumb", f'<img src="{thumbs[0]}" alt="" loading="lazy">'
+        else:
+            n, t = len(thumbs), SLIDE_SECS * len(thumbs)
+            cls = f"card-thumb multi thumbs-{n}"
+            # 이미지 i 는 [5i, 5i+5) 구간에 표시 — 음수 delay 로 위상을 당겨 첫 장이 로드 즉시 보이게
+            imgs = "".join(
+                f'<img src="{src}" alt="" loading="lazy" '
+                f'style="animation-delay:{SLIDE_SECS * i - FADE_SECS - t:.1f}s">'
+                for i, src in enumerate(thumbs))
+        thumb = (f'<a class="{cls}" href="{d["slug"]}" tabindex="-1" aria-hidden="true">'
+                 f'{imgs}</a>')
     actions = [f'<a href="{d["slug"]}">문서</a>']
     if d.get("slides"):
         actions.append(f'<a href="{d["slides"]}">슬라이드</a>')

@@ -13,7 +13,7 @@
       "desc": "AX(AI 전환)를 '도구 도입'이 아니라 사람·프로세스의 전환으로 보는 관점을 교육에 적용 — 교사 대체 우려, 에듀테크 과잉, 형평.",
       "slides": "ax-transformation-slides.html",
       "pdf": null,
-      "thumb": "img/ax-03-pew-chatgpt-2x.svg",
+      "thumb": ["img/ax-03-pew-chatgpt-2x.svg", "img/ax-04-usage-vs-guidelines.svg"],
       "aliases": ["AX전환-요약.md"]
     },
     {
@@ -33,7 +33,13 @@
       "desc": "핵심 공약 '초개별화 맞춤형 교육'의 이론적 근거 — 1:1 개인교습이 집단수업보다 2 표준편차 높은 성취를 낸다는 블룸의 실증(2 시그마 문제)을, AI로 대규모 실현한다.",
       "slides": "bloom-2sigma-slides.html",
       "pdf": "bloom-2sigma.pdf",
-      "thumb": "img/bloom-03-two-sigma-bells.svg",
+      "thumb": [
+        "img/bloom-03-two-sigma-bells.svg",
+        "img/bloom-05-attainment-bars.svg",
+        "img/bloom-06-aptitude-slope.svg",
+        "img/bloom-10-effectsize-ladder.svg",
+        "img/bloom-12-mastery-loop.svg"
+      ],
       "aliases": ["초개별화 맞춤형 교육의 근거 -벤자민 블룸-2시그마-문제-논문-요약.md"]
     }
   ]
