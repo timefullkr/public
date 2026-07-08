@@ -105,7 +105,7 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
 @media print{nav.top,.foot,.pdflink{display:none}body{font-size:11pt;font-family:"Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif}.wrap{max-width:none}}
 """
 
-# 복수 썸네일 크로스페이드 — 카드마다 장당 3~8초 랜덤 주기·랜덤 위상(동시 전환 방지).
+# 복수 썸네일 크로스페이드 — 카드마다 장당 3~15초 랜덤 주기·랜덤 위상(동시 전환 방지).
 # 슬러그 해시 시드라 빌드를 반복해도 값이 고정돼 diff 가 흔들리지 않는다. delay 는 card() 에서 인라인 지정.
 FADE_SECS = 0.8
 
@@ -120,7 +120,7 @@ for _d in DOCS:
     _th = _d.get("thumb")
     if isinstance(_th, list) and len(_th) > 1:
         _sid = _d["slug"].rsplit(".", 1)[0]
-        _secs = round(3 + _rand01(_sid) * 5, 1)          # 장당 표시 3~8초
+        _secs = round(3 + _rand01(_sid) * 12, 1)         # 장당 표시 3~15초
         _t = _secs * len(_th)
         _d["_anim"] = {"cls": _sid, "secs": _secs,
                        "offset": round(_rand01(_sid + "@") * _secs, 1)}   # 시작 위상도 랜덤
