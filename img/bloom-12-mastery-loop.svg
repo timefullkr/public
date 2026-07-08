@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-36 -36 1082 402" font-family="'Pretendard','Malgun Gothic','Segoe UI',sans-serif"><defs><radialGradient id="bg" cx="82%" cy="8%" r="130%"><stop offset="0%" stop-color="#1e4d78"/><stop offset="55%" stop-color="#0f2a44"/><stop offset="100%" stop-color="#081827"/></radialGradient></defs><rect x="-36" y="-36" width="1082" height="402" fill="url(#bg)"/>
+          <defs>
+            <marker id="lp" markerWidth="10" markerHeight="10" refX="7" refY="3.2" orient="auto"><path d="M0,0 L7,3.2 L0,6.4Z" fill="#7ee0d3"/></marker>
+            <marker id="lpa" markerWidth="10" markerHeight="10" refX="7" refY="3.2" orient="auto"><path d="M0,0 L7,3.2 L0,6.4Z" fill="#f4a23b"/></marker>
+          </defs>
+          <!-- 분기 ①: 도달 → 다음 목표·심화 (형성평가 위로 탈출) -->
+          <line x1="370" y1="128" x2="370" y2="84" stroke="#f4a23b" stroke-width="3" marker-end="url(#lpa)"/>
+          <circle cx="370" cy="108" r="6" fill="#f4a23b" stroke="#0f2a44" stroke-width="2"/>
+          <text x="386" y="112" fill="#f4c98a" font-size="13" font-weight="700">✓</text>
+          <text x="392" y="70" text-anchor="start" fill="#f4a23b" font-size="17" font-weight="800">도달 → 다음 목표 · 심화</text>
+          <g font-weight="700">
+            <rect x="24" y="130" width="196" height="86" rx="16" fill="#fff"/>
+            <text x="122" y="166" text-anchor="middle" fill="#0f2a44" font-size="20">수업</text>
+            <text x="122" y="192" text-anchor="middle" fill="#66768a" font-size="15">교수학습</text>
+            <rect x="272" y="130" width="196" height="86" rx="16" fill="#fff"/>
+            <text x="370" y="166" text-anchor="middle" fill="#0f2a44" font-size="20">형성평가</text>
+            <text x="370" y="192" text-anchor="middle" fill="#66768a" font-size="15">진단</text>
+            <rect x="520" y="124" width="220" height="104" rx="16" fill="#fff"/>
+            <text x="630" y="156" text-anchor="middle" fill="#0f2a44" font-size="20">맞춤 개별 학습</text>
+            <text x="630" y="182" text-anchor="middle" fill="#66768a" font-size="14">오개념 진단 · 최적 설명</text>
+            <text x="630" y="202" text-anchor="middle" fill="#66768a" font-size="14">실시간 생성 (멀티모달)</text>
+            <rect x="788" y="130" width="196" height="86" rx="16" fill="#fff"/>
+            <text x="886" y="166" text-anchor="middle" fill="#0f2a44" font-size="20">재 형성평가 신청</text>
+            <text x="886" y="192" text-anchor="middle" fill="#66768a" font-size="15">맞춤 재출제</text>
+          </g>
+          <!-- 수업 → 형성평가 -->
+          <line x1="226" y1="173" x2="266" y2="173" stroke="#7ee0d3" stroke-width="3" marker-end="url(#lp)"/>
+          <!-- 분기 ②: 미도달 → 맞춤 개별 학습 → 재 형성평가 신청 → 다시 형성평가 -->
+          <text x="494" y="160" text-anchor="middle" fill="#c7d5e2" font-size="13" font-weight="700">미도달</text>
+          <line x1="474" y1="173" x2="514" y2="173" stroke="#7ee0d3" stroke-width="3" marker-end="url(#lp)"/>
+          <line x1="746" y1="173" x2="782" y2="173" stroke="#7ee0d3" stroke-width="3" marker-end="url(#lp)"/>
+          <path d="M880,222 C880,296 376,296 376,224" fill="none" stroke="#7ee0d3" stroke-width="3" marker-end="url(#lp)"/>
+          <!-- 학생들: 루프의 서로 다른 지점 -->
+          <g fill="#f4a23b" stroke="#0f2a44" stroke-width="2">
+            <circle cx="494" cy="173" r="6"/><circle cx="764" cy="173" r="6"/>
+            <circle cx="800" cy="270" r="6"/><circle cx="628" cy="287" r="6"/>
+            <circle cx="455" cy="270" r="6"/><circle cx="378" cy="246" r="6"/>
+          </g>
+          <text x="628" y="322" text-anchor="middle" fill="#7ee0d3" font-size="16" font-weight="800">미도달 루프 — 숙달할 때까지 반복 · 점(●)은 서로 다른 지점을 도는 학생들 ×30</text>
+        </svg>

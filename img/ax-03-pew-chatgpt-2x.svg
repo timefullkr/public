@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-36 -36 452 372" font-family="'Pretendard','Malgun Gothic','Segoe UI',sans-serif"><defs><radialGradient id="bg" cx="82%" cy="8%" r="130%"><stop offset="0%" stop-color="#1e4d78"/><stop offset="55%" stop-color="#0f2a44"/><stop offset="100%" stop-color="#081827"/></radialGradient></defs><rect x="-36" y="-36" width="452" height="372" fill="url(#bg)"/>
+          <line x1="50" y1="250" x2="340" y2="250" stroke="rgba(255,255,255,.30)" stroke-width="2"/>
+          <!-- 스케일 7px/% -->
+          <path class="bar" style="animation-delay:.15s" d="M90,165 q0,-6 6,-6 h78 q6,0 6,6 V250 H90 Z" fill="#41597a"/>
+          <text class="barval" style="animation-delay:.75s" x="135" y="145" text-anchor="middle" fill="#9fb3c8" font-size="24" font-weight="800">13%</text>
+          <text x="135" y="274" text-anchor="middle" fill="#c7d5e2" font-size="16" font-weight="600">2023</text>
+          <path class="bar" style="animation-delay:.45s" d="M210,74 q0,-6 6,-6 h78 q6,0 6,6 V250 H210 Z" fill="#1fc7b1"/>
+          <text class="barval" style="animation-delay:1.05s" x="255" y="54" text-anchor="middle" fill="#e9eff6" font-size="24" font-weight="800">26%</text>
+          <text x="255" y="274" text-anchor="middle" fill="#e9eff6" font-size="16" font-weight="700">2024</text>
+          <text class="barval" style="animation-delay:1.35s" x="255" y="120" text-anchor="middle" fill="#0f2a44" font-size="17" font-weight="800">×2</text>
+        </svg>

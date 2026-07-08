@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-36 -36 632 372" font-family="'Pretendard','Malgun Gothic','Segoe UI',sans-serif"><defs></defs><rect x="-36" y="-36" width="632" height="372" fill="#14283e"/>
+            <line x1="60" y1="50" x2="530" y2="50" stroke="rgba(255,255,255,.12)" stroke-width="1.5" stroke-dasharray="4 4"/>
+            <text x="56" y="54" text-anchor="end" fill="#7e93a9" font-size="12">100%</text>
+            <line x1="60" y1="250" x2="530" y2="250" stroke="rgba(255,255,255,.30)" stroke-width="2"/>
+            <!-- 스케일 2px/% -->
+            <path class="bar" style="animation-delay:.15s" d="M110,96 q0,-6 6,-6 h78 q6,0 6,6 V250 H110 Z" fill="#1fc7b1"/>
+            <text class="barval" style="animation-delay:.75s" x="155" y="78" text-anchor="middle" fill="#e9eff6" font-size="23" font-weight="800">약 80%</text>
+            <text x="155" y="272" text-anchor="middle" fill="#e9eff6" font-size="15" font-weight="600">생성형 AI 쓰는 대학생</text>
+            <path class="bar" style="animation-delay:.45s" d="M250,156 q0,-6 6,-6 h78 q6,0 6,6 V250 H250 Z" fill="#7691ae"/>
+            <text class="barval" style="animation-delay:1.05s" x="295" y="138" text-anchor="middle" fill="#e9eff6" font-size="23" font-weight="800">약 50%</text>
+            <text x="295" y="272" text-anchor="middle" fill="#e9eff6" font-size="15" font-weight="600">AI 지침 갖춘 학교</text>
+            <path class="bar" style="animation-delay:.75s" d="M390,244 q0,-6 6,-6 h78 q6,0 6,6 V250 H390 Z" fill="#f4a23b"/>
+            <text class="barval" style="animation-delay:1.35s" x="435" y="220" text-anchor="middle" fill="#f4c98a" font-size="23" font-weight="800">6%</text>
+            <text x="435" y="272" text-anchor="middle" fill="#e9eff6" font-size="15" font-weight="600">지침이 명확한 교사</text>
+          </svg>

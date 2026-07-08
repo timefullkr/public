@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-36 -36 772 247" font-family="'Pretendard','Malgun Gothic','Segoe UI',sans-serif"><defs></defs><rect x="-36" y="-36" width="772" height="247" fill="#14283e"/>
+          <line x1="60" y1="100" x2="640" y2="100" stroke="rgba(255,255,255,.30)" stroke-width="2"/>
+          <g stroke="rgba(255,255,255,.30)" stroke-width="1.5"><line x1="60" y1="94" x2="60" y2="106"/><line x1="350" y1="94" x2="350" y2="106"/><line x1="640" y1="94" x2="640" y2="106"/></g>
+          <circle cx="60" cy="100" r="8" fill="#41597a" stroke="#14283e" stroke-width="2"/>
+          <circle cx="251" cy="100" r="8" fill="#6f9cc6" stroke="#14283e" stroke-width="2"/>
+          <circle cx="350" cy="100" r="8" fill="#7691ae" stroke="#14283e" stroke-width="2"/>
+          <circle cx="640" cy="100" r="9" fill="#1fc7b1" stroke="#14283e" stroke-width="2"/>
+          <text x="60" y="66" text-anchor="middle" fill="#9fb3c8" font-size="15" font-weight="700">전통 수업<tspan x="60" dy="17" font-size="13" font-weight="600">0σ</tspan></text>
+          <text x="251" y="49" text-anchor="middle" fill="#e9eff6" font-size="15" font-weight="800">ITS<tspan x="251" dy="17" font-size="13" font-weight="700">+0.66σ</tspan></text>
+          <text x="350" y="66" text-anchor="middle" fill="#9fb3c8" font-size="15" font-weight="700">완전학습<tspan x="350" dy="17" font-size="13" font-weight="600">+1σ</tspan></text>
+          <text x="640" y="49" text-anchor="middle" fill="#e9eff6" font-size="15" font-weight="800">1:1 교습<tspan x="640" dy="17" font-size="13" font-weight="700">+2σ</tspan></text>
+          <text x="60" y="132" text-anchor="middle" fill="#7e93a9" font-size="13">백분위 50%</text>
+          <text x="251" y="132" text-anchor="middle" fill="#9fb3c8" font-size="13" font-weight="700">75%</text>
+          <text x="350" y="132" text-anchor="middle" fill="#7e93a9" font-size="13">84%</text>
+          <text x="640" y="132" text-anchor="middle" fill="#9fb3c8" font-size="13" font-weight="700">98%</text>
+        </svg>

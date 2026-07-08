@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-36 -36 492 286" font-family="'Pretendard','Malgun Gothic','Segoe UI',sans-serif"><defs></defs><rect x="-36" y="-36" width="492" height="286" fill="#14283e"/>
+            <line x1="40" y1="170" x2="390" y2="170" stroke="rgba(255,255,255,.30)" stroke-width="1.5"/>
+            <polyline class="sline" points="70,50 210,100 350,120" fill="none" stroke="#6f9cc6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle class="sd" style="animation-delay:.25s" cx="70" cy="50" r="6" fill="#6f9cc6" stroke="#14283e" stroke-width="2"/>
+            <circle class="sd" style="animation-delay:.95s" cx="210" cy="100" r="6" fill="#6f9cc6" stroke="#14283e" stroke-width="2"/>
+            <circle class="sd" style="animation-delay:1.6s" cx="350" cy="120" r="7" fill="#1fc7b1" stroke="#14283e" stroke-width="2"/>
+            <text class="sd" style="animation-delay:.25s" x="70" y="34" text-anchor="middle" fill="#e9eff6" font-size="19" font-weight="800">+.60</text>
+            <text class="sd" style="animation-delay:.95s" x="210" y="84" text-anchor="middle" fill="#e9eff6" font-size="19" font-weight="800">+.35</text>
+            <text class="sd" style="animation-delay:1.6s" x="350" y="104" text-anchor="middle" fill="#e9eff6" font-size="19" font-weight="800">+.25</text>
+            <text x="70" y="192" text-anchor="middle" fill="#9fb3c8" font-size="14">전통 수업</text>
+            <text x="210" y="192" text-anchor="middle" fill="#9fb3c8" font-size="14">완전학습</text>
+            <text x="350" y="192" text-anchor="middle" fill="#e9eff6" font-size="14" font-weight="700">1:1 개인교습</text>
+          </svg>

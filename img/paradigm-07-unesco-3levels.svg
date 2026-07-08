@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-36 -36 772 332" font-family="'Pretendard','Malgun Gothic','Segoe UI',sans-serif"><defs></defs><rect x="-36" y="-36" width="772" height="332" fill="#14283e"/>
+          <line x1="30" y1="230" x2="670" y2="230" stroke="rgba(255,255,255,.30)" stroke-width="2"/>
+          <g class="bar" style="animation-delay:.15s"><rect x="60" y="160" width="170" height="70" rx="12" fill="#41597a"/></g>
+          <text class="barval" style="animation-delay:.7s" x="145" y="192" text-anchor="middle" fill="#e9eff6" font-size="21" font-weight="800">이해<tspan x="145" dy="20" font-size="13" font-weight="600" fill="#9fb3c8">Understand</tspan></text>
+          <g class="bar" style="animation-delay:.55s"><rect x="265" y="110" width="170" height="120" rx="12" fill="#7691ae"/></g>
+          <text class="barval" style="animation-delay:1.1s" x="350" y="162" text-anchor="middle" fill="#e9eff6" font-size="21" font-weight="800">적용<tspan x="350" dy="20" font-size="13" font-weight="600" fill="#dbe7f1">Apply</tspan></text>
+          <g class="bar" style="animation-delay:.95s"><rect x="470" y="60" width="170" height="170" rx="12" fill="#1fc7b1"/></g>
+          <text class="barval" style="animation-delay:1.5s" x="555" y="132" text-anchor="middle" fill="#08131f" font-size="21" font-weight="800">창조<tspan x="555" dy="20" font-size="13" font-weight="700" fill="#0f2a44">Create with AI</tspan></text>
+          <text class="barval" style="animation-delay:1.8s" x="555" y="40" text-anchor="middle" fill="#7ee0d3" font-size="15" font-weight="800">책임 있는 사용자 · 능동적 공동창작자</text>
+        </svg>
