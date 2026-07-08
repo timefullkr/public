@@ -2,12 +2,14 @@
 """제주교육 AI · 공개 문서 사이트 빌드 (자체 완결 HTML + Bloom PDF + 검증).
 
 - 스크립트가 있는 저장소 폴더(ROOT) 기준으로만 동작 → 경로 하드코딩 없음, 어느 PC에서나 실행.
-- 각 .md 를 임베디드 CSS HTML 로 변환하고 index.html 생성.
+- 문서 목록·사이트 문구는 docs.json 이 단일 소스 — 문서 추가는 docs.json 에 항목 추가 + md 파일 배치.
+- 각 .md 를 임베디드 CSS HTML 로 변환하고 index.html(문서 카드 그리드) 생성.
 - Bloom 페이지는 Chrome/Edge 헤드리스로 PDF 저장 후 검증(빈 페이지·에러 페이지 차단).
 
 필요: python -m pip install markdown pypdf   /  Chrome 또는 Edge 설치
 사용: python build.py
 """
+import json
 import os
 import re
 import sys
@@ -17,23 +19,16 @@ import markdown
 
 ROOT = Path(__file__).resolve().parent
 
-# (소스 md, 출력 슬러그, 탭 제목, PDF|None, 발표 슬라이드 HTML|None)
-PAGES = [
-    ("AI교육-패러다임.md", "paradigm.html", "AI 교육 패러다임", None, "paradigm-slides.html"),
-    ("AX전환과 교육.md", "ax-transformation.html", "AX 전환과 교육", None, "ax-transformation-slides.html"),
-    ("고의숙 교육감의 초개별화 맞춤형 교육 이론적 배경.md", "bloom-2sigma.html",
-     '고의숙 교육감의 "초개별화 맞춤형 교육"', "bloom-2sigma.pdf",
-     "bloom-2sigma-slides.html"),
-]
+META = json.loads((ROOT / "docs.json").read_text(encoding="utf-8"))
+SITE = META["site"]
+DOCS = META["docs"]
 
-# 마크다운 내부 링크(.md) → 사이트 내 .html 슬러그(구 파일명도 함께 매핑해 안전)
-LINK_MAP = {
-    "AI교육-패러다임.md": "paradigm.html",
-    "AX전환과 교육.md": "ax-transformation.html",
-    "AX전환-요약.md": "ax-transformation.html",
-    "고의숙 교육감의 초개별화 맞춤형 교육 이론적 배경.md": "bloom-2sigma.html",
-    "초개별화 맞춤형 교육의 근거 -벤자민 블룸-2시그마-문제-논문-요약.md": "bloom-2sigma.html",
-}
+# 마크다운 내부 링크(.md) → 사이트 내 .html 슬러그 (aliases: 과거 파일명도 매핑해 안전)
+LINK_MAP = {}
+for _d in DOCS:
+    LINK_MAP[_d["md"]] = _d["slug"]
+    for _a in _d.get("aliases", []):
+        LINK_MAP[_a] = _d["slug"]
 
 CHROME_CANDIDATES = [
     r"C:\Program Files\Google\Chrome\Application\chrome.exe",
@@ -84,6 +79,20 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
  border-radius:8px;background:var(--soft);color:var(--fg);font-size:14px;font-weight:600}
 .pdflink:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
 .idx-pdf{margin-left:8px;font-size:13px;padding:1px 8px;border:1px solid var(--line);border-radius:12px}
+/* index 문서 카드 그리드 */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(236px,1fr));gap:18px;margin:1.6em 0}
+.card{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--soft);display:flex;flex-direction:column;transition:border-color .2s,box-shadow .2s}
+.card:hover{border-color:var(--accent);box-shadow:0 4px 18px rgba(0,0,0,.10)}
+.card-thumb{display:block}
+.card-thumb img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}
+.card-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card-title{font-size:1.02rem;line-height:1.45;margin:0;padding:0;border:none}
+.card-title a{color:var(--fg)}
+.card-title a:hover{color:var(--accent);text-decoration:none}
+.card-desc{margin:0;font-size:.86rem;line-height:1.6;color:var(--muted);flex:1}
+.card-actions{display:flex;gap:8px;flex-wrap:wrap}
+.card-actions a{font-size:12.5px;font-weight:600;padding:3px 10px;border:1px solid var(--line);border-radius:999px;background:var(--bg);color:var(--fg)}
+.card-actions a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
 @media print{nav.top,.foot,.pdflink{display:none}body{font-size:11pt;font-family:"Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif}.wrap{max-width:none}}
 """
 
@@ -159,33 +168,48 @@ def make_pdf(slug, pdf_name):
         sys.exit(f"PDF 검증 실패: {pdf_name} (빈 페이지/에러 페이지 의심)")
 
 
+def card(d):
+    """문서 1건 → 카드 HTML (썸네일 + 제목 + 설명 + 링크 배지)"""
+    thumb = ""
+    if d.get("thumb"):
+        thumb = (f'<a class="card-thumb" href="{d["slug"]}" tabindex="-1" aria-hidden="true">'
+                 f'<img src="{d["thumb"]}" alt="" loading="lazy"></a>')
+    actions = [f'<a href="{d["slug"]}">문서</a>']
+    if d.get("slides"):
+        actions.append(f'<a href="{d["slides"]}">슬라이드</a>')
+    if d.get("pdf"):
+        actions.append(f'<a href="{d["pdf"]}">PDF</a>')
+    return (f'<article class="card">{thumb}<div class="card-body">'
+            f'<h2 class="card-title"><a href="{d["slug"]}">{d["title"]}</a></h2>'
+            f'<p class="card-desc">{d["desc"]}</p>'
+            f'<div class="card-actions">{"".join(actions)}</div>'
+            f'</div></article>')
+
+
+def index_body():
+    cards = "\n".join(card(d) for d in DOCS)
+    return (f'<h1 align="center">{SITE["heading"]}</h1>\n'
+            f'<p class="lead-sub">{SITE["subtitle"]}</p>\n'
+            f'<p>{SITE["intro"]}</p>\n'
+            f'<div class="cards">\n{cards}\n</div>')
+
+
 def main():
-    for md_name, slug, title, pdf, slides in PAGES:
-        body = convert(md_name)
+    for d in DOCS:
+        body = convert(d["md"])
         links = []
-        if slides:
-            links.append(f'<a class="pdflink" href="{slides}">🖥 발표 슬라이드(웹)</a>')
-        if pdf:
-            links.append(f'<a class="pdflink" href="{pdf}">⬇ PDF로 저장·인쇄</a>')
+        if d.get("slides"):
+            links.append(f'<a class="pdflink" href="{d["slides"]}">🖥 발표 슬라이드(웹)</a>')
+        if d.get("pdf"):
+            links.append(f'<a class="pdflink" href="{d["pdf"]}">⬇ PDF로 저장·인쇄</a>')
         if links:
             body = " ".join(links) + "\n" + body
-        (ROOT / slug).write_text(TEMPLATE.format(title=title, css=CSS, body=body), encoding="utf-8")
-        print("wrote", slug)
-        if pdf:
-            make_pdf(slug, pdf)
+        (ROOT / d["slug"]).write_text(TEMPLATE.format(title=d["title"], css=CSS, body=body), encoding="utf-8")
+        print("wrote", d["slug"])
+        if d.get("pdf"):
+            make_pdf(d["slug"], d["pdf"])
 
-    index_body = """<h1 align="center">모두가 주인공! 함께 성장하는 제주교육 AI 플랫폼</h1>
-<p class="lead-sub">학생·교사·행정 모두 함께 쓰는 AI</p>
-<p>미래학력분과 관련 자료 중 외부 공개용 참고 문서입니다. 아래에서 각 문서를 열람할 수 있습니다.</p>
-<ul>
-<li><a href="ax-transformation.html"><b>AX 전환과 교육</b></a><a class="idx-pdf" href="ax-transformation-slides.html">PPT</a><br>
-AX(AI 전환)를 '도구 도입'이 아니라 사람·프로세스의 전환으로 보는 관점을 교육에 적용 — 교사 대체 우려, 에듀테크 과잉, 형평.</li>
-<li><a href="paradigm.html"><b>AI 교육 패러다임</b></a><a class="idx-pdf" href="paradigm-slides.html">PPT</a><br>
-AI 교육을 '무엇을'이 아니라 '어떻게'로 보는 관점 — 최고급 AI 접근의 공적 보장(토대), 활용 역량(핵심), 평가·교사 역할의 전환.</li>
-<li><a href="bloom-2sigma.html"><b>고의숙 교육감의 "초개별화 맞춤형 교육"</b></a><a class="idx-pdf" href="bloom-2sigma-slides.html">PPT</a><a class="idx-pdf" href="bloom-2sigma.pdf">PDF</a><br>
-핵심 공약 '초개별화 맞춤형 교육'의 이론적 근거 — 1:1 개인교습이 집단수업보다 2 표준편차 높은 성취를 낸다는 블룸의 실증(2 시그마 문제)을, AI로 대규모 실현한다.</li>
-</ul>"""
-    index_html = TEMPLATE.format(title="제주교육 AI 플랫폼", css=CSS, body=index_body)
+    index_html = TEMPLATE.format(title=SITE["title"], css=CSS, body=index_body())
     (ROOT / "index.html").write_text(index_html, encoding="utf-8")
     print("wrote index.html")
     print("빌드·검증 완료.")

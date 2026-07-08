@@ -48,6 +48,20 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
  border-radius:8px;background:var(--soft);color:var(--fg);font-size:14px;font-weight:600}
 .pdflink:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
 .idx-pdf{margin-left:8px;font-size:13px;padding:1px 8px;border:1px solid var(--line);border-radius:12px}
+/* index 문서 카드 그리드 */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(236px,1fr));gap:18px;margin:1.6em 0}
+.card{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--soft);display:flex;flex-direction:column;transition:border-color .2s,box-shadow .2s}
+.card:hover{border-color:var(--accent);box-shadow:0 4px 18px rgba(0,0,0,.10)}
+.card-thumb{display:block}
+.card-thumb img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}
+.card-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card-title{font-size:1.02rem;line-height:1.45;margin:0;padding:0;border:none}
+.card-title a{color:var(--fg)}
+.card-title a:hover{color:var(--accent);text-decoration:none}
+.card-desc{margin:0;font-size:.86rem;line-height:1.6;color:var(--muted);flex:1}
+.card-actions{display:flex;gap:8px;flex-wrap:wrap}
+.card-actions a{font-size:12.5px;font-weight:600;padding:3px 10px;border:1px solid var(--line);border-radius:999px;background:var(--bg);color:var(--fg)}
+.card-actions a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
 @media print{nav.top,.foot,.pdflink{display:none}body{font-size:11pt;font-family:"Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif}.wrap{max-width:none}}
 </style>
 </head>
