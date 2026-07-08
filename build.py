@@ -104,8 +104,14 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
 .card.filler .fwrap{position:relative;width:82%;max-width:340px}
 .card.filler img{display:block;width:100%;height:auto}
 .card.filler .spark{position:absolute;inset:0;transform-origin:12% 9%;
-  animation:sparkle 2.4s ease-in-out infinite}
-@keyframes sparkle{0%,100%{opacity:.15;transform:scale(.92)}45%,60%{opacity:1;transform:scale(1.06)}}
+  animation:sparkle 20s ease-in-out infinite}
+/* 20초 주기: 앞 7.2초 동안 트윙클 3회(2.4s x3) 후 나머지는 켜진 채 대기 */
+@keyframes sparkle{
+0%{opacity:1;transform:scale(1)}
+6%{opacity:.15;transform:scale(.92)}12%{opacity:1;transform:scale(1.06)}
+18%{opacity:.15;transform:scale(.92)}24%{opacity:1;transform:scale(1.06)}
+30%{opacity:.15;transform:scale(.92)}
+36%,100%{opacity:1;transform:scale(1)}}
 @media (prefers-reduced-motion:reduce){.card.filler .spark{animation:none;opacity:1;transform:none}}
 @media print{nav.top,.foot,.pdflink{display:none}body{font-size:11pt;font-family:"Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif}.wrap{max-width:none}}
 """
