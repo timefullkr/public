@@ -206,7 +206,9 @@ def card(d):
                 f'<img src="{src}" alt="" loading="lazy" '
                 f'style="animation-delay:{SLIDE_SECS * i - FADE_SECS - t:.1f}s">'
                 for i, src in enumerate(thumbs))
-        thumb = (f'<a class="{cls}" href="{d["slug"]}" tabindex="-1" aria-hidden="true">'
+        # 썸네일 클릭 → 발표 슬라이드 (슬라이드가 없는 문서는 문서 페이지)
+        thumb_href = d.get("slides") or d["slug"]
+        thumb = (f'<a class="{cls}" href="{thumb_href}" tabindex="-1" aria-hidden="true">'
                  f'{imgs}</a>')
     actions = [f'<a href="{d["slug"]}">문서</a>']
     if d.get("slides"):
