@@ -9,17 +9,17 @@
     <rect x="42" y="220" width="84" height="44" rx="8" fill="#fff"/><text x="84" y="246" text-anchor="middle">7 토큰</text>
   </g>
   <g font-weight="700" font-size="10.5" fill="#0f2a44">
-    <rect x="156" y="78" width="66" height="50" rx="8" fill="#fff"/><text x="189" y="107" text-anchor="middle">1 수업</text>
+    <rect x="156" y="78" width="66" height="50" rx="8" fill="#fff"/><text x="189" y="107" text-anchor="middle">2 수업</text>
     <rect x="230" y="78" width="66" height="50" rx="8" fill="#fff"/><text x="263" y="107" text-anchor="middle">3 루프</text>
     <rect x="304" y="78" width="66" height="50" rx="8" fill="#fff"/><text x="337" y="107" text-anchor="middle">8 평가</text>
     <rect x="378" y="78" width="66" height="50" rx="8" fill="#fff"/><text x="411" y="107" text-anchor="middle">9 나눔</text>
     <rect x="156" y="140" width="288" height="50" rx="8" fill="rgba(31,199,177,.16)" stroke="#1fc7b1" stroke-width="2"/>
-    <text x="300" y="170" text-anchor="middle" fill="#eafffb" font-size="12.5">2 채팅 인터페이스 — 공통 토대</text>
+    <text x="300" y="170" text-anchor="middle" fill="#eafffb" font-size="12.5">1 AI 웹 클라이언트 — 공통 토대</text>
     <rect x="156" y="202" width="288" height="50" rx="8" fill="#fff"/>
     <text x="300" y="232" text-anchor="middle" fill="#0f2a44" font-size="12.5">코어 게이트웨이 — 로깅·안전</text>
   </g>
   <rect x="458" y="78" width="72" height="174" rx="10" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.35)" stroke-width="1.5" stroke-dasharray="6 4"/>
   <text x="494" y="158" text-anchor="middle" fill="#e9eff6" font-size="11" font-weight="800">10 마켓</text>
   <text x="494" y="176" text-anchor="middle" fill="#9fb3c8" font-size="9.5">LTI·MCP</text>
-  <text x="280" y="316" text-anchor="middle" fill="#c7d5e2" font-size="12">4 학습기록 포함 — 기능 2가 모든 기능의 공통 클라이언트</text>
+  <text x="280" y="316" text-anchor="middle" fill="#c7d5e2" font-size="12">4 학습기록 포함 — 기능 1이 모든 기능의 공통 클라이언트</text>
 </svg>
