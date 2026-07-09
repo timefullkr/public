@@ -147,7 +147,7 @@ ul.b li .s::before{content:"— "}
 
 /* 인트로: 질문 페이드인(5s) → 멈춤(3s) → 페이드아웃(3s)과 동시에 표지 드러남 */
 #intro{position:fixed;inset:0;background:#08131f;z-index:40;display:flex;align-items:center;justify-content:center;padding:8vw;transition:opacity 3s ease}
-#intro .q{font-size:clamp(.95rem,1.9vw,1.6rem);font-weight:600;color:#a9c2db;opacity:0;transition:opacity 5s ease;text-align:center;white-space:nowrap;line-height:1.6}
+#intro .q{font-size:clamp(.95rem,1.9vw,1.6rem);font-weight:600;color:#a9c2db;opacity:0;transition:opacity 5s ease;text-align:center;white-space:normal;word-break:keep-all;max-width:38ch;line-height:1.6}
 #intro.out{opacity:0;pointer-events:none}
 @media print{#intro{display:none}}
 
@@ -207,7 +207,7 @@ body.tools-on .ftools{display:flex}
 </style>
 </head>
 <body class="on-dark">
-<div id="intro"><div class="q"><b style="color:#6cb2ff;font-weight:700">600억</b>을 들인 AI 플랫폼 — 정작 <b style="color:var(--amber);font-weight:700">AI</b>는 있을까?</div></div>
+<div id="intro"><div class="q">플랫폼(바당)은 완성됐습니다. 다만 아직은 숨만 쉴 뿐입니다 —<br><b style="color:#6cb2ff;font-weight:700">두뇌</b>가 깨어 생각하고 <b style="color:var(--amber);font-weight:700">심장</b>이 뛰는 순간, 비로소 살아납니다.</div></div>
 <div class="progress" id="progress"></div>
 <div class="deck" id="deck">
 
