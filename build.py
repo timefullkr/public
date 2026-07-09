@@ -79,6 +79,9 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
  border-radius:8px;background:var(--soft);color:var(--fg);font-size:14px;font-weight:600}
 .pdflink:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
 .idx-pdf{margin-left:8px;font-size:13px;padding:1px 8px;border:1px solid var(--line);border-radius:12px}
+/* index 상단 내부 공유용 고지 */
+.notice{margin:0 0 4px;padding:10px 14px;border:1px solid var(--line);border-left:3px solid var(--accent);
+ border-radius:8px;background:var(--soft);color:var(--muted);font-size:13.5px;line-height:1.6}
 /* index 문서 카드 그리드 */
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:20px;margin:1.6em 0}
 .card{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--soft);display:flex;flex-direction:column;transition:border-color .2s,box-shadow .2s}
@@ -273,11 +276,12 @@ def index_body():
                  '<img src="img/제주교육지표-세로-base.png" alt="" loading="lazy">'
                  '<img class="spark" src="img/제주교육지표-세로-spark.png" alt="" loading="lazy">'
                  '</div></div>\n') + cards
+    notice = f'<p class="notice">{SITE["notice"]}</p>\n' if SITE.get("notice") else ""
     intro = f'<p>{SITE["intro"]}</p>\n' if SITE.get("intro") else ""
     # show_heading: false 면 제목·부제 숨김 (교육지표 카드가 슬로건을 대신함)
     head = (f'<h1 align="center">{SITE["heading"]}</h1>\n'
             f'<p class="lead-sub">{SITE["subtitle"]}</p>\n') if SITE.get("show_heading", True) else ""
-    return (f'{head}{intro}'
+    return (f'{notice}{head}{intro}'
             f'<div class="cards">\n{cards}\n</div>')
 
 
