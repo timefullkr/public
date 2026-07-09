@@ -93,9 +93,9 @@ ul.b li .s::before{content:"— "}
 .ic.warn{stroke:#f4b45e}
 
 /* 근거 빅넘버 행 */
-.ev{display:grid;grid-template-columns:minmax(150px,.3fr) 1fr;gap:clamp(1rem,2.5vw,2rem);align-items:center;padding:clamp(.8rem,2vh,1.3rem) 0;border-top:1px solid rgba(255,255,255,.12)}
+.ev{display:grid;grid-template-columns:min-content 1fr;gap:clamp(1.1rem,1.8vw,2.2rem);align-items:center;padding:clamp(.8rem,2vh,1.3rem) 0;border-top:1px solid rgba(255,255,255,.12)}
 .ev:first-of-type{border-top:0}
-.evnum{font-size:clamp(3.168rem,7.26vw,5.544rem);font-weight:800;color:var(--ink-d);letter-spacing:-.02em;line-height:1}
+.evnum{font-size:clamp(3.168rem,7.26vw,5.544rem);font-weight:800;color:rgba(147,169,194,.5);letter-spacing:-.02em;line-height:1}
 .evnum em{font-style:normal;font-size:.5em;font-weight:700;color:var(--muted)}
 .evtxt{font-size:clamp(1.32rem,2.112vw,1.716rem);line-height:1.55;font-weight:500}
 .evtxt b{font-weight:700;color:var(--ink-d)}
@@ -561,7 +561,7 @@ body.tools-on .ftools{display:flex}
     </div>
     <div class="bodyarea">
       <div class="vizwrap">
-        <svg class="viz map" viewBox="0 0 1060 330" role="img" aria-label="코어 게이트웨이 위에 공통 클라이언트인 기능 2(고도화된 채팅 인터페이스)가 놓이고 그 위에 기능 1 실시간 수업, 기능 3 학습 루프, 기능 8 수업설계·평가, 기능 9 수업 나눔, 기능 4 학습기록이 올라가며, 왼쪽에 항상 켜지는 기능 5 안전·개인정보, 기능 6 접근성·형평, 기능 7 토큰·비용, 오른쪽에 기능 10 확장 마켓이 결합하는 구조도">
+        <svg class="viz map" viewBox="0 0 1060 330" role="img" aria-label="코어 게이트웨이 위에 공통 클라이언트인 기능 1(벤더 앱급 AI 웹 클라이언트)가 놓이고 그 위에 기능 2 실시간 수업, 기능 3 학습 루프, 기능 8 수업설계·평가, 기능 9 수업 나눔, 기능 4 학습기록이 올라가며, 왼쪽에 항상 켜지는 기능 5 안전·개인정보, 기능 6 접근성·형평, 기능 7 토큰·비용, 오른쪽에 기능 10 확장 마켓이 결합하는 구조도">
           <rect x="20" y="30" width="168" height="256" rx="14" fill="rgba(244,162,59,.10)" stroke="#f4a23b" stroke-width="1.8"/>
           <text x="104" y="58" text-anchor="middle" fill="#f4c98a" font-size="14" font-weight="800">항상 ON — 끌 수 없음</text>
           <g font-weight="700">
@@ -571,14 +571,14 @@ body.tools-on .ftools{display:flex}
           </g>
           <text x="552" y="20" text-anchor="middle" fill="#9fb3c8" font-size="13" font-weight="700">기능 모듈 — 교사가 학급·과목에 맞게 on/off</text>
           <g font-weight="700">
-            <rect x="216" y="30" width="124" height="66" rx="10" fill="#fff"/><text x="278" y="58" text-anchor="middle" fill="#0f2a44" font-size="13.5">1 실시간 수업</text><text x="278" y="76" text-anchor="middle" fill="#66768a" font-size="10.5">채팅수업·출제·모둠</text>
+            <rect x="216" y="30" width="124" height="66" rx="10" fill="#fff"/><text x="278" y="58" text-anchor="middle" fill="#0f2a44" font-size="13.5">2 실시간 수업</text><text x="278" y="76" text-anchor="middle" fill="#66768a" font-size="10.5">채팅수업·출제·모둠</text>
             <rect x="352" y="30" width="124" height="66" rx="10" fill="#fff"/><text x="414" y="58" text-anchor="middle" fill="#0f2a44" font-size="13.5">3 학습 루프</text><text x="414" y="76" text-anchor="middle" fill="#66768a" font-size="10.5">지식추적·현황판</text>
             <rect x="488" y="30" width="124" height="66" rx="10" fill="#fff"/><text x="550" y="58" text-anchor="middle" fill="#0f2a44" font-size="13.5">8 설계·평가</text><text x="550" y="76" text-anchor="middle" fill="#66768a" font-size="10.5">교사 작업대</text>
             <rect x="624" y="30" width="124" height="66" rx="10" fill="#fff"/><text x="686" y="58" text-anchor="middle" fill="#0f2a44" font-size="13.5">9 수업 나눔</text><text x="686" y="76" text-anchor="middle" fill="#66768a" font-size="10.5">패키지·프롬프트 공유</text>
             <rect x="760" y="30" width="124" height="66" rx="10" fill="#fff"/><text x="822" y="58" text-anchor="middle" fill="#0f2a44" font-size="13.5">4 학습기록</text><text x="822" y="76" text-anchor="middle" fill="#66768a" font-size="10.5">학습일지·누가기록</text>
           </g>
           <rect x="216" y="118" width="668" height="62" rx="12" fill="rgba(31,199,177,.14)" stroke="#1fc7b1" stroke-width="2.5"/>
-          <text x="550" y="146" text-anchor="middle" fill="#eafffb" font-size="16" font-weight="800">2 고도화된 채팅 인터페이스 — 공통 클라이언트(토대)</text>
+          <text x="550" y="146" text-anchor="middle" fill="#eafffb" font-size="16" font-weight="800">1 벤더 앱급 AI 웹 클라이언트 — 공통 클라이언트(토대)</text>
           <text x="550" y="167" text-anchor="middle" fill="#9fd8ce" font-size="12">스트리밍 · 멀티모달 · 렌더링 · 모바일 — 모든 기능이 이 위에서 동작</text>
           <rect x="216" y="200" width="668" height="62" rx="12" fill="#fff"/>
           <text x="550" y="228" text-anchor="middle" fill="#0f2a44" font-size="16" font-weight="800">코어 게이트웨이 — 인증 · 라우팅 · 안전필터 · 전량 로깅</text>
@@ -589,7 +589,7 @@ body.tools-on .ftools{display:flex}
           <text x="976" y="170" text-anchor="middle" fill="#9fb3c8" font-size="11">더 나은 대안 허용</text>
           <text x="550" y="296" text-anchor="middle" fill="#c7d5e2" font-size="13" font-weight="600">앞 번호일수록 사용 빈도 높은 주요 기능 — 도입 범위·우선순위는 RFP 단계에서 확정</text>
         </svg>
-        <div class="vizcap">기능 2가 모든 기능이 올라타는 공통 토대 — 왼쪽 3종(안전·접근성·토큰)은 항상 ON</div>
+        <div class="vizcap">기능 1이 모든 기능이 올라타는 공통 토대 — 왼쪽 3종(안전·접근성·토큰)은 항상 ON</div>
       </div>
     </div>
   </section>
@@ -647,10 +647,10 @@ body.tools-on .ftools{display:flex}
     </div>
   </section>
 
-  <!-- 16 기능 2: 승부는 인터페이스 -->
+  <!-- 16 기능 1: 승부는 인터페이스 -->
   <section class="slide light content">
     <div class="head">
-      <div class="kicker">기능 2 — 성패의 전제</div>
+      <div class="kicker">기능 1 — 성패의 전제</div>
       <h2>모델은 API로 평준화된다 — 승부는 인터페이스다</h2>
       <div class="rule"></div>
     </div>
