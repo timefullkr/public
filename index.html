@@ -55,6 +55,8 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
 /* index 상단 내부 공유용 고지 */
 .notice{margin:0 0 4px;padding:10px 14px;border:1px solid #2b3340;border-left:4px solid #e3a008;
  border-radius:8px;background:#1b212b;color:#c3cbd6;font-size:13.5px;line-height:1.6}
+.notice-short{display:none}
+@media (max-width:600px){.notice-full{display:none}.notice-short{display:inline}}
 /* index 문서 카드 그리드 */
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:20px;margin:1.6em 0}
 .card{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--soft);display:flex;flex-direction:column;transition:border-color .2s,box-shadow .2s}
@@ -104,7 +106,7 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
 </head>
 <body>
 <main class="wrap">
-<p class="notice">본 자료는 제주도교육감직인수위원회 미래학력분과의 내부 검토용 초안으로 2026년 7월 16일까지 한시적으로만 공유되며, AI가 자동 생성·관리하여 사실과 다른 내용이 포함될 수 있고 교육청의 확정된 정책·예산이 아니므로 외부 인용·배포를 삼가주시기 바랍니다.</p>
+<p class="notice"><span class="notice-full">본 자료는 제주도교육감직인수위원회 미래학력분과의 내부 검토용 초안으로 2026년 7월 16일까지 한시적으로만 공유되며, AI가 자동 생성·관리하여 사실과 다른 내용이 포함될 수 있고 교육청의 확정된 정책·예산이 아니므로 외부 인용·배포를 삼가주시기 바랍니다.</span><span class="notice-short">본 자료는 교육청의 확정된 정책·예산이 아니므로 외부 인용·배포를 삼가주시기 바랍니다.</span></p>
 <div class="cards">
 <div class="card filler" aria-hidden="true"><div class="fwrap"><img src="img/제주교육지표-세로-base.png" alt="" loading="lazy"><img class="spark" src="img/제주교육지표-세로-spark.png" alt="" loading="lazy"></div></div>
 <article class="card"><a class="card-thumb multi thumbs-ax-transformation" href="ax-transformation-slides.html" tabindex="-1" aria-hidden="true"><img src="img/ax-03-pew-chatgpt-2x.svg" alt="" loading="lazy" style="animation-delay:-9.7s"><img src="img/ax-04-usage-vs-guidelines.svg" alt="" loading="lazy" style="animation-delay:-5.5s"></a><div class="card-body"><h2 class="card-title"><a href="ax-transformation.html">AX 전환과 교육</a></h2><p class="card-desc">학생은 이미 AI 시대를 사는데 학교는 아직이다 — 관건은 도구 도입 속도가 아니라 학교가 일하는 방식의 전환. 교사는 '슈퍼 교사'로, 에듀테크는 선택과 집중으로.</p><div class="card-actions"><a href="ax-transformation.html">문서</a><a href="ax-transformation-slides.html">슬라이드</a><span class="card-group">미래학력분과</span></div></div></article>

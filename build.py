@@ -78,6 +78,8 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
 /* index 상단 내부 공유용 고지 */
 .notice{margin:0 0 4px;padding:10px 14px;border:1px solid #2b3340;border-left:4px solid #e3a008;
  border-radius:8px;background:#1b212b;color:#c3cbd6;font-size:13.5px;line-height:1.6}
+.notice-short{display:none}
+@media (max-width:600px){.notice-full{display:none}.notice-short{display:inline}}
 /* index 문서 카드 그리드 */
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:20px;margin:1.6em 0}
 .card{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--soft);display:flex;flex-direction:column;transition:border-color .2s,box-shadow .2s}
@@ -271,7 +273,13 @@ def index_body():
                  '<img src="img/제주교육지표-세로-base.png" alt="" loading="lazy">'
                  '<img class="spark" src="img/제주교육지표-세로-spark.png" alt="" loading="lazy">'
                  '</div></div>\n') + cards
-    notice = f'<p class="notice">{SITE["notice"]}</p>\n' if SITE.get("notice") else ""
+    # 모바일에서는 notice_short 로 축약 (CSS 미디어쿼리로 전환)
+    notice = ""
+    if SITE.get("notice"):
+        short = SITE.get("notice_short")
+        inner = (f'<span class="notice-full">{SITE["notice"]}</span>'
+                 f'<span class="notice-short">{short}</span>') if short else SITE["notice"]
+        notice = f'<p class="notice">{inner}</p>\n'
     intro = f'<p>{SITE["intro"]}</p>\n' if SITE.get("intro") else ""
     # show_heading: false 면 제목·부제 숨김 (교육지표 카드가 슬로건을 대신함)
     head = (f'<h1 align="center">{SITE["heading"]}</h1>\n'
