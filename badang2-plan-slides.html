@@ -146,7 +146,7 @@ ul.b li .s::before{content:"— "}
 
 /* 인트로: 질문 페이드인(5s) → 멈춤(3s) → 페이드아웃(3s)과 동시에 표지 드러남 */
 #intro{position:fixed;inset:0;background:#08131f;z-index:40;display:flex;align-items:center;justify-content:center;padding:8vw;transition:opacity 3s ease}
-#intro .q{font-size:clamp(.95rem,1.9vw,1.6rem);font-weight:600;color:#a9c2db;opacity:0;transition:opacity 5s ease;text-align:center;white-space:nowrap;line-height:1.6}
+#intro .q{font-size:clamp(.95rem,1.9vw,1.6rem);font-weight:600;color:#a9c2db;opacity:0;transition:opacity 5s ease;text-align:center;white-space:normal;word-break:keep-all;max-width:38ch;line-height:1.6}
 #intro.out{opacity:0;pointer-events:none}
 @media print{#intro{display:none}}
 
@@ -207,7 +207,7 @@ body.tools-on .ftools{display:flex}
 </style>
 </head>
 <body class="on-dark">
-<div id="intro"><div class="q">그릇은 완성됐다 — <b style="color:var(--amber);font-weight:700">AI 알맹이</b>는 <b style="color:#6cb2ff;font-weight:700">어떻게</b> 채우나?</div></div>
+<div id="intro"><div class="q"><b style="color:#6cb2ff;font-weight:700">두뇌</b>가 깨어 생각하고 <b style="color:var(--amber);font-weight:700">심장</b>이 뛰는 순간, <b style="color:var(--accent2);font-weight:700">비로소 살아납니다</b>.</div></div>
 <div class="progress" id="progress"></div>
 <div class="deck" id="deck">
 
