@@ -59,7 +59,7 @@
   <rect x="665" y="252" width="290" height="32" rx="4" fill="#e3f1e3" stroke="#2e7d32"/>
   <text x="810" y="273" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#2e7d32">전체 송수신 로깅 (전문 전량)</text>
   <rect x="665" y="290" width="290" height="32" rx="4" fill="#fff" stroke="#bcdcbc"/>
-  <text x="810" y="311" text-anchor="middle" font-size="10.5">데이터 · 대시보드 연계</text>
+  <text x="810" y="311" text-anchor="middle" font-size="10.5">데이터 · 대시보드 (바당2 완결)</text>
 
   <!-- 바당 ↔ 바당2 표준 연계 -->
   <line x1="510" y1="150" x2="648" y2="150" stroke="#2c3e7a" stroke-width="1.5" marker-end="url(#arrb)"/>
