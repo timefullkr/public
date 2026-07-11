@@ -174,7 +174,7 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
 <tr>
 <td>관계</td>
 <td>표준 연계 그릇(SAML·OneRoster·LTI·xAPI)</td>
-<td><strong>SSO·명부·LTI 표준으로 바당에 결합</strong>(xAPI 환류는 전면시행 옵션) — <strong>LMS 재구축 아님</strong></td>
+<td><strong>SSO·명부·LTI 표준으로 바당에 결합</strong> — <strong>LMS 재구축 아님</strong></td>
 </tr>
 </tbody>
 </table></div>
@@ -241,7 +241,7 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
 <p>근거: 「구축 현안 사항」 [붙임1] <strong>인공지능 맞춤형 교수학습 플랫폼 시스템 구성도</strong>.</p>
 </blockquote>
 <p><img alt="바당 · 바당2 연계 구성도" src="AI교육-바당2-연계구성도.svg" /></p>
-<p><em>[그림] 바당(AIEP·LMS) ↔ 바당2(AI 게이트웨이) 표준 연계 구성도 — 추론은 외부 벤더, 인증·명부·도구 실행은 바당 표준(SAML·OneRoster·LTI)으로 결합. 기록·분석은 바당2에서 완결(xAPI 환류는 전면시행 옵션).</em></p>
+<p><em>[그림] 바당(AIEP·LMS) ↔ 바당2(AI 게이트웨이) 표준 연계 구성도 — 추론은 외부 벤더, 인증·명부·도구 실행은 바당 표준(SAML·OneRoster·LTI)으로 결합. 기록·분석은 바당2에서 완결(점선 = 전면시행 옵션인 xAPI 환류, §3-2).</em></p>
 <p>바당은 처음부터 <strong>외부 시스템을 표준 API로 끼우도록(plug-in)</strong> 설계된 개방형 플랫폼이며, 구성도에 연계 표준이 명시되어 있다.</p>
 <div class="tablewrap"><table>
 <thead>
@@ -336,7 +336,7 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
 <tr>
 <td><strong>xAPI 환류(바당 LRS 적재)</strong></td>
 <td>❌ <strong>시범 미사용</strong></td>
-<td><strong>학습기록·분석·현황판·생기부 근거는 바당2 대시보드에서 완결</strong> — 전면시행 단계 옵션</td>
+<td><strong>학습기록·분석·현황판·생기부 근거는 바당2 대시보드에서 완결</strong> — 전면시행 단계 옵션(AIEP 2차 구축 결과·현장 수요 확인 후 결정)</td>
 </tr>
 </tbody>
 </table></div>
@@ -371,7 +371,7 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
 <tr>
 <td>기록·분석</td>
 <td><strong>(바당2 자체 완결)</strong></td>
-<td>학습기록·분석·현황판·생기부 근거는 <strong>바당2 대시보드·DB에서 제공</strong> — <strong>xAPI 환류(바당 LRS 적재)는 시범 미사용, 전면시행 단계 옵션</strong>(AIEP 2차 구축 결과·현장 수요 확인 후 결정). 생기부는 교사 검토·승인 참고자료(자동 기재 아님, §5 거버넌스 확정 사항)</td>
+<td>학습기록·분석·현황판·생기부 근거는 <strong>바당2 대시보드·DB에서 제공</strong>(xAPI 환류는 위 표). 생기부는 교사 검토·승인 참고자료(자동 기재 아님, §5 거버넌스 확정 사항)</td>
 </tr>
 <tr>
 <td>호출·관리</td>
@@ -381,9 +381,9 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
 </tbody>
 </table></div>
 <blockquote>
-<p><strong>한 줄 정리:</strong> 바당2 = 바당의 <strong>「LTI 외부 도구」</strong> — 기록·분석은 바당2에서 완결(xAPI 환류는 전면시행 옵션).</p>
+<p><strong>한 줄 정리:</strong> 바당2 = 바당의 <strong>「LTI 외부 도구」</strong> — 기록·분석은 바당2에서 완결.</p>
 <p><strong>저장 역할 분리 (중복 구축 아님):</strong> 기록을 두 종류로 나눈다.
-- <strong>학습기록:</strong> 정본은 <strong>바당2 DB</strong> — 학습분석·대시보드·생기부 근거를 바당2가 직접 제공(표준 LRS 제품을 재구축하는 것이 아니라 운영 DB·대시보드 형태). <strong>xAPI 환류(바당 LRS 적재)는 시범 미사용 — 전면시행 옵션.</strong> 단, 학습활동 이벤트 스키마는 처음부터 <strong>xAPI로 사상(mapping) 가능하게 설계</strong>하고 어휘(동사·활동 타입)를 xAPI 프로파일로 정의해 둔다(RFP 요구사항) — 환류를 켜는 순간 변환기만 추가하면 되도록. <em>(저장 포맷 자체를 xAPI statement로 하라는 뜻이 아니다 — 조회·집계는 운영 DB가 맡고, xAPI는 내보내기 계층.)</em>
+- <strong>학습기록:</strong> 정본은 <strong>바당2 DB</strong> — 학습분석·대시보드·생기부 근거를 바당2가 직접 제공(표준 LRS 제품을 재구축하는 것이 아니라 운영 DB·대시보드 형태). 학습활동 이벤트 스키마는 처음부터 <strong>xAPI로 사상(mapping) 가능하게 설계</strong>하고 어휘(동사·활동 타입)를 xAPI 프로파일로 정의해 둔다(RFP 요구사항) — 환류(위 표)를 켜는 순간 변환기만 추가하면 되도록. <em>(저장 포맷 자체를 xAPI statement로 하라는 뜻이 아니다 — 조회·집계는 운영 DB가 맡고, xAPI는 내보내기 계층.)</em>
 - <strong>송수신 전문 원본(raw 전량):</strong> 안전·감사·개인정보용. 바당엔 <strong>원래 없던 것</strong>(§1-②)이라 바당2가 <strong>신규 확보</strong> → <strong>교육청 소유·국내 보관</strong>(§3-5). LMS 중복이 아니라 <strong>신설</strong>이다.
 - <strong>학습 상태 모델(지식 추적, 기능 3):</strong> 학생별 숙달 상태를 성취기준·스킬 단위로 <strong>갱신·보존하는 파생 모델</strong> — 바당2 DB 보유. 학습기록의 <em>요약·현재값</em>이지 기록 자체가 아니며, 갱신 근거가 된 평가·도달 이벤트는 학습기록(바당2 DB)에 적재하고 <strong>상태 모델은 그 기록으로부터 재산출 가능</strong>하게 설계한다(정본은 어디까지나 증거 = 학습기록·전문 로그).
 - 그 밖에 바당2가 쥐는 것은 <strong>실시간 운영 상태</strong>(세션·컨텍스트 · 안전 이벤트·알림 · 식별↔익명 매핑 · 토큰·비용·레이트리밋) — §3-4의 PostgreSQL·Redis.</p>
@@ -486,7 +486,7 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
 <p><strong>거버넌스(프로파일링 단서):</strong> 학습 상태 모델은 학생 프로파일링 성격의 <strong>파생 개인정보</strong>다 — ① <strong>목적 제한</strong>: 학습 지원·효과검증 외 사용(선발·서열화 등) 금지 ② <strong>열람</strong>: 담임·해당 교과 교사·학생 본인(자기 상태 열람권)으로 최소화 ③ <strong>보관</strong>: 학년 이월·전출·졸업 시 이관·파기 기준을 PIA에서 확정 ④ <strong>자동화된 결정 방지</strong>: 분기는 <em>추천</em>이며 <strong>최종 경로 결정·무효화(override) 권한은 교사</strong>에게 둔다(개인정보보호법 §37-2 자동화된 결정 해당 여부는 법률 자문 포함).</p>
 </blockquote>
 <h3>기능 4 — AI 학습기록(누가기록) 관리</h3>
-<p>전체 송수신 로깅(코어, §3-3)을 <strong>학생·교사가 원하는 형태로 가공·제공</strong>. <strong>학습활동 기록·분석은 바당2 대시보드에서 완결</strong>(§3-2 — xAPI 환류는 전면시행 옵션. <strong>전문 원본은 교육청 로그에 별도 보관</strong>).</p>
+<p>전체 송수신 로깅(코어, §3-3)을 <strong>학생·교사가 원하는 형태로 가공·제공</strong>. <strong>학습활동 기록·분석은 바당2 대시보드에서 완결</strong>(§3-2. <strong>전문 원본은 교육청 로그에 별도 보관</strong>).</p>
 <ul>
 <li><strong>학생용</strong>: 나의 AI 학습일지(주제·기간별), 성장 리포트</li>
 <li><strong>교사용</strong>: 학급/학생별 활용 분석, 자주 묻는 질문·오개념, 활동 요약</li>
@@ -710,11 +710,11 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
 </tr>
 <tr>
 <td>LRS</td>
-<td>Learning Record Store(학습기록저장소) — 학습활동 기록(xAPI)을 표준 형식으로 모아두는 저장소. 바당이 보유하며, <strong>바당2의 LRS 적재(xAPI 환류)는 시범 미사용 — 전면시행 옵션</strong>(§3-2). 바당2 학습기록 정본은 자체 DB.</td>
+<td>Learning Record Store(학습기록저장소) — 학습활동 기록(xAPI)을 표준 형식으로 모아두는 저장소. 바당이 보유. 바당2의 적재(환류) 여부는 §3-2 — 학습기록 정본은 바당2 자체 DB.</td>
 </tr>
 <tr>
 <td>xAPI</td>
-<td>Experience API — "누가·무엇을·했다" 형태로 학습 경험을 기록·전송하는 국제 표준(미국 ADL 개발·IEEE 표준화). 바당2의 바당 LRS 환류는 시범 미사용(§3-2).</td>
+<td>Experience API — "누가·무엇을·했다" 형태로 학습 경험을 기록·전송하는 국제 표준(미국 ADL 개발·IEEE 표준화).</td>
 </tr>
 <tr>
 <td>SSO</td>
