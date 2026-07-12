@@ -4,10 +4,10 @@
 
 ## 웹으로 보기 (GitHub Pages)
 
-- 목록: `https://timefullkr.github.io/pubic/`
-- 초개별화 맞춤형 교육의 이론적 배경(블룸 2 시그마): `https://timefullkr.github.io/pubic/bloom-2sigma.html` (PDF: `https://timefullkr.github.io/pubic/bloom-2sigma.pdf`)
-- AI 교육 패러다임: `https://timefullkr.github.io/pubic/paradigm.html`
-- AX 전환과 교육: `https://timefullkr.github.io/pubic/ax-transformation.html`
+- 목록: `https://timefullkr.github.io/public/`
+- 초개별화 맞춤형 교육의 이론적 배경(블룸 2 시그마): `https://timefullkr.github.io/public/bloom-2sigma.html` (PDF: `https://timefullkr.github.io/public/bloom-2sigma.pdf`)
+- AI 교육 패러다임: `https://timefullkr.github.io/public/paradigm.html`
+- AX 전환과 교육: `https://timefullkr.github.io/public/ax-transformation.html`
 
 ## 원문 마크다운
 

@@ -1,6 +1,6 @@
 ---
 name: md-to-slides
-description: md 문서를 pubic 스타일 발표 슬라이드(단일 html)로 변환. "슬라이드로 만들어줘", "발표 덱", "프레젠테이션" 요청 시 사용. 템플릿은 저장소 루트의 bloom-2sigma-slides.html(최신 원본).
+description: md 문서를 public 사이트 스타일 발표 슬라이드(단일 html)로 변환. "슬라이드로 만들어줘", "발표 덱", "프레젠테이션" 요청 시 사용. 템플릿은 저장소 루트의 bloom-2sigma-slides.html(최신 원본).
 ---
 
 # md → 발표 슬라이드 변환
@@ -51,7 +51,7 @@ md 문서를 받아 저장소 루트 `bloom-2sigma-slides.html` 스타일의 단
 - **플로팅 버튼 반투명**: 화살표·홈·주석 토글 버튼은 기본 `opacity:.28`, 호버 시 `opacity:1`(`transition:opacity .25s`) — 발표 중 집중도를 해치지 않기 위함. 단 `.anntoggle.active`(주석 도구 켜짐)는 상태가 보여야 하므로 항상 `opacity:1`.
 - **인트로 페이드**: 질문 문구 5s 페이드인 → 멈춤 없이 3s 아웃(표지 크로스페이드), 자동 진행 타이머 5000ms. 해시로 2장 이후 진입 시 인트로 생략. 문구는 문서 주제에 맞게 교체.
 - **Fabric.js 주석 툴바**: 선택·펜·직선·사각형·원·텍스트·색·두께·undo/redo·삭제·전체지우기·PNG 저장. 우상단 연필 토글(P 키). 슬라이드별 잉크 저장/복원.
-- **홈 버튼**(좌상단, pubic 홈 링크), 진행바·카운터·힌트, 인쇄 대응(`@media print` — 슬라이드 전부 표시·landscape·도구 숨김).
+- **홈 버튼**(좌상단, public 사이트 홈 링크), 진행바·카운터·힌트, 인쇄 대응(`@media print` — 슬라이드 전부 표시·landscape·도구 숨김).
 - 폰트 크기는 전부 `clamp()` — 새 요소를 추가할 때도 clamp로.
 - **모바일 대응**(`@media (max-width:820px)`): ① `html{font-size:70%}` — rem 기반 clamp 가 전부 비례 축소된다. ② `.slide{overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}` — 세로 화면에서 넘치는 내용을 스크롤로 접근(기본은 overflow:hidden 이라 폰에서 아랫부분을 볼 방법이 없다). ③ 데스크톱 배치용 `transform:translate(...)`가 걸린 viz(사다리·루프 등)는 `transform:none;max-width:100%`로 해제 — 안 하면 오른쪽이 잘린다. 새 viz 에 배치용 transform 을 줄 때는 반드시 모바일 해제 규칙을 같이 추가할 것.
 
