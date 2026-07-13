@@ -941,29 +941,7 @@ body.tools-on .ftools{display:flex}
     </div>
   </section>
 
-  <!-- 26 ★ hwpx -->
-  <section class="slide navy content">
-    <div class="head">
-      <div class="kicker">기능 1 — hwpx가 정본인 이유</div>
-      <h2>정부가 AI가 읽을 문서를 준비했고, 바당2가 그 AI다</h2>
-      <div class="rule"></div>
-    </div>
-    <div class="bodyarea">
-      <ul class="b">
-        <li><b>「행정업무 운영 및 혁신에 관한 규정」 개정</b> — 2026.5.12. 국무회의 의결<span class="s"><b>2026.10.부터 공공기관 기본 포맷 hwpx 의무화</b></span></li>
-        <li><b>그 전환 이유가 곧 “AI가 읽을 수 있는 문서를 만들기 위해서”다</b><span class="s">정책 방향과 사업이 정면으로 일치한다</span></li>
-        <li><b>벤더 앱은 hwpx를 읽지도·만들지도·편집하지도 못한다</b> — 앞으로도 만들지 않는다<span class="s"><b>AI가 초안을 줘도 결국 한글에 옮겨 적어야 한다면, 업무는 절반만 자동화된 것</b>이다</span></li>
-      </ul>
-      <div class="chips c3" style="margin-top:1.3rem">
-        <div class="chip"><b>부수 효과 ①</b>한컴 서버 SDK·Windows 변환 팜 불필요 → <b style="display:inline">라이선스 협상 트랙 소멸</b></div>
-        <div class="chip"><b>부수 효과 ②</b>일반 리눅스 앱서버에서 처리 → <b style="display:inline">인프라 부하 축이 늘지 않는다</b></div>
-        <div class="chip"><b>부수 효과 ③</b>2028년이면 교육청 규정·지침이 전부 hwpx → <b style="display:inline">「규정·지침 질의」 RAG 품질이 근본적으로 좋아진다</b></div>
-      </div>
-      <div class="note" style="color:#c7d5e2">hwp(구 바이너리) <b>쓰기</b>는 개통 범위에서 제외한다(레거시 <b>읽기 전용</b>) — 개통(2028-09)은 의무화 후 약 2년 시점이라 교육청 공문은 전부 hwpx다.</div>
-    </div>
-  </section>
-
-  <!-- 27 기능 3: 완전학습 루프 -->
+  <!-- 26 기능 3: 완전학습 루프 -->
   <section class="slide navy content">
     <div class="head">
       <div class="kicker">기능 3 — 학습 상태·루프 인프라 (초개별화 엔진)</div>
@@ -1010,7 +988,7 @@ body.tools-on .ftools{display:flex}
     </div>
   </section>
 
-  <!-- 28 기능 7: 토큰·비용 -->
+  <!-- 27 기능 7: 토큰·비용 -->
   <section class="slide light content">
     <div class="head">
       <div class="kicker">기능 7 — AI 토큰 관리</div>
@@ -1024,7 +1002,6 @@ body.tools-on .ftools{display:flex}
           <ul>
             <li><b>80%</b> 알림 → <b>95%</b> 경고 + <b>[추가 배정 요청] 버튼</b> → <b>요청 시</b> 교사가 수용(수업 중 즉시) → <b>100%</b> 차단</li>
             <li><b>교사가 수용 주체인 것은 교육적 판단이 필요하기 때문</b> — 관리자 결재로 올리면 수업 중 처리가 불가능하다</li>
-            <li><b>자율 맥락(가정·심야)은 자동 수용 규칙</b> — 밤 10시에 승인을 기다리게 하면 그 학생은 벤더 앱으로 간다</li>
           </ul>
         </div>
         <div class="card warn">
@@ -1033,15 +1010,14 @@ body.tools-on .ftools{display:flex}
             <li><b>정상 사용의 cap 초과 = 사용자가 원한 사용</b> → 경고 후 차단, 즉시 복구 경로</li>
             <li><b>비정상 폭주 = 아무도 원하지 않은 호출</b> → <b>경고 없이 즉시 중단</b></li>
             <li>무한 루프 · <b>재귀 팬아웃(깊이 1단계 제한)</b> · 재시도 루프 · 확장 유발 폭주 · 반복 요청 남용</li>
-            <li><b>둘을 섞으면 폭주를 못 막거나 정상 사용까지 끊는다</b></li>
           </ul>
         </div>
       </div>
-      <div class="note"><b>🟦 회계 구분 — API 사용료는 구축비가 아니다.</b> ① <b>구축비</b>(FP 산정 · 2027 본예산 · SW 개발)와 ② <b>AI API 사용료</b>(벤더 별도 계약 · 종량·선불 · 2028 본예산 시범 운영비)는 섞이지 않는다. 산정의 목적은 <b>연간 API 계약 규모를 정확히 잡기 위해서</b>이지 비용 위험을 경고하기 위해서가 아니다 — <b>정당한 사용료는 당연히 지불한다.</b></div>
+      <div class="note"><b>🟦 회계 구분 — API 사용료는 구축비가 아니다.</b> ① <b>구축비</b>(FP 산정 · 2027 본예산 · SW 개발)와 ② <b>AI API 사용료</b>(벤더 별도 계약 · 종량·선불 · 2028 본예산 시범 운영비)는 섞이지 않는다.</div>
     </div>
   </section>
 
-  <!-- 29 기능 10: 3단 사다리 -->
+  <!-- 28 기능 10: 3단 사다리 -->
   <section class="slide light content">
     <div class="head">
       <div class="kicker">기능 10 — 서드파티 확장 마켓</div>
@@ -1067,7 +1043,7 @@ body.tools-on .ftools{display:flex}
     </div>
   </section>
 
-  <!-- 30 나머지 기능 -->
+  <!-- 29 나머지 기능 -->
   <section class="slide light content tight">
     <div class="head">
       <div class="kicker">기능 2 · 4 · 5 · 6 · 8 · 9 · 11</div>
@@ -1088,7 +1064,7 @@ body.tools-on .ftools{display:flex}
     </div>
   </section>
 
-  <!-- 31 §5 일정 -->
+  <!-- 30 §5 일정 -->
   <section class="slide light content">
     <div class="head">
       <div class="kicker">§5 추진 일정(안)</div>
@@ -1132,7 +1108,7 @@ body.tools-on .ftools{display:flex}
     </div>
   </section>
 
-  <!-- 32 §5 추진 체계·게이트 -->
+  <!-- 31 §5 추진 체계·게이트 -->
   <section class="slide soft content tight">
     <div class="head">
       <div class="kicker">§5 추진 체계와 3대 게이트</div>
@@ -1166,7 +1142,7 @@ body.tools-on .ftools{display:flex}
     </div>
   </section>
 
-  <!-- 33 §6 확정 전 확인 사항 -->
+  <!-- 32 §6 확정 전 확인 사항 -->
   <section class="slide light content tight">
     <div class="head">
       <div class="kicker">§6 확정 전 확인 사항 — 최우선 다섯</div>
@@ -1198,7 +1174,7 @@ body.tools-on .ftools{display:flex}
     </div>
   </section>
 
-  <!-- 34 맺음 -->
+  <!-- 33 맺음 -->
   <section class="slide navy">
     <div class="kicker">맺음</div>
     <div class="closing">그릇은 이미 있다.<br>이제 알맹이를 채운다</div>
@@ -1206,7 +1182,7 @@ body.tools-on .ftools{display:flex}
     <div class="closelast">개발TF 조직 2026.7.15. — 준비는 지금 시작한다.</div>
   </section>
 
-  <!-- 35 출처 -->
+  <!-- 34 출처 -->
   <section class="slide light content">
     <div class="head">
       <div class="kicker">출처</div>
@@ -1231,7 +1207,7 @@ body.tools-on .ftools{display:flex}
 </div>
 
 <div class="foot">제주교육AI플랫폼(바당2) · 개요</div>
-<div class="counter" id="counter">1 / 35</div>
+<div class="counter" id="counter">1 / 34</div>
 <canvas id="draw"></canvas>
 <a class="homebtn" href="https://timefullkr.github.io/public/" title="제주교육AI플랫폼 홈으로" aria-label="홈"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></svg></a>
 <button class="anntoggle" id="annToggle" title="주석 도구 켜기/끄기 (P)" aria-label="주석 도구"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.8 2.8 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg></button>
