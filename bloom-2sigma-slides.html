@@ -66,12 +66,14 @@ h1.t{font-size:clamp(3.036rem,6.864vw,5.28rem);font-weight:800;line-height:1.16;
 
 .statwrap{display:flex;align-items:center;gap:clamp(1.5rem,4vw,3.5rem);flex-wrap:wrap}
 .statnum{font-size:clamp(5.94rem,17.16vw,13.2rem);font-weight:800;color:var(--amber);line-height:.85;letter-spacing:-.04em}
-.statcap{max-width:44ch;margin-top:1.2rem}
-.statcap .big{font-size:clamp(1.452rem,2.64vw,2.112rem);font-weight:700;line-height:1.4}
-.statcap .small{font-size:clamp(1.254rem,2.046vw,1.584rem);color:#c7d5e2;margin-top:1rem;line-height:1.55}
+/* 측정 폭은 글자 크기를 가진 요소에 건다 — 부모에 ch 를 걸면 16px 기준이라 칼럼이 반토막 난다 */
+.statcap{margin-top:1.2rem}
+.statcap .big{font-size:clamp(1.452rem,2.64vw,2.112rem);font-weight:700;line-height:1.4;max-width:24em;text-wrap:pretty}
+.statcap .small{font-size:clamp(1.254rem,2.046vw,1.584rem);color:#c7d5e2;margin-top:1rem;line-height:1.55;max-width:32em;text-wrap:pretty}
 
-ul.b{list-style:none;display:flex;flex-direction:column;gap:clamp(.7rem,1.6vh,1.25rem);max-width:64ch}
-ul.b li{position:relative;padding-left:2rem;font-size:clamp(1.346rem,2.31vw,1.848rem);line-height:1.55;font-weight:500}
+ul.b{list-style:none;display:flex;flex-direction:column;gap:clamp(.7rem,1.6vh,1.25rem)}
+ul.b li{position:relative;padding-left:2rem;font-size:clamp(1.346rem,2.31vw,1.848rem);line-height:1.55;font-weight:500;
+  max-width:52em;text-wrap:pretty}
 ul.b li::before{content:"";position:absolute;left:0;top:.55em;width:11px;height:11px;border-radius:3px;background:var(--accent);transform:rotate(45deg)}
 .navy ul.b li::before{background:var(--accent2)}
 ul.b li b{font-weight:700;color:var(--ink-d)}
@@ -140,13 +142,14 @@ ul.b li .s::before{content:"— "}
 .capline{margin-top:1.2rem;font-size:clamp(1.32rem,2.178vw,1.716rem);color:#c7d5e2;font-weight:600}
 
 /* 참고문헌 */
-.refs{list-style:none;display:flex;flex-direction:column;gap:.55rem;max-width:78ch;counter-reset:ref}
-.refs li{position:relative;padding-left:1.8rem;font-size:clamp(.984rem,1.56vw,1.224rem);line-height:1.55;color:var(--muted);counter-increment:ref}
+.refs{list-style:none;display:flex;flex-direction:column;gap:.55rem;counter-reset:ref}
+.refs li{position:relative;padding-left:1.8rem;font-size:clamp(.984rem,1.56vw,1.224rem);line-height:1.55;color:var(--muted);counter-increment:ref;
+  max-width:72em;text-wrap:pretty}
 .refs li::before{content:counter(ref);position:absolute;left:0;top:.1em;width:1.25em;height:1.25em;border-radius:50%;background:var(--card-d);border:1px solid rgba(255,255,255,.12);color:var(--ink-d);font-size:.85em;font-weight:700;display:flex;align-items:center;justify-content:center}
 .refs li i{font-style:italic}
 .refs a{color:inherit;text-decoration:underline;text-decoration-color:rgba(255,255,255,.22);text-underline-offset:3px}
 .refs a:hover{color:var(--accent2);text-decoration-color:var(--accent2)}
-.cite{margin-top:1.4rem;padding:.9rem 1.2rem;background:var(--card-d);border-left:4px solid var(--accent);border-radius:6px;font-size:clamp(1.056rem,1.62vw,1.296rem);line-height:1.6;color:var(--body-d);max-width:78ch}
+.cite{margin-top:1.4rem;padding:.9rem 1.2rem;background:var(--card-d);border-left:4px solid var(--accent);border-radius:6px;font-size:clamp(1.056rem,1.62vw,1.296rem);line-height:1.6;color:var(--body-d);max-width:68em}
 .cite b{color:var(--ink-d)}
 .srcline{margin-top:1.2rem;font-size:clamp(.936rem,1.44vw,1.14rem);color:var(--muted)}
 
@@ -429,7 +432,7 @@ body.tools-on .ftools{display:flex}
       <div class="rule"></div>
     </div>
     <div class="bodyarea">
-      <ul class="b" style="max-width:72ch">
+      <ul class="b">
         <li><b>VanLehn(2011)</b> — 인간 1:1 교습의 실제 효과는 2σ 통념보다 작게 재추정. 그 위에서 단계형 ITS는 <b>인간 교사에 근접</b>.</li>
         <li><b>Kulik &amp; Fletcher(2016)</b> — 50개 통제 평가 메타분석: ITS 중앙값 <b>+0.66σ</b>, 92%의 연구에서 전통 수업 능가.<span class="s">효과는 평가도구·구현 충실도에 좌우</span></li>
       </ul>
