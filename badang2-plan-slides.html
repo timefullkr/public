@@ -167,6 +167,7 @@ ul.b.icons li>.ic{position:absolute;left:0;top:.1em;width:1.55em;height:1.55em}
 .slide.tight{padding-top:6vh;padding-bottom:5vh}
 .slide.tight .head{min-height:12vh}
 .bodyarea.dense::before,.bodyarea.dense::after{content:none}
+.bodyarea.dense{padding-top:2rem}   /* 제목(rule) 아래 숨 쉴 자리 — dense는 스페이서가 없다 */
 .cards.c3{grid-template-columns:repeat(3,1fr)}
 .chips.c3{grid-template-columns:repeat(3,1fr)}
 /* 컴팩트 근거 행 — 다섯 개 이상 나열용 */
@@ -183,7 +184,7 @@ ul.b.icons li>.ic{position:absolute;left:0;top:.1em;width:1.55em;height:1.55em}
 .mini .m b{display:flex;align-items:center;gap:.4rem}
 .mini .m b .ic{width:1.15em;height:1.15em;stroke:currentColor;flex:none}
 /* 유형 범례 */
-.tylegend{display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;margin:2.2rem 0 1.1rem;font-size:clamp(1rem,1.45vw,1.188rem);color:var(--muted);font-weight:600}
+.tylegend{display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;margin:0 0 1.1rem;font-size:clamp(1rem,1.45vw,1.188rem);color:var(--muted);font-weight:600}
 .tylegend span{display:flex;align-items:center;gap:.35rem}
 .tylegend .ic{width:1.25em;height:1.25em;stroke:var(--accent2);flex:none}
 /* 타일 설명문 안의 강조는 인라인 유지(블록 b 규칙이 줄바꿈시키지 않도록) */
@@ -1039,7 +1040,7 @@ body.tools-on .ftools{display:flex}
           <p>범위: <b>전체 배포·상용화</b><br>심사: <b style="color:#f4c98a">2단계 심사</b><br><span style="font-size:.9em;color:var(--muted)">① 계획서 = 매니페스트 선언(권한이 과하지 않은가) ② 최종 = 선언과 실제 동작의 일치. <b>버전이 바뀌면 재심사</b></span></p>
         </div>
       </div>
-      <div class="note"><b>0단이 없으면</b> 「확장팩」·「수업 나눔」·「확장 마켓」이 전부 <b>교사가 닿을 수 없는 상층부</b>만 남는다. 0단이 생겨야 <i>교사가 만들고 → 동료가 쓰고 → 좋은 것이 마켓으로 올라간다.</i><br><b>🟦 개통 기본 스킬 세트 — 빈 마켓 문제의 해법:</b> 기본 스킬은 코어가 아니라 <b>「교육청 제작 1st-party 확장팩」</b>이다. 교육청이 첫 번째 확장 개발자가 되어 SDK·규격을 <b>자기가 먼저 써서 검증</b>한다. <b>시범은 선언형(LTI/MCP) 확장만</b> — 코드 실행형은 전면시행 단계.</div>
+      <div class="note"><b>0단이 없으면</b> 「확장팩」·「수업 나눔」·「확장 마켓」이 전부 <b>교사가 닿을 수 없는 상층부</b>만 남는다. 0단이 생겨야 <i>교사가 만들고 → 동료가 쓰고 → 좋은 것이 마켓으로 올라간다.</i><br><b>🟦 개통 기본 스킬 세트 — 빈 마켓 문제의 해법:</b> <b>「확장팩」은 그릇, 「기본 스킬 세트」는 그 안에 담는 내용물</b>이다 — 코어가 아니라 <b>교육청 제작 1st-party 확장팩</b>으로 만든다. 교육청이 첫 번째 확장 개발자가 되어 SDK·규격을 <b>자기가 먼저 써서 검증</b>한다. <b style="color:#f4c98a">콘텐츠 제작은 SW 구축과 분리 발주 — FP에 잡히지 않으므로 사업비를 별도 계상해야 한다.</b> <i>(시범은 선언형(LTI/MCP) 확장만 — 코드 실행형은 전면시행 단계.)</i></div>
     </div>
   </section>
 
@@ -1156,11 +1157,11 @@ body.tools-on .ftools{display:flex}
       </div>
       <div class="ev sm fill">
         <div class="evnum">2</div>
-        <div class="evtxt"><b>⚠️ FP·기간·인프라 재산정</b><span class="s">「개통 필수 목록」이 사업 범위를 실질적으로 키웠다(부하 축 3→5). <b>범위를 미리 줄이면 예산에 실리지 않고, 예산에 없으면 개통 후엔 만들 수 없다</b> — 그것이 교육용 AI가 파일럿만 하고 사라지는 경로다</span></div>
+        <div class="evtxt"><b>FP·기간·인프라 재산정</b><span class="s">「개통 필수 목록」이 사업 범위를 키웠다(부하 축 3→5) → <b>지금 범위를 확정해 예산에 실어야, 개통일에 그 기능들을 손에 쥔다</b></span></div>
       </div>
       <div class="ev sm fill">
         <div class="evnum">3</div>
-        <div class="evtxt"><b>⚠️ 학생 1인당 API 사용료 재산정</b><span class="s">에이전트 팬아웃 = 요청 1건이 API 호출 수백 회. 이 전제를 손보지 않으면 <b>운영비가 실제의 몇 배로 튄다</b></span></div>
+        <div class="evtxt"><b>학생 1인당 API 사용료 재산정</b><span class="s">에이전트 팬아웃으로 요청 1건이 여러 번의 API 호출이 된다 → <b>요청 1건의 호출 수를 정책으로 제한하고</b>(작업 예산 · 팬아웃 폭), <b>그 상한을 기준으로 연간 계약 규모를 산출한다</b></span></div>
       </div>
       <div class="ev sm">
         <div class="evnum">4</div>
