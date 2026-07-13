@@ -70,8 +70,10 @@ h1.t{font-size:clamp(3.036rem,6.864vw,5.28rem);font-weight:800;line-height:1.16;
 .statcap .big{font-size:clamp(1.452rem,2.64vw,2.112rem);font-weight:700;line-height:1.4}
 .statcap .small{font-size:clamp(1.254rem,2.046vw,1.584rem);color:#c7d5e2;margin-top:1rem;line-height:1.55}
 
-ul.b{list-style:none;display:flex;flex-direction:column;gap:clamp(.7rem,1.6vh,1.25rem);max-width:64ch}
-ul.b li{position:relative;padding-left:2rem;font-size:clamp(1.346rem,2.31vw,1.848rem);line-height:1.55;font-weight:500}
+/* 측정 폭은 li(본문 크기) 기준으로 잡는다 — ul 에 ch 를 걸면 16px 기준이라 한 줄이 21자로 쪼그라든다 */
+ul.b{list-style:none;display:flex;flex-direction:column;gap:clamp(.7rem,1.6vh,1.25rem)}
+ul.b li{position:relative;padding-left:2rem;font-size:clamp(1.346rem,2.31vw,1.848rem);line-height:1.55;font-weight:500;
+  max-width:52em;text-wrap:pretty}
 ul.b li::before{content:"";position:absolute;left:0;top:.55em;width:11px;height:11px;border-radius:3px;background:var(--accent);transform:rotate(45deg)}
 .navy ul.b li::before{background:var(--accent2)}
 ul.b li b{font-weight:700;color:var(--ink-d)}
@@ -519,12 +521,12 @@ body.tools-on .ftools{display:flex}
       <div class="rule"></div>
     </div>
     <div class="bodyarea">
-      <ul class="b" style="max-width:72ch">
-        <li><b>코어는 얇고 고정</b> — 인증·라우터·안전필터·전량 로깅·바당 연계, 길목 기능만. 구체 구현(어떤 모델·기능)은 코어에 박지 않는다.</li>
-        <li><b>모델 = 어댑터</b> — 새 벤더·모델(Claude·GPT·국산·교육부 특화 LLM)은 어댑터 추가 + 설정 등록으로.<span class="s">코어 라우터 무수정</span></li>
+      <ul class="b">
+        <li><b>코어는 얇고 고정</b> — 인증·라우터·안전필터·전량 로깅·바당 연계 등 길목 기능만.<span class="s">구체 구현(어떤 모델·기능)은 코어에 박지 않는다</span></li>
+        <li><b>모델 = 어댑터</b> — 새 벤더·모델(Claude·GPT·국산·교육부 LLM)은 어댑터 추가 + 설정 등록으로.<span class="s">코어 라우터 무수정</span></li>
         <li><b>기능 = 확장 슬롯</b> — 교육 도구는 LTI, AI 도구·데이터는 MCP 표준으로. 새 규격 발명 없이 확장.</li>
-        <li><b>코어도 늙는다</b> — 확장 마켓은 코어 기능의 ‘더 나은 대안’까지 허용, 무엇을 쓸지는 학교·교사가 선택.<span class="s">코어가 낡아도 플랫폼은 늙지 않는다</span></li>
-        <li><b>단 하나의 불변</b> — 어떤 어댑터·모듈·확장이 붙든 반드시 코어 게이트웨이를 경유. 로깅·안전·개인정보는 우회할 수 없다.</li>
+        <li><b>코어도 늙는다</b> — 확장 마켓은 코어 기능의 ‘더 나은 대안’까지 허용, 선택은 학교·교사가.<span class="s">코어가 낡아도 플랫폼은 늙지 않는다</span></li>
+        <li><b>단 하나의 불변</b> — 어떤 어댑터·모듈·확장이 붙든 반드시 코어 게이트웨이를 경유.<span class="s">로깅·안전·개인정보는 우회할 수 없다</span></li>
       </ul>
     </div>
   </section>
@@ -537,11 +539,11 @@ body.tools-on .ftools{display:flex}
       <div class="rule"></div>
     </div>
     <div class="bodyarea">
-      <ul class="b" style="max-width:72ch">
+      <ul class="b">
         <li><b>전송 전 비식별</b> — 규칙(정규식)+경량 NER 온프레미스 엔진. 결정적·재현가능·감사가능, CPU급 동작.<span class="s">매핑 보유로 법적으로는 ‘가명정보’ — 익명이 아니며 안전조치 의무(§28-4) 적용</span></li>
         <li><b>매핑 테이블 = 최우선 보안자산</b> — 유일한 재식별 통로. KMS/HSM 격리 · 2인 승인 · 전건 감사로그.</li>
-        <li><b>벤더 계약(DPA) 4대 필수조항</b> — 학습 미사용 · 제로 리텐션 · 국외 이전 제한 · 침해 통지. 미제공 벤더는 어댑터 등록 불가.</li>
-        <li><b>기록 ≠ 상시 열람</b> — 교사 열람은 집계·요약 기본, 원문은 필요최소·사유 기록. 학습 중 질문·오답·시행착오는 평가에 불리하게 쓰지 않는다.<span class="s">학생이 안심하고 물어야 위기감지·초개별화의 입력이 유지된다</span></li>
+        <li><b>벤더 계약(DPA) 4대 필수조항</b> — 학습 미사용 · 제로 리텐션 · 국외 이전 제한 · 침해 통지.<span class="s">미제공 벤더는 어댑터 등록 불가</span></li>
+        <li><b>기록 ≠ 상시 열람</b> — 교사 열람은 집계·요약 기본, 원문은 필요최소·사유 기록.<span class="s">학습 중 질문·오답·시행착오는 평가에 불리하게 쓰지 않는다</span><span class="s">학생이 안심하고 물어야 위기감지·초개별화의 입력이 유지된다</span></li>
       </ul>
     </div>
   </section>
