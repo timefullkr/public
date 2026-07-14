@@ -1066,7 +1066,7 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
 <td>Artifacts(클로드) · Canvas(챗GPT·제미나이)</td>
 </tr>
 <tr>
-<td><strong>XHWP</strong></td>
+<td><strong>HWP에디터</strong></td>
 <td style="text-align: center;">🖥 화면</td>
 <td>브라우저에서 <strong>hwpx 직접 편집</strong> → 바로 저장</td>
 <td>콘텐츠뷰 위</td>
@@ -1305,6 +1305,185 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
 </tr>
 </tbody>
 </table></div>
+<p><strong>🟦 벤더 챗앱 ↔ 바당2 기능 대응표</strong> <em>(범례: ⭕ 제공 · ❗ 제한 제공 · ❌ 미제공 — 2026-07 · 소비자용 챗앱 기준)</em></p>
+<p>「개통 필수 목록」(제공)과 「하지 않는 것」(미제공)을 벤더 챗앱(ChatGPT · Claude · Gemini) 사용자 관점에서 한 표로 재정렬 — <em>"벤더 앱에서 쓰던 거, 여기서도 돼요?"</em> 에 대한 답.</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>기능명</th>
+<th style="text-align: center;">벤더 챗앱</th>
+<th style="text-align: center;">바당2</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>스트리밍·마크다운·표·수식 렌더링</td>
+<td style="text-align: center;">⭕</td>
+<td style="text-align: center;">⭕</td>
+<td><strong>AI 웹 클라이언트</strong> — 벤더 앱급 UX가 성패의 전제</td>
+</tr>
+<tr>
+<td>파일 업로드·분석</td>
+<td style="text-align: center;">⭕</td>
+<td style="text-align: center;">⭕</td>
+<td>문서(pdf · docx · <strong>hwpx · hwp</strong> · odf · txt · md) · 발표(pptx) · 표(xlsx·csv) · 이미지 · 코드 · <strong>압축(zip)</strong> — <strong>hwp(레거시) 읽기는 벤더 앱에 없다.</strong> 이미지는 <strong>비전 비식별</strong> 경유</td>
+</tr>
+<tr>
+<td>문서·데이터 사이드 패널 <em>(Artifacts · Canvas)</em></td>
+<td style="text-align: center;">⭕</td>
+<td style="text-align: center;">⭕</td>
+<td><strong>콘텐츠뷰</strong> — 라이브 프리뷰·버전·재편집</td>
+</tr>
+<tr>
+<td>브라우저 즉석 데이터 분석 <em>(Analysis tool)</em></td>
+<td style="text-align: center;">⭕</td>
+<td style="text-align: center;">⭕</td>
+<td><strong>바로분석</strong> — 브라우저 격리 워커(데이터가 단말을 안 떠남)</td>
+</tr>
+<tr>
+<td>코드 실행 <em>(Code Interpreter · Code Execution)</em></td>
+<td style="text-align: center;">⭕</td>
+<td style="text-align: center;">⭕</td>
+<td><strong>샌드박스</strong> — 벤더 서버가 아니라 <strong>코어 격리 샌드박스</strong></td>
+</tr>
+<tr>
+<td>웹 검색 <em>(Web Search)</em></td>
+<td style="text-align: center;">⭕</td>
+<td style="text-align: center;">⭕</td>
+<td><strong>바당검색</strong> — 교육용 화이트리스트·연령 차등 프록시</td>
+</tr>
+<tr>
+<td>딥리서치 <em>(Deep Research)</em></td>
+<td style="text-align: center;">⭕</td>
+<td style="text-align: center;">⭕</td>
+<td><strong>리서치</strong> — 다단계 조사·출처 표기 리포트</td>
+</tr>
+<tr>
+<td>프로젝트·지식 베이스 <em>(Projects)</em></td>
+<td style="text-align: center;">⭕</td>
+<td style="text-align: center;">⭕</td>
+<td><strong>프로젝트</strong> — 자료 업로드·프로젝트별 RAG</td>
+</tr>
+<tr>
+<td>개인화 메모리 <em>(Memory)</em></td>
+<td style="text-align: center;">⭕</td>
+<td style="text-align: center;">⭕</td>
+<td><strong>기억</strong> — 대화·학습 이력 기반(학습 상태 모델)</td>
+</tr>
+<tr>
+<td>카메라·화면 공유 대화 <em>(Gemini Live)</em></td>
+<td style="text-align: center;">⭕</td>
+<td style="text-align: center;">⭕</td>
+<td><strong>라이브튜터</strong> — 프레임 샘플링 + <strong>비전 비식별</strong> 경유</td>
+</tr>
+<tr>
+<td>실시간 음성 대화 <em>(Advanced Voice · Live)</em></td>
+<td style="text-align: center;">⭕</td>
+<td style="text-align: center;">⭕</td>
+<td><strong>음성대화</strong> — 벤더 직결이 아닌 <strong>자체 STT·TTS 스택</strong></td>
+</tr>
+<tr>
+<td>이미지 생성·편집 <em>(DALL·E · Imagen)</em></td>
+<td style="text-align: center;">⭕</td>
+<td style="text-align: center;">⭕</td>
+<td><strong>이미지</strong> — <strong>얼굴 포함 이미지는 편집 투입 불가</strong>(딥페이크 방어)</td>
+</tr>
+<tr>
+<td>커스텀 봇 제작 <em>(Custom GPTs · Gems · Styles)</em></td>
+<td style="text-align: center;">⭕</td>
+<td style="text-align: center;">⭕</td>
+<td><strong>나만의 AI</strong> — 교사가 만들어 학급 배포(심사 없음, 코어 안전장치 우회 불가) · <strong>문체 프리셋(말투설정)</strong> 포함</td>
+</tr>
+<tr>
+<td>원클릭 콘텐츠 생성 <em>(Create)</em></td>
+<td style="text-align: center;">⭕</td>
+<td style="text-align: center;">⭕</td>
+<td><strong>크레이트</strong> — 텍스트 → 퀴즈·인포그래픽·웹페이지</td>
+</tr>
+<tr>
+<td>자료의 대담 음성 변환 <em>(Audio Overview)</em></td>
+<td style="text-align: center;">⭕</td>
+<td style="text-align: center;">⭕</td>
+<td><strong>듣는요약</strong> — 대본 생성 + 2인 TTS</td>
+</tr>
+<tr>
+<td>확장 마켓·설치 <em>(GPT Store · Skills · Gems)</em></td>
+<td style="text-align: center;">⭕</td>
+<td style="text-align: center;">⭕</td>
+<td><strong>확장 마켓·확장팩</strong>(기능 10) — <strong>3단 사다리</strong>: 나만의 AI(심사 없음) → 수업 나눔(자동 스캔) → 마켓(심사·배포). 코어 기능의 <strong>더 나은 대안</strong>까지 허용</td>
+</tr>
+<tr>
+<td>외부 도구·데이터 연결 <em>(MCP 커넥터 · Extensions)</em></td>
+<td style="text-align: center;">⭕</td>
+<td style="text-align: center;">❗</td>
+<td>확장 패키지의 <strong>MCP 연결</strong> — 심사·승인된 확장만, <strong>도구 호출·반환 전문도 코어 로깅·안전필터 경유</strong>. 시범 단계는 <strong>선언형 확장</strong>(코어 내 코드 실행·PII 접근 없음)만</td>
+</tr>
+<tr>
+<td>모델 선택</td>
+<td style="text-align: center;">❗</td>
+<td style="text-align: center;">❗</td>
+<td><strong>AI 선택</strong> — 벤더는 <strong>자사 모델만</strong> / 바당2는 <strong>여러 벤더 모델을 한 화면에서</strong>(교직원 자유·학생 화이트리스트)</td>
+</tr>
+<tr>
+<td>예약·정기 작업 <em>(Tasks · Scheduled Actions)</em></td>
+<td style="text-align: center;">⭕</td>
+<td style="text-align: center;">❗</td>
+<td><strong>예약작업</strong> — <strong>업무 세션 전용</strong></td>
+</tr>
+<tr>
+<td>화면 조작 에이전트 <em>(Computer Use · Agent Mode)</em></td>
+<td style="text-align: center;">⭕</td>
+<td style="text-align: center;">❗</td>
+<td><strong>업무자동화</strong> — 업무 전용·학생 세션 미노출(정식 API 연동의 폴백)</td>
+</tr>
+<tr>
+<td>개인 계정 커넥터(드라이브 등)</td>
+<td style="text-align: center;">⭕</td>
+<td style="text-align: center;">❗</td>
+<td><strong>학생 세션 ❌</strong> / 업무 세션은 승인 목록에 한해 허용</td>
+</tr>
+<tr>
+<td>대화 공유</td>
+<td style="text-align: center;">⭕</td>
+<td style="text-align: center;">❗</td>
+<td><strong>학급 내 시연</strong>(건별 동의·익명 기본)으로 한정 — <strong>외부 공개 링크는 불가</strong>(미성년 대화가 교육청 밖으로 나간다)</td>
+</tr>
+<tr>
+<td>영상 생성 <em>(Sora · Veo)</em></td>
+<td style="text-align: center;">⭕</td>
+<td style="text-align: center;">❌</td>
+<td>개통 범위 밖 — <strong>확장 슬롯</strong>으로 열어둠</td>
+</tr>
+<tr>
+<td><strong>hwpx 정본 생성</strong>(공문서 법정 표준)</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">⭕</td>
+<td><strong>문서공방</strong> — 벤더 앱은 hwpx를 읽지도 만들지도 못한다</td>
+</tr>
+<tr>
+<td>브라우저 hwpx 직접 편집</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">⭕</td>
+<td><strong>HWP에디터</strong> — 콘텐츠뷰 위에서 편집 → 바로 저장</td>
+</tr>
+<tr>
+<td>AI 산출물 통합 보관·검색</td>
+<td style="text-align: center;">❗</td>
+<td style="text-align: center;">⭕</td>
+<td><strong>문서함</strong> — <em>벤더 앱도 대화 이력·산출물 보관·검색은 된다.</em> 차이는 산출물이 <strong>개인 계정·대화에 갇히는가, 기관 소유 콘텐츠 저장소에 정본으로 남는가</strong></td>
+</tr>
+<tr>
+<td>학사·급식 조회 도우미(NEIS)</td>
+<td style="text-align: center;">❗</td>
+<td style="text-align: center;">⭕</td>
+<td><strong>NEIS 연동</strong> — 내부 MCP(NEIS 개방 API). <em>벤더 앱도 커넥터에 API 키를 꽂으면 기술적 연결은 가능하다</em> — 그러나 키를 개인이 관리하고 <strong>응답(학사·학생 정보)이 비식별·로깅 없이 벤더로 들어간다</strong></td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>벤더 ❗의 공통 구조</strong> — 기술적으로는 되나 <strong>개인 계정·무통제</strong>(키 개인 관리 · 응답이 비식별 없이 벤더로). 차별점은 기능 유무가 아니라 <strong>통제</strong>다 — 같은 기능이 코어 게이트웨이(로깅·비식별·안전필터·감사) 뒤에서 돈다. 여기에 벤더 챗앱에는 원리적으로 없는 <strong>공공 게이트웨이 층</strong>(전량 로깅 · 비식별 · 위기감지 · 학급 명부 연동 · 완전학습 루프 · 토큰 cap)이 얹힌다.</p>
+</blockquote>
 <p><strong>진화 지속성 — 벤더 앱 추격 체제</strong></p>
 <ul>
 <li><strong>기반 선택:</strong> 바닥부터 짓지 않는다 — <strong>검증된 오픈소스 챗 클라이언트 기반</strong> 채택 우선 검토. <strong>라이선스 실사(후보 2종 이상)</strong> + <strong>고유부 격리</strong>(본체 무수정·플러그인 층)를 RFP에 명시.</li>
@@ -1347,6 +1526,11 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
 <td>코드</td>
 <td>전 언어</td>
 <td>전 언어 + 실행</td>
+</tr>
+<tr>
+<td>압축</td>
+<td><strong>zip</strong> — 샌드박스 내 해제 후 내부 파일을 위 규칙대로 개별 처리</td>
+<td>zip <em>(다건 묶음 내려받기)</em></td>
 </tr>
 </tbody>
 </table></div>
@@ -1620,7 +1804,7 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
 - <strong>채점 확정 권한은 여전히 교사에게</strong> 있다 — 교차 채점은 <em>어디를 봐야 하는지</em> 를 알려줄 뿐이다.
 - <strong>비용:</strong> 답안 1개당 3회 호출 → <strong>작업 예산</strong> 안에서 실행, 팬아웃 폭은 관리자 콘솔에서 조정.</p>
 </blockquote>
-<p><strong>③ 축적 자산 재활용</strong> — hwpx·hwp·pptx <strong>읽기</strong> → 요약·재작성·활동지 변환 → <strong>hwpx 생성</strong> → <strong>「XHWP」로 바로 수정 → 결재.</strong>
+<p><strong>③ 축적 자산 재활용</strong> — hwpx·hwp·pptx <strong>읽기</strong> → 요약·재작성·활동지 변환 → <strong>hwpx 생성</strong> → <strong>「HWP에디터」로 바로 수정 → 결재.</strong>
 <em>(⚠️ 공문·자료엔 학생 명부·성적이 흔하다 — 파싱된 텍스트는 </em><em>반드시 비식별 엔진을 통과</em><em>시킨다. 코어의 문서 파서가 그 검문소다.)</em></p>
 <blockquote>
 <p><strong>교직원 업무 활용:</strong> 같은 기본 AI로 일반 행정 업무도 처리한다 — <strong>업무 세션 소속</strong>(§3-6). 외부 ChatGPT·Claude에 흩어 쓰던 업무를 <strong>하나의 안전한 공공 관문으로 통합</strong>한다.
@@ -1703,7 +1887,7 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
 </tr>
 <tr>
 <td><strong>교직원</strong> <em>(업무 세션)</em></td>
-<td><strong>공문 기안</strong>(hwpx → XHWP → 결재) · <strong>규정·지침 질의</strong> · 보고서·회의록 정리 · 데이터 분석</td>
+<td><strong>공문 기안</strong>(hwpx → HWP에디터 → 결재) · <strong>규정·지침 질의</strong> · 보고서·회의록 정리 · 데이터 분석</td>
 </tr>
 </tbody>
 </table></div>
@@ -2017,62 +2201,248 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
 <li><strong>교직원 로그 거버넌스 제정</strong> — 열람 요건 · <strong>근무평정·징계 목적 사용 금지</strong> · 보관 단축 — <strong>시범 1단계(업무 세션 개방)의 선행 조건.</strong></li>
 </ul>
 <hr />
-<h2>부록. 핵심 용어</h2>
+<h2>부록. 용어 풀이</h2>
+<blockquote>
+<p>본문에 쓰인 약어·표준 용어 설명. (교육 데이터·도구 상호운용 표준이 다수)
+<strong>세션 관련 용어</strong>(학생 세션 · 업무 세션 · 수업/자율 맥락 · 표기 축약 「학생 세션(수업)/(자율)」)는 <strong>「세션정책」(내부 문서) §3이 정본</strong>이다 — 본 문서의 §5 시범 단계 서술이 이 용어를 사용한다.</p>
+</blockquote>
+<p><strong>연계·상호운용 표준</strong></p>
 <div class="tablewrap"><table>
 <thead>
 <tr>
-<th>용어</th>
-<th>뜻</th>
+<th>약어</th>
+<th>풀이</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>바당(AIEP)</strong></td>
-<td>인공지능 맞춤형 교수학습 플랫폼 — 11개 시·도 공동 <strong>LMS</strong>(2025.12 오픈). 바당2가 얹히는 <strong>그릇</strong></td>
+<td>LMS</td>
+<td>Learning Management System(학습관리시스템) — 수업·학생·학습활동을 관리하는 플랫폼. 바당이 이에 해당.</td>
 </tr>
 <tr>
-<td><strong>게이트웨이 독점</strong></td>
-<td>모든 AI 사용이 코어를 통과한다는 원칙 — 전량 로깅·안전필터·비식별의 전제</td>
+<td>LRS</td>
+<td>Learning Record Store(학습기록저장소) — 학습활동 기록(xAPI)을 표준 형식으로 모아두는 저장소. 바당이 보유. 바당2의 적재(환류) 여부는 §3-2 — 학습기록 정본은 바당2 자체 DB.</td>
 </tr>
 <tr>
-<td><strong>어댑터</strong></td>
-<td>코어를 고치지 않고 새 모델·엔진을 끼우는 인터페이스 — 「코어 수정 없이 확장」의 구현 수단</td>
+<td>xAPI</td>
+<td>Experience API — "누가·무엇을·했다" 형태로 학습 경험을 기록·전송하는 국제 표준(미국 ADL 개발·IEEE 표준화).</td>
 </tr>
 <tr>
-<td><strong>하네스 / 배포</strong></td>
-<td>에이전트 <strong>루프 코드</strong>(하네스)와 그것이 <strong>실행되는 위치</strong>(배포)는 별개다. <strong>벤더 하네스를 우리 서버에서 구동하는 것은 권장</strong>, 루프·세션을 <strong>벤더 인프라에서 돌리는 상품은 금지</strong></td>
+<td>완전학습</td>
+<td>Mastery Learning — 블룸(1968)이 정립한 수업 모형. 형성평가와 교정 절차의 순환으로 모든 학생이 숙달에 도달하게 한다. 기능 3 대표 시나리오(완전학습 루프)의 이론적 기반 — 「블룸 2σ 이론적 배경」 참조.</td>
 </tr>
 <tr>
-<td><strong>서버 실행형 도구 / client-side 도구</strong></td>
-<td>벤더 서버에서 실행되는 도구(코드 실행·웹검색)와, 벤더가 스키마만 주고 <strong>호출자가 실행</strong>하는 도구. 바당2는 <strong>후자만 쓴다</strong></td>
+<td>SSO</td>
+<td>Single Sign-On(통합인증) — 한 계정으로 여러 시스템에 로그인.</td>
 </tr>
 <tr>
-<td><strong>팬아웃</strong></td>
-<td>하나의 요청을 여러 에이전트에 병렬 분배 — 교차 채점·위기감지 재검·문항 검증. <strong>호출 수 폭증 → 사용료 재산정 필요</strong></td>
+<td>SAML 2.0</td>
+<td>Security Assertion Markup Language — SSO를 구현하는 인증 표준.</td>
 </tr>
 <tr>
-<td><strong>비식별 / 재식별</strong></td>
-<td>벤더 전송 전 PII를 <strong>가명 토큰으로 치환</strong>, 출력단에서 <strong>실명 복원</strong>. 「Mask + 재식별」이면 <strong>교사는 실명을, 벤더는 가명을</strong> 본다</td>
+<td>OneRoster</td>
+<td>학생·교사·수업 명부(클래스·배정)와 <strong>성적</strong>을 주고받는 국제 표준(1EdTech 제정).</td>
 </tr>
 <tr>
-<td><strong>샌드박스</strong></td>
-<td>코드를 <strong>격리 실행</strong>하는 장치. 「샌드박스」·「문서공방」·코드 실행형 확장이 <strong>하나의 코어 공용 런타임</strong>을 쓴다</td>
+<td>LTI</td>
+<td>Learning Tools Interoperability — 외부 학습도구를 LMS 안에 끼워 SSO된 채 쓰게 하는 표준(1EdTech 제정 · 본 사업은 <strong>LTI 1.3/Advantage</strong>).</td>
 </tr>
 <tr>
-<td><strong>hwpx</strong></td>
-<td>개방형 한글 문서(<strong>KS X 6101</strong> · XML/ZIP). <strong>2026.10. 공공기관 기본 포맷 의무화</strong> — 전환 이유가 <strong>"AI가 읽기 좋은 구조"</strong></td>
+<td>LOM</td>
+<td>Learning Object Metadata — 학습자료에 붙이는 메타데이터 표준.</td>
 </tr>
 <tr>
-<td><strong>MCP / LTI / QTI / CASE</strong></td>
-<td>모델이 쓰는 <strong>도구·데이터</strong> 연결(MCP) · 사람이 쓰는 <strong>화면</strong> 연결(LTI) · <strong>문항</strong>(QTI) · <strong>성취기준</strong>(CASE) 표준</td>
+<td><strong>QTI</strong></td>
+<td>Question &amp; Test Interoperability — <strong>문항·평가(정답·해설·루브릭)를 교환하는 국제 표준</strong>(1EdTech). 바당2는 <strong>QTI 3.0 프로파일</strong>(실제 사용 문항 유형만 규정한 부분집합)을 채택한다 — 자체 문항 포맷을 만들지 않는다(§3-3 · 기능 10).</td>
 </tr>
 <tr>
-<td><strong>완전학습 루프</strong></td>
-<td>수업 → 형성평가 → 도달(심화) / 미도달(교정·재도전)을 <strong>학생마다 실시간으로</strong> 도는 순환 — 초개별화의 실체</td>
+<td><strong>CASE</strong></td>
+<td>Competencies and Academic Standards Exchange — <strong>성취기준·역량 체계를 교환하는 국제 표준</strong>(1EdTech). 기능 3 스킬 맵의 뼈대이며, 국가 교육과정 성취기준 코드를 이 위에 얹는다 — 교육과정 개정 시 <strong>코드 매핑 교체만으로 대응</strong>한다.</td>
+</tr>
+<tr>
+<td><strong>Common Cartridge</strong></td>
+<td>학습 콘텐츠를 한 덩어리로 묶어 교환하는 패키징 표준(1EdTech). 확장 패키지의 콘텐츠 층(§3-3).</td>
+</tr>
+<tr>
+<td><strong>1EdTech</strong></td>
+<td>교육 상호운용 표준 제정 기관(구 IMS Global) — LTI · QTI · CASE · Common Cartridge · OneRoster의 제정 주체.</td>
+</tr>
+<tr>
+<td>MCP</td>
+<td>Model Context Protocol — AI 모델에 외부 도구·데이터를 표준 방식으로 연결하는 프로토콜. <em>(사람이 도구를 쓰게 하는 LTI와 층위가 다르다 — 모델이 도구를 쓴다.)</em></td>
+</tr>
+<tr>
+<td>OpenAPI</td>
+<td>REST API 명세를 기술하는 표준(연동·문서화용).</td>
+</tr>
+<tr>
+<td>어댑터</td>
+<td>코어를 고치지 않고 새 모델·벤더를 끼우기 위한 <strong>내부 확장점</strong>(공통 인터페이스 + 모델 레지스트리 등록). 유통되는 물건이 아니다(§3-3).</td>
+</tr>
+<tr>
+<td>확장 패키지</td>
+<td>마켓에서 <strong>심사·배포·설치되는 유통 단위</strong>. 매니페스트·시스템 프롬프트·MCP 도구 연결·(필요 시) LTI 등록·콘텐츠를 한 덩어리로 묶은 것(기능 10).</td>
 </tr>
 <tr>
 <td><strong>선언형 확장</strong></td>
-<td>LTI/MCP로 데이터·도구만 연결하고 <strong>코어 내 임의 코드 실행·PII 접근이 없는</strong> 확장 — 시범 단계 허용 범위</td>
+<td>LTI/MCP로 데이터·도구만 연결하고 <strong>코어 내 임의 코드 실행·PII 접근이 없는</strong> 확장 — 시범 단계 허용 범위.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>AI·기술</strong></p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>약어</th>
+<th>풀이</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LLM</td>
+<td>Large Language Model(대규모 언어모델) — 생성형 AI의 핵심 모델(예: Claude).</td>
+</tr>
+<tr>
+<td><strong>팬아웃</strong></td>
+<td>하나의 요청을 여러 에이전트에 병렬 분배 — 교차 채점·위기감지 재검·문항 검증. <strong>호출 수 폭증 → 「학생 1인당 API 사용료」 재산정 필요.</strong></td>
+</tr>
+<tr>
+<td>MDM</td>
+<td>Mobile Device Management(기기관리) — 단말을 원격 관리·통제하는 시스템.</td>
+</tr>
+<tr>
+<td>API Gateway</td>
+<td>외부 호출을 표준·보안 경유시키는 관문.</td>
+</tr>
+<tr>
+<td><strong>게이트웨이 독점</strong></td>
+<td>모든 AI 사용이 코어 게이트웨이를 통과한다는 원칙 — 전량 로깅·안전필터·비식별의 전제.</td>
+</tr>
+<tr>
+<td>PII</td>
+<td>Personally Identifiable Information — 개인을 식별할 수 있는 정보(개인정보).</td>
+</tr>
+<tr>
+<td>가명정보 · 가명 토큰</td>
+<td>실명을 대체 식별자로 치환해 처리하는 개인정보 — 매핑 보유로 재식별 가능하므로 <strong>익명이 아니며</strong> 안전조치 의무 대상(개인정보보호법 §28-4). 벤더 왕복 구간에는 가명 토큰만 흐른다(§3-5).</td>
+</tr>
+<tr>
+<td>EXIF</td>
+<td>사진 파일에 자동 기록되는 촬영 메타데이터(위치·일시·기기) — 학생 이미지 입력 시 <strong>자동 제거 대상</strong>(§3-5 비전 비식별).</td>
+</tr>
+<tr>
+<td><strong>비전 비식별</strong></td>
+<td>이미지·영상 경로의 <strong>얼굴 탐지·마스킹 · 이름표·손글씨 OCR 후 텍스트 비식별 재투입 · EXIF 제거.</strong> 텍스트 비식별로는 걸러지지 않는 축이며, <strong>경량 비전 가속기</strong>를 요한다(§3-5 · §3-4 ④).</td>
+</tr>
+<tr>
+<td><strong>딥페이크</strong></td>
+<td>실제 인물의 얼굴·음성을 합성해 허위 이미지·영상을 만드는 것. 이미지 편집 모델의 <strong>인물 일관성 유지</strong> 능력에서 비롯하며, <strong>얼굴 포함 이미지의 편집 도구 투입 차단</strong>이 유일한 방어선이다(기능 5 · §3-5).</td>
+</tr>
+<tr>
+<td><strong>샌드박스</strong></td>
+<td>코드를 <strong>격리된 환경에서 실행</strong>해 본체 시스템·타 사용자 데이터에 접근하지 못하게 하는 장치. 바당2는 「샌드박스」·「문서공방」·코드 실행형 확장이 <strong>하나의 코어 공용 샌드박스</strong>를 쓴다(§3-4 ⑤ · 기능 10). <strong>밑바닥 구축이 아니라 검증된 오픈소스 격리 런타임 기반 채택을 우선</strong>하고, <strong>커널 취약점 상시 대응</strong>을 운영 계약 과업에 명시한다(§3-1).</td>
+</tr>
+<tr>
+<td><strong>서버 실행형 도구 / client-side 도구</strong></td>
+<td>벤더 서버에서 실행되는 도구(코드 실행·웹 검색 등)와, 벤더가 스키마만 정의하고 <strong>호출자가 직접 실행</strong>하는 도구. 바당2는 <strong>후자만 쓴다</strong> — 전자는 데이터가 벤더 인프라로 넘어가 로깅·비식별·국내 보관이 끊긴다(§3-1 두 번째 금지선).</td>
+</tr>
+<tr>
+<td><strong>하네스 / 배포</strong></td>
+<td>에이전트 <strong>루프 코드</strong>(하네스)와 그것이 <strong>실행되는 위치</strong>(배포)는 별개다. 벤더 SDK가 제공하는 하네스를 <strong>우리 서버에서 구동</strong>하면 모든 호출이 코어를 지나므로 <strong>허용·권장</strong>이다. 금지 대상은 루프와 세션을 <strong>벤더 인프라에서 돌리는 관리형 에이전트 상품</strong>이다(§3-3).</td>
+</tr>
+<tr>
+<td><strong>hwpx</strong></td>
+<td>개방형 한글 문서(<strong>KS X 6101</strong> · XML/ZIP). <strong>공문서 법정 표준</strong> — 「행정업무 운영 및 혁신에 관한 규정」 개정(2026.5.12. 국무회의 의결)으로 <strong>2026.10.부터 공공기관 기본 포맷 의무화</strong>(ODF·PDF/A 병용). 전환 이유가 <strong>"AI가 읽기 좋은 구조"</strong> 이며, 바당2의 「문서공방」·「HWP에디터」·「규정·지침 질의」가 그 전제 위에 선다. <strong>자체 구현 가능</strong>(개방 표준).</td>
+</tr>
+<tr>
+<td><strong>hwp</strong> (구 바이너리)</td>
+<td>폐쇄형 한글 문서. 바당2는 <strong>읽기만 지원</strong>(축적된 레거시 자료 활용). <strong>쓰기는 개통 범위에서 제외</strong> — 공문서 표준이 hwpx로 전환되었기 때문이며, 이로써 한컴 서버 SDK·변환 라이선스·Windows 변환 팜이 모두 불필요해졌다(§6).</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>인프라·인증·제도</strong></p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>약어</th>
+<th>풀이</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CSAP</td>
+<td>클라우드 보안인증(Cloud Security Assurance Program) — 공공기관용 클라우드 보안 인증.</td>
+</tr>
+<tr>
+<td>HA</td>
+<td>High Availability(고가용성) — 장애 시에도 중단 없도록 이중화한 구성.</td>
+</tr>
+<tr>
+<td>DR · RPO/RTO</td>
+<td>재해복구(Disaster Recovery) / 복구 시점 목표(RPO — 데이터 손실 허용 한도) · 복구 시간 목표(RTO — 중단 허용 시간). RFP에 수치로 명시(§3-4).</td>
+</tr>
+<tr>
+<td>NTP</td>
+<td>Network Time Protocol — 서버 시각 동기화 표준. 로그 무결성(변조 방지·시각 증빙)의 전제(§3-5).</td>
+</tr>
+<tr>
+<td>KWCAG</td>
+<td>한국형 웹 콘텐츠 접근성 지침 — 공공 웹 접근성의 법정 기준. 준수·인증 취득을 RFP 필수 산출물로 명시(기능 6).</td>
+</tr>
+<tr>
+<td>PIA</td>
+<td>개인정보 영향평가(Privacy Impact Assessment) — 개인정보 처리 위험을 사전 평가.</td>
+</tr>
+<tr>
+<td>RFP</td>
+<td>제안요청서(Request for Proposal) — 사업 발주 요구사항 문서.</td>
+</tr>
+<tr>
+<td>MVP</td>
+<td>최소기능제품(Minimum Viable Product) — 핵심 기능만 갖춘 1차 산출물.</td>
+</tr>
+<tr>
+<td>ISMP</td>
+<td>정보시스템 마스터플랜(Information Systems Master Plan) — 단일 시스템 구축 전, 요구사항을 상세 분석하고 기능점수를 산정해 제안요청서(RFP)를 도출하는 선행 활동(바당2는 개발TF 자체 수행).</td>
+</tr>
+<tr>
+<td>ISP</td>
+<td>정보화전략계획(Information Strategy Planning) — 기관 전체·중장기 정보화 전략·로드맵 수립(ISMP보다 광의).</td>
+</tr>
+<tr>
+<td>FP</td>
+<td>기능점수(Function Point) — 소프트웨어 규모를 기능 단위로 측정하는 표준. 공공 SW 사업비 산정 기준.</td>
+</tr>
+<tr>
+<td>SRS</td>
+<td>요구사항 명세서(Software Requirements Specification) — 기능·비기능 요구를 상세 기술한 문서.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>기관·사업</strong></p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>약어</th>
+<th>풀이</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AIEP</td>
+<td>인공지능 맞춤형 교수학습 플랫폼(=바당). 11개 시·도 공동(NIA 위탁).</td>
+</tr>
+<tr>
+<td>AIDT</td>
+<td>AI 디지털교과서(AI Digital Textbook) — 교육부 추진 AI 기반 디지털 교과서.</td>
+</tr>
+<tr>
+<td>NIA</td>
+<td>한국지능정보사회진흥원 — AIEP(바당) 구축 위탁기관.</td>
+</tr>
+<tr>
+<td>KERIS</td>
+<td>한국교육학술정보원 — 교육부 교육특화 LLM 등 별도 트랙 주관.</td>
 </tr>
 </tbody>
 </table></div>
