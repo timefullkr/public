@@ -155,7 +155,7 @@ TEMPLATE = """<!doctype html>
 <main class="wrap">
 {body}
 </main>
-<div class="foot">원문 마크다운에서 자동 생성</div>
+<div class="foot">원문 마크다운에서 클로드 AI 스킬로 자동 생성</div>
 </body>
 </html>
 """
